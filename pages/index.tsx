@@ -121,12 +121,18 @@ const Home: NextPage = () => {
                   },
                   { zone: regionTZ }
                 )
-
+                let id = Number(gt.id)
+                if (
+                  (7000 <= id && id < 8000 && id != 7013) ||
+                  [5002, 5003, 5004, 6007, 6008, 6009, 6010, 6011].includes(id)
+                ) {
+                  start = start.plus({ minutes: 10 })
+                }
                 let end = DateTime.fromObject(
                   {
-                    day: Number(day),
-                    hour: Number(endHr ? endHr : startHr),
-                    minute: Number(endMin ? endMin : startMin),
+                    day: Number(start.day),
+                    hour: Number(endHr != '' ? endHr : start.hour),
+                    minute: Number(endMin != '' ? endMin : start.minute),
                   },
                   { zone: regionTZ }
                 )
@@ -141,7 +147,10 @@ const Home: NextPage = () => {
 
     const todayEvents = gameEvents.filter(
       (ge) =>
-        ge.times.find((t) => t.start.day === selectedDate.day) !== undefined
+        ge.times.find((t) => {
+          // console.log(t.start)
+          return t.start && t.start.day === selectedDate.day
+        }) !== undefined
     )
 
     setGameEvents(gameEvents)
