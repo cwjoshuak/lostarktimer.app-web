@@ -4,13 +4,12 @@ import { GameEvent } from '../common'
 import Image from 'next/image'
 import { DateTime, Duration } from 'luxon'
 type CellProps = {
-  id: number
   gameEvent: GameEvent
   serverTime: DateTime
 }
 
 const GameEventTableCell = (props: CellProps): React.ReactElement => {
-  const { id, gameEvent, serverTime } = props
+  const { gameEvent, serverTime } = props
   const [st, setServerTime] = useState(DateTime.now().setZone(serverTime.zone))
   const [timeUntil, setTimeUntil] = useState(
     Duration.fromMillis(gameEvent.latest(st)?.start.diff(st).toMillis())
@@ -34,10 +33,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
   }, [])
 
   return (
-    <td
-      key={st.valueOf()}
-      className="m-2 flex basis-1/2 items-center space-x-4 rounded-none p-2"
-    >
+    <td className="m-2 flex basis-1/2 items-center space-x-4 rounded-none p-2">
       <div className="m-1 flex justify-center">
         <Image
           src={`https://lostarkcodex.com/icons/${gameEvent.gameEvent.iconUrl}`}
@@ -56,12 +52,11 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
           <span className="inline whitespace-normal text-justify">
             {gameEvent.times.map((t, idx) => {
               let diff = t.start.diff(st).valueOf()
-              let dt = t.start.toLocaleString(DateTime.TIME_24_SIMPLE)
-
+              let startTime = t.start.toLocaleString(DateTime.TIME_24_SIMPLE)
+              let endTime = t.end.toLocaleString(DateTime.TIME_24_SIMPLE)
               return (
-                <>
+                <span key={idx}>
                   <span
-                    key={idx}
                     className={`${
                       diff < 0
                         ? 'text-slate-500'
@@ -70,10 +65,11 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         : 'text-success'
                     }`}
                   >
-                    {dt}
+                    {startTime}
+                    {!t.isEmpty() ? ` - ${endTime}` : ''}
                   </span>
                   {idx < gameEvent.times.length - 1 ? ' / ' : ''}
-                </>
+                </span>
               )
             })}
           </span>

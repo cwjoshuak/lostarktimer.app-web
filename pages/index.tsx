@@ -61,8 +61,9 @@ const Home: NextPage = () => {
   const [todayEvents, setTodayEvents] = useState<Array<GameEvent> | undefined>(
     undefined
   )
-
-  const [eventTable, setEventTable] = useState<JSX.Element>()
+  const [fullEventsTable, setFullEventsTable] = useState<JSX.Element>()
+  const [currentEventsTable, setCurrentEventsTable] =
+    useState<Array<JSX.Element>>()
   const buttons = [
     useRef(null),
     useRef(null),
@@ -143,8 +144,11 @@ const Home: NextPage = () => {
     setTodayEvents(todayEvents)
   }, [selectedDate])
   useEffect(() => {
-    generateEventTable(-1)
+    generateFullEventsTable(-1)
   }, [todayEvents])
+  useEffect(() => {
+    generateCurrentEventsTable()
+  }, [serverTime])
   const buttonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: number
@@ -155,15 +159,23 @@ const Home: NextPage = () => {
     let button = event.target as Element
     button.classList.add('btn-active')
 
-    generateEventTable(id)
+    generateFullEventsTable(id)
   }
-  const generateEventTable = (eventType: number) => {
+  const generateCurrentEventsTable = () => {
     let events: Array<GameEvent> = []
 
     events =
-      todayEvents?.filter((e) =>
-        eventType === -1 ? true : e.eventType.id === eventType
-      ) ?? []
+      todayEvents
+        ?.filter(
+          (e) =>
+            e.latest(serverTime) &&
+            e.latest(serverTime).start.diff(serverTime).valueOf() <= 900000
+        )
+        .sort(
+          (a, b) =>
+            a.latest(serverTime).start.valueOf() -
+            b.latest(serverTime).start.valueOf()
+        ) ?? []
 
     let arr: React.ReactElement[] = []
     for (let i = 0; i < events.length; i += 2) {
@@ -173,9 +185,19 @@ const Home: NextPage = () => {
         i + j < (i + 2 < events.length ? i + 2 : events.length);
         j++
       ) {
+        let evt = events[i + j]
         children.push(
           <GameEventTableCell
-            id={serverTime.valueOf() + i + j}
+            key={
+              i +
+              j +
+              Number(
+                evt.gameEvent.minItemLevel +
+                  (evt.latest(serverTime)
+                    ? evt.latest(serverTime).start.hour
+                    : 0)
+              )
+            }
             gameEvent={events[i + j]}
             serverTime={serverTime}
           />
@@ -188,8 +210,85 @@ const Home: NextPage = () => {
         </tr>
       )
     }
+    setCurrentEventsTable(arr)
+  }
+  const generateFullEventsTable = (eventType: number) => {
+    let events: Array<GameEvent> = []
 
-    setEventTable(<>{arr}</>)
+    events =
+      todayEvents
+        ?.filter((e) => {
+          let correctEventType =
+            eventType === -1 || e.eventType.id === eventType
+          if (e.latest(serverTime)) {
+            return (
+              correctEventType &&
+              e.latest(serverTime).start.diff(serverTime).valueOf() >= 900000
+            )
+          }
+          return correctEventType
+        })
+        .sort((a, b) => {
+          let finalCmp = 0
+          let aTime = a.latest(serverTime)
+          let bTime = b.latest(serverTime)
+          if (aTime && bTime) {
+            let aTime = a.latest(serverTime).start.diff(serverTime).valueOf()
+            let bTime = b.latest(serverTime).start.diff(serverTime).valueOf()
+
+            if (aTime < bTime) {
+              finalCmp = -1
+            } else if (aTime - bTime < 1000) {
+              finalCmp = a.gameEvent.minItemLevel - b.gameEvent.minItemLevel
+            } else {
+              finalCmp = 1
+            }
+          } else if (aTime) {
+            finalCmp = -1
+          } else if (bTime) {
+            finalCmp = 1
+          } else {
+            finalCmp = a.gameEvent.minItemLevel - b.gameEvent.minItemLevel
+          }
+          return finalCmp
+        }) ?? []
+
+    let arr: React.ReactElement[] = []
+    for (let i = 0; i < events.length; i += 2) {
+      let children: ReactElement[] = []
+      for (
+        let j = 0;
+        i + j < (i + 2 < events.length ? i + 2 : events.length);
+        j++
+      ) {
+        let evt = events[i + j]
+        children.push(
+          <GameEventTableCell
+            key={
+              i +
+              j +
+              Number(
+                evt.gameEvent.minItemLevel +
+                  (evt.latest(serverTime)
+                    ? evt.latest(serverTime).start.hour
+                    : 0)
+              )
+            }
+            gameEvent={evt}
+            serverTime={serverTime}
+          />
+        )
+      }
+
+      arr.push(
+        <tr key={i} className="flex flex-row">
+          {children}
+        </tr>
+      )
+    }
+
+    setFullEventsTable(<>{arr}</>)
+    generateCurrentEventsTable()
   }
   const eventsInSection = (eventId: number) => {
     if (eventId === -1)
@@ -312,13 +411,21 @@ const Home: NextPage = () => {
                 </table>
               </td>
               <td className="top-0 w-full overflow-y-auto bg-base-200">
-                <div>
-                  <table className="table w-full">
-                    <tbody className="">{eventTable}</tbody>
+                {currentEventsTable ? (
+                  <table className="table w-full ">
+                    <tbody className="ring-2 ring-orange-300">
+                      {currentEventsTable}
+                    </tbody>
                   </table>
-                </div>
+                ) : null}
+                <table className="table w-full">
+                  <tbody>{fullEventsTable}</tbody>
+                </table>
               </td>
             </tr>
+            {/* <tr>
+              <td ></td>
+            </tr> */}
           </tbody>
         </table>
       </main>
