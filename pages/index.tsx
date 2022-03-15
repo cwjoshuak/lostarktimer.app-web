@@ -3,7 +3,7 @@ import Head from 'next/head'
 import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import { APIGameEvent, APIEventType } from '../common/api'
 import { GameEvent } from '../common'
-import { GameEventTableCell } from './components'
+import { GameEventTableCell } from '../components'
 import { DateTime, Interval } from 'luxon'
 
 type EventTimingData = [
