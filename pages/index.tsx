@@ -52,7 +52,7 @@ const eventTypeIconMapping: Array<APIEventType> =
 const Home: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [selectedDate, setSelectedDate] = useState(currDate)
-  const [regionTZ, setRegionTZ] = useState<string>('UTC-7')
+  const [regionTZ, setRegionTZ] = useState<string>('UTC-8')
   const [serverTime, setServerTime] = useState<DateTime>(
     DateTime.now().setZone(regionTZ)
   )
@@ -305,7 +305,7 @@ const Home: NextPage = () => {
   }
   return (
     <>
-      <div className="navbar w-full bg-base-100 px-20">
+      <div className="navbar mt-4 w-full bg-base-100 px-20">
         <div className="navbar-start">
           <div className="flex items-center gap-2 ">
             <button
@@ -369,11 +369,11 @@ const Home: NextPage = () => {
                     className="focus-visible: select mr-2 w-4/5 bg-base-200 outline-none"
                     onChange={(e) => setRegionTZ(e.target.value)}
                   >
-                    <option value="UTC-7">US West</option>
-                    <option value="UTC-4">US East</option>
-                    <option value="UTC+1">EU Central</option>
-                    <option value="UTC+0">EU West</option>
-                    <option value="UTC-3">South America</option>
+                    <option value="UTC-8">US West</option>
+                    <option value="UTC-6">US East</option>
+                    <option value="UTC+0">EU Central</option>
+                    <option value="UTC-1">EU West</option>
+                    <option value="UTC-4">South America</option>
                   </select>
                 </td>
                 <td className="text-left">Current Time:</td>
