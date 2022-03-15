@@ -1,1 +1,15 @@
-[[["Fever Time","icon_calendar_event_0.webp"],["Capture Event","icon_calendar_event_1.webp"],["Chaos Gate","icon_calendar_event_2.webp"],["Field Boss","icon_calendar_event_3.webp"],["Adventure Island","icon_calendar_event_4.webp"],["Ghost Ship","icon_calendar_event_5.webp"],["Islands","icon_calendar_event_6.webp"],["Sailing","icon_calendar_event_7.webp"],["Siege","icon_calendar_event_8.webp"],["Proving Grounds","icon_calendar_event_9.webp"]],["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]]
+[
+  [
+    ["Fever Time", "icon_calendar_event_0.webp"],
+    ["Capture Event", "icon_calendar_event_1.webp"],
+    ["Chaos Gate", "icon_calendar_event_2.webp"],
+    ["Field Boss", "icon_calendar_event_3.webp"],
+    ["Adventure Island", "icon_calendar_event_4.webp"],
+    ["Ghost Ship", "icon_calendar_event_5.webp"],
+    ["Islands", "icon_calendar_event_6.webp"],
+    ["Sailing", "icon_calendar_event_7.webp"],
+    ["Siege", "icon_calendar_event_8.webp"],
+    ["Proving Grounds", "icon_calendar_event_9.webp"]
+  ],
+  ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+]
