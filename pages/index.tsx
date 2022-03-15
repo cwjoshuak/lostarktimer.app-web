@@ -8,8 +8,8 @@ import React, {
   ReactChildren,
   ReactElement,
 } from 'react'
-import { APIGameEvent, APIEventType } from './common/api/'
-import { GameEvent, GameEventTableCell } from './common/'
+import { APIGameEvent, APIEventType } from '../common/api'
+import { GameEvent, GameEventTableCell } from '../common'
 import { DateTime, Interval } from 'luxon'
 
 type EventTimingData = [
@@ -95,12 +95,18 @@ const Home: NextPage = () => {
     let gameEvents: Array<GameEvent> = []
 
     Object.entries(require('../data/data.json')).forEach((eventType) => {
-      const [type, monthDayMap] = eventType
+      const [type, monthDayMap] = eventType as [string, any]
       let et = eventTypeIconMapping.find((et) => et.id.toString() === type)!
-      for (const [month, days] of Object.entries(monthDayMap)) {
-        for (const [day, events] of Object.entries(days)) {
-          for (const [iLvl, event] of Object.entries(events)) {
-            for (const [eventId, eventTime] of Object.entries(event)) {
+      for (const [month, days] of Object.entries(monthDayMap) as [
+        string,
+        any
+      ]) {
+        for (const [day, events] of Object.entries(days) as [string, any]) {
+          for (const [iLvl, event] of Object.entries(events) as [string, any]) {
+            for (const [eventId, eventTime] of Object.entries(event) as [
+              string,
+              any
+            ]) {
               let gt = eventIDNameMapping.find((gt) => gt.id === eventId)!
 
               let gameEvent = new GameEvent(et, gt)
