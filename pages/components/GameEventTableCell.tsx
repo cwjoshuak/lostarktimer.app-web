@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import GameEvent from './GameEvent'
+import GameEvent from '../../common/GameEvent'
 
 import Image from 'next/image'
 import { DateTime, Duration } from 'luxon'

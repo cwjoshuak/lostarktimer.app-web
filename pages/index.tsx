@@ -1,15 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  ReactChildren,
-  ReactElement,
-} from 'react'
+import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import { APIGameEvent, APIEventType } from '../common/api'
-import { GameEvent, GameEventTableCell } from '../common'
+import { GameEvent } from '../common'
+import { GameEventTableCell } from './components'
 import { DateTime, Interval } from 'luxon'
 
 type EventTimingData = [
