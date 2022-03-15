@@ -304,12 +304,8 @@ const Home: NextPage = () => {
     else return todayEvents?.filter((te) => te.eventType.id === eventId).length
   }
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Lost Ark Timers</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="navbar w-11/12 bg-base-100">
+    <>
+      <div className="navbar w-full w-11/12 bg-base-100 px-20">
         <div className="navbar-start">
           <div className="flex items-center gap-2 ">
             <button
@@ -400,84 +396,90 @@ const Home: NextPage = () => {
           <br />
         </div>
       </div>
-      <main className="w-full px-20 ">
-        <table className="table w-full">
-          <thead>
-            <tr className="justify-center">
-              <td colSpan={2} className="text-center">
-                Alarms
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="flex">
-              <td className="w-1/4 min-w-fit bg-base-200">
-                <table className="table w-full">
-                  <thead></thead>
-                  <tbody>
-                    <tr>
-                      <td className="p-0">
-                        <button
-                          className="btn btn-active btn-wide relative w-full justify-start pl-16"
-                          onClick={(event) => {
-                            buttonClick(event, -1)
-                          }}
-                          ref={buttons[0]}
-                        >
-                          <img
-                            // src="https://lostarkcodex.com/images/icon_calendar_event_0.webp"
-                            className="absolute left-4"
-                          />
-                          All
-                          <div className="absolute right-8">
-                            {eventsInSection(-1)}
-                          </div>
-                        </button>
-                      </td>
-                    </tr>
-                    {eventTypeIconMapping.map((e: APIEventType, idx) => (
-                      <tr key={idx}>
+      <div className="flex min-h-screen flex-col items-center py-2">
+        <Head>
+          <title>Lost Ark Timers</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <main className="w-full px-20 ">
+          <table className="table w-full">
+            <thead>
+              <tr className="justify-center">
+                <td colSpan={2} className="text-center">
+                  Alarms
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="flex">
+                <td className="w-1/4 min-w-fit bg-base-200">
+                  <table className="table w-full">
+                    <thead></thead>
+                    <tbody>
+                      <tr>
                         <td className="p-0">
                           <button
-                            key={e.id}
-                            className="btn btn-wide relative w-full justify-start pl-16 pr-16"
+                            className="btn btn-active btn-wide relative w-full justify-start pl-16"
                             onClick={(event) => {
-                              buttonClick(event, e.id)
+                              buttonClick(event, -1)
                             }}
-                            ref={buttons[e.id + 1]}
+                            ref={buttons[0]}
                           >
                             <img
-                              src={`https://lostarkcodex.com/images/${e.iconUrl}`}
+                              // src="https://lostarkcodex.com/images/icon_calendar_event_0.webp"
                               className="absolute left-4"
                             />
-                            {e.name}
+                            All
                             <div className="absolute right-8">
-                              {eventsInSection(e.id)}
+                              {eventsInSection(-1)}
                             </div>
                           </button>
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </td>
-              <td className="top-0 w-full overflow-y-auto bg-base-200">
-                {currentEventsTable.length > 0 ? (
-                  <table className="table w-full ">
-                    <tbody className="ring-2 ring-orange-300">
-                      {currentEventsTable}
+                      {eventTypeIconMapping.map((e: APIEventType, idx) => (
+                        <tr key={idx}>
+                          <td className="p-0">
+                            <button
+                              key={e.id}
+                              className="btn btn-wide relative w-full justify-start pl-16 pr-16"
+                              onClick={(event) => {
+                                buttonClick(event, e.id)
+                              }}
+                              ref={buttons[e.id + 1]}
+                            >
+                              <img
+                                src={`https://lostarkcodex.com/images/${e.iconUrl}`}
+                                className="absolute left-4"
+                              />
+                              {e.name}
+                              <div className="absolute right-8">
+                                {eventsInSection(e.id)}
+                              </div>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
-                ) : null}
-                <table className="table w-full">
-                  <tbody>{fullEventsTable}</tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </main>
-      {/* <footer className="flex h-24 w-full items-center justify-center border-t">
+                </td>
+                <td className="top-0 w-full overflow-y-auto bg-base-200">
+                  {currentEventsTable.length > 0 ? (
+                    <table className="table w-full ">
+                      <tbody className="ring-2 ring-orange-300">
+                        {currentEventsTable}
+                      </tbody>
+                    </table>
+                  ) : null}
+                  <table className="table w-full">
+                    <tbody>{fullEventsTable}</tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </main>
+        {/* <footer className="flex h-24 w-full items-center justify-center border-t">
         <a
           className="flex items-center justify-center gap-2"
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -488,7 +490,8 @@ const Home: NextPage = () => {
           <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
         </a>
       </footer> */}
-    </div>
+      </div>
+    </>
   )
 }
 
