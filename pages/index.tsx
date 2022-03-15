@@ -305,7 +305,7 @@ const Home: NextPage = () => {
   }
   return (
     <>
-      <div className="navbar w-full w-11/12 bg-base-100 px-20">
+      <div className="navbar w-full bg-base-100 px-20">
         <div className="navbar-start">
           <div className="flex items-center gap-2 ">
             <button
@@ -358,7 +358,7 @@ const Home: NextPage = () => {
         </div>
 
         <a className="btn navbar-center btn-ghost text-xl normal-case">
-          Lost Ark Timers
+          Lost Ark Timer
         </a>
         <div className="navbar-end text-right">
           <table>
@@ -398,7 +398,7 @@ const Home: NextPage = () => {
       </div>
       <div className="flex min-h-screen flex-col items-center py-2">
         <Head>
-          <title>Lost Ark Timers</title>
+          <title>Lost Ark Timer</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
