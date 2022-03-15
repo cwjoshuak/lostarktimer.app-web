@@ -66,6 +66,7 @@ const Home: NextPage = () => {
   const [currentEventsTable, setCurrentEventsTable] = useState<
     Array<JSX.Element>
   >([])
+  const [selectedEventType, setSelectedEventType] = useState(-1)
   const buttons = [
     useRef(null),
     useRef(null),
@@ -150,6 +151,7 @@ const Home: NextPage = () => {
     generateFullEventsTable(-1)
   }, [todayEvents])
   useEffect(() => {
+    generateFullEventsTable(selectedEventType)
     generateCurrentEventsTable()
   }, [serverTime.minute])
   const buttonClick = (
@@ -161,7 +163,7 @@ const Home: NextPage = () => {
     )
     let button = event.target as Element
     button.classList.add('btn-active')
-
+    setSelectedEventType(id)
     generateFullEventsTable(id)
   }
   const generateCurrentEventsTable = () => {
@@ -169,11 +171,14 @@ const Home: NextPage = () => {
 
     events =
       todayEvents
-        ?.filter(
-          (e) =>
-            e.latest(serverTime) &&
-            e.latest(serverTime).start.diff(serverTime).valueOf() <= 900000
-        )
+        ?.filter((e) => {
+          let latest = e.latest(serverTime)
+          if (latest) {
+            let value = latest.start.diff(serverTime).valueOf()
+            return 0 <= value && value <= 900000
+          }
+          return false
+        })
         .sort(
           (a, b) =>
             a.latest(serverTime).start.valueOf() -
@@ -331,7 +336,6 @@ const Home: NextPage = () => {
               onClick={(e) => setSelectedDate(DateTime.now())}
             >
               <span>
-                {' '}
                 {selectedDate.monthLong} {selectedDate.day}
               </span>
             </button>
@@ -364,9 +368,9 @@ const Home: NextPage = () => {
           <table>
             <tbody>
               <tr>
-                <td>
+                <td rowSpan={2}>
                   <select
-                    className="focus-visible: mr-2 w-4/5 bg-base-200 outline-none"
+                    className="focus-visible: select mr-2 w-4/5 bg-base-200 outline-none"
                     onChange={(e) => setRegionTZ(e.target.value)}
                   >
                     <option value="UTC-7">US West</option>
@@ -383,7 +387,6 @@ const Home: NextPage = () => {
               </tr>
 
               <tr>
-                <td></td>
                 <td className="text-left">Server Time:</td>
                 <td>
                   {serverTime.toLocaleString(
