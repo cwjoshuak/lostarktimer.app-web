@@ -52,7 +52,7 @@ const eventTypeIconMapping: Array<APIEventType> =
 const Home: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [selectedDate, setSelectedDate] = useState(currDate)
-  const [regionTZ, setRegionTZ] = useState<string>('UTC-8')
+  const [regionTZ, setRegionTZ] = useState<string>('UTC-7')
   const [serverTime, setServerTime] = useState<DateTime>(
     DateTime.now().setZone(regionTZ)
   )
@@ -309,17 +309,48 @@ const Home: NextPage = () => {
           <div className="flex items-center gap-2 ">
             <button
               className="btn border-none bg-base-200 text-center text-xl"
-              onClick={(e) => setSelectedDate(selectedDate.minus({ days: 1 }))}
+              onClick={(e) => {
+                let newDate = selectedDate.minus({ days: 1 })
+                if (
+                  gameEvents?.filter(
+                    (ge) =>
+                      ge.times.find(
+                        (t) =>
+                          t.start.day === newDate.day &&
+                          t.start.month === newDate.month
+                      ) !== undefined
+                  ).length
+                )
+                  setSelectedDate(newDate)
+              }}
             >
               {'<<'}
             </button>
-            <span className="text-4xl">
-              {selectedDate.monthLong} {selectedDate.day}
-            </span>
-
+            <button
+              className="btn text-2xl"
+              onClick={(e) => setSelectedDate(DateTime.now())}
+            >
+              <span>
+                {' '}
+                {selectedDate.monthLong} {selectedDate.day}
+              </span>
+            </button>
             <button
               className="btn border-none bg-base-200 text-center text-xl"
-              onClick={(e) => setSelectedDate(selectedDate.plus({ days: 1 }))}
+              onClick={(e) => {
+                let newDate = selectedDate.plus({ days: 1 })
+                if (
+                  gameEvents?.filter(
+                    (ge) =>
+                      ge.times.find(
+                        (t) =>
+                          t.start.day === newDate.day &&
+                          t.start.month === newDate.month
+                      ) !== undefined
+                  ).length
+                )
+                  setSelectedDate(newDate)
+              }}
             >
               {'>>'}
             </button>
