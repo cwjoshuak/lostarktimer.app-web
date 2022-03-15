@@ -31,7 +31,11 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
       clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
     }
   }, [])
-
+  if (gameEvent === null) {
+    return (
+      <td className="m-2 flex basis-1/2 items-center space-x-4 rounded-none p-2"></td>
+    )
+  }
   return (
     <td className="m-2 flex basis-1/2 items-center space-x-4 rounded-none p-2">
       <div className="m-1 flex justify-center">

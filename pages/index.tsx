@@ -52,8 +52,9 @@ const eventTypeIconMapping: Array<APIEventType> =
 const Home: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [selectedDate, setSelectedDate] = useState(currDate)
+  const [regionTZ, setRegionTZ] = useState<string>('UTC-8')
   const [serverTime, setServerTime] = useState<DateTime>(
-    DateTime.now().setZone('UTC-8')
+    DateTime.now().setZone(regionTZ)
   )
   const [gameEvents, setGameEvents] = useState<Array<GameEvent> | undefined>(
     undefined
@@ -62,8 +63,9 @@ const Home: NextPage = () => {
     undefined
   )
   const [fullEventsTable, setFullEventsTable] = useState<JSX.Element>()
-  const [currentEventsTable, setCurrentEventsTable] =
-    useState<Array<JSX.Element>>()
+  const [currentEventsTable, setCurrentEventsTable] = useState<
+    Array<JSX.Element>
+  >([])
   const buttons = [
     useRef(null),
     useRef(null),
@@ -80,13 +82,14 @@ const Home: NextPage = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrDate(DateTime.now())
-      setServerTime(DateTime.now().setZone('UTC-7'))
+      setServerTime(DateTime.now().setZone(regionTZ))
     }, 1000)
     return () => {
       clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
     }
-  }, [])
+  }, [regionTZ])
   useEffect(() => {
+    setServerTime(DateTime.now().setZone(regionTZ))
     let gameEvents: Array<GameEvent> = []
 
     Object.entries(require('../data/data.json')).forEach((eventType) => {
@@ -115,7 +118,7 @@ const Home: NextPage = () => {
                     hour: Number(startHr),
                     minute: Number(startMin),
                   },
-                  { zone: 'UTC-8' }
+                  { zone: regionTZ }
                 )
 
                 let end = DateTime.fromObject(
@@ -124,7 +127,7 @@ const Home: NextPage = () => {
                     hour: Number(endHr ? endHr : startHr),
                     minute: Number(endMin ? endMin : startMin),
                   },
-                  { zone: 'UTC-8' }
+                  { zone: regionTZ }
                 )
                 gameEvent.addTime(Interval.fromDateTimes(start, end))
               })
@@ -142,13 +145,13 @@ const Home: NextPage = () => {
 
     setGameEvents(gameEvents)
     setTodayEvents(todayEvents)
-  }, [selectedDate])
+  }, [regionTZ, selectedDate])
   useEffect(() => {
     generateFullEventsTable(-1)
   }, [todayEvents])
   useEffect(() => {
     generateCurrentEventsTable()
-  }, [serverTime])
+  }, [serverTime.minute])
   const buttonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: number
@@ -330,12 +333,26 @@ const Home: NextPage = () => {
           <table>
             <tbody>
               <tr>
+                <td>
+                  <select
+                    className="focus-visible: mr-2 w-4/5 bg-base-200 outline-none"
+                    onChange={(e) => setRegionTZ(e.target.value)}
+                  >
+                    <option value="UTC-7">US West</option>
+                    <option value="UTC-4">US East</option>
+                    <option value="UTC+1">EU Central</option>
+                    <option value="UTC+0">EU West</option>
+                    <option value="UTC-3">South America</option>
+                  </select>
+                </td>
                 <td className="text-left">Current Time:</td>
                 <td>
                   {currDate.toLocaleString(DateTime.TIME_24_WITH_SHORT_OFFSET)}
                 </td>
               </tr>
+
               <tr>
+                <td></td>
                 <td className="text-left">Server Time:</td>
                 <td>
                   {serverTime.toLocaleString(
@@ -411,7 +428,7 @@ const Home: NextPage = () => {
                 </table>
               </td>
               <td className="top-0 w-full overflow-y-auto bg-base-200">
-                {currentEventsTable ? (
+                {currentEventsTable.length > 0 ? (
                   <table className="table w-full ">
                     <tbody className="ring-2 ring-orange-300">
                       {currentEventsTable}
@@ -423,9 +440,6 @@ const Home: NextPage = () => {
                 </table>
               </td>
             </tr>
-            {/* <tr>
-              <td ></td>
-            </tr> */}
           </tbody>
         </table>
       </main>
