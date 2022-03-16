@@ -539,18 +539,19 @@ const Home: NextPage = () => {
           </table>
         </main>
         <footer className="flex h-12 w-full items-center justify-center border-t">
-          Thanks for visiting!
+          Thanks for visiting!{process.env.NODE_ENV}
         </footer>
       </div>
-
-      <Script
-        src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon='{"token": "a4240e015e2044669726099a04d1e7a7"}'
-        strategy="afterInteractive"
-        onError={(e) => {
-          console.error('Script failed to load', e)
-        }}
-      />
+      {process.env.NODE_ENV === 'production' ? (
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "a4240e015e2044669726099a04d1e7a7"}'
+          strategy="afterInteractive"
+          onError={(e) => {
+            console.error('Script failed to load', e)
+          }}
+        />
+      ) : null}
     </>
   )
 }
