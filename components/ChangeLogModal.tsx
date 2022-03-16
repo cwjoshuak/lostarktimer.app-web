@@ -12,6 +12,7 @@ const ChangeLogModal = () => {
             <ol className="list-disc pl-6">
               <li>Added light mode colors.</li>
               <li>Site is now more mobile friendly!</li>
+              <li>Added server timezone persistence.</li>
             </ol>
           </p>
           <p className="py-4">3/15/2022: Release v1.0!</p>

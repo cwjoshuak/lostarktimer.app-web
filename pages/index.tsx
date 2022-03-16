@@ -46,7 +46,7 @@ const eventTypeIconMapping: Array<APIEventType> =
 
 const Home: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
-  const [regionTZ, setRegionTZ] = useState<string>('UTC-8')
+  const [regionTZ, setRegionTZ] = useLocalStorage<string>('UTC-8', 'UTC-8')
   const [serverTime, setServerTime] = useState<DateTime>(
     DateTime.now().setZone(regionTZ)
   )
@@ -426,8 +426,9 @@ const Home: NextPage = () => {
               <tr>
                 <td>
                   <select
-                    className="focus-visible: select mr-2 w-4/5 bg-base-200 outline-none"
+                    className="focus-visible: select mr-2 max-w-fit bg-base-200 outline-none"
                     onChange={(e) => setRegionTZ(e.target.value)}
+                    value={regionTZ}
                   >
                     <option value="UTC-8">US West (UTC-8)</option>
                     <option value="UTC-5">US East (UTC-5)</option>
@@ -461,8 +462,8 @@ const Home: NextPage = () => {
       </div>
 
       <div className="relative flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
+        <SideBar />
         <main className="mb-14 h-full w-full px-4 lg:px-20">
-          <SideBar />
           <table className="table w-full">
             <thead>
               <tr className="justify-center">
