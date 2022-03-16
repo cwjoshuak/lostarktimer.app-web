@@ -529,7 +529,7 @@ const Home: NextPage = () => {
                 <td className="top-0 w-full overflow-y-auto bg-stone-200 dark:bg-base-200">
                   {currentEventsTable.length > 0 ? (
                     <table className="table w-full ">
-                      <tbody className="ring-2 ring-orange-300">
+                      <tbody className="block ring-2 ring-orange-300">
                         {currentEventsTable}
                       </tbody>
                     </table>
