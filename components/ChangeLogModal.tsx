@@ -7,14 +7,12 @@ const ChangeLogModal = () => {
       <div className="modal">
         <div className="modal-box">
           <h3 className="text-center text-lg font-bold uppercase">Changelog</h3>
-          <p className="py-4">
-            3/16/2022:
-            <ol className="list-disc pl-6">
-              <li>Added light mode colors.</li>
-              <li>Site is now more mobile friendly!</li>
-              <li>Added server timezone persistence.</li>
-            </ol>
-          </p>
+          <p className="py-4">3/16/2022:</p>
+          <ol className="list-disc pl-6">
+            <li>Added light mode colors.</li>
+            <li>Site is now more mobile friendly!</li>
+            <li>Added server timezone persistence.</li>
+          </ol>
           <p className="py-4">3/15/2022: Release v1.0!</p>
           Planned:
           <ol className="list-desc">

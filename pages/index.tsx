@@ -551,7 +551,7 @@ const Home: NextPage = () => {
         </footer>
       </div>
 
-      {process.env.NODE_ENV === 'production' ? (
+      {process.env.VERCEL_ENV === 'production' ? (
         <Script
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "a4240e015e2044669726099a04d1e7a7"}'
