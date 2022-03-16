@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Script from 'next/script'
 import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import { APIGameEvent, APIEventType } from '../common/api'
 import { GameEvent } from '../common'
@@ -541,6 +542,15 @@ const Home: NextPage = () => {
           Thanks for visiting!
         </footer>
       </div>
+
+      <Script
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "a4240e015e2044669726099a04d1e7a7"}'
+        strategy="afterInteractive"
+        onError={(e) => {
+          console.error('Script failed to load', e)
+        }}
+      />
     </>
   )
 }
