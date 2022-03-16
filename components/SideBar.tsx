@@ -1,5 +1,10 @@
 import React from 'react'
-import { IconBrandGithub, IconCoffee, IconFileCode } from '@tabler/icons'
+import {
+  IconBrandGithub,
+  IconBrandPaypal,
+  IconCoffee,
+  IconFileCode,
+} from '@tabler/icons'
 
 const SideBar = () => {
   return (
@@ -15,7 +20,7 @@ const SideBar = () => {
           href="https://www.paypal.com/paypalme/cwjoshuak"
           className="transform p-2 transition hover:-translate-y-px hover:text-orange-400"
         >
-          <IconCoffee />
+          <IconBrandPaypal />
         </a>
         <label
           htmlFor="changelog-modal"
@@ -23,7 +28,7 @@ const SideBar = () => {
         >
           <IconFileCode />
         </label>
-        <span className="mx-auto mt-3 h-full w-px bg-white " />
+        <span className="mx-auto mt-3 h-full w-px bg-stone-200" />
       </div>
     </nav>
   )

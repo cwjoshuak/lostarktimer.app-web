@@ -293,7 +293,7 @@ const Home: NextPage = () => {
         )
       }
       arr.push(
-        <tr key={i} className="flex flex-row">
+        <tr key={`${serverTime} ${i}`} className="flex flex-row">
           {children}
         </tr>
       )
@@ -327,11 +327,11 @@ const Home: NextPage = () => {
       </div>
       <ChangeLogModal />
       <GitHubModal />
-      <div className="navbar mt-4 w-full bg-base-100 px-20">
+      <div className="navbar mt-4 w-full bg-base-300 px-20 dark:bg-base-100">
         <div className="navbar-start">
           <div className="flex items-center gap-2 ">
             <button
-              className="btn border-none bg-base-200 text-center text-xl"
+              className="btn border-none text-center text-xl text-stone-400 dark:bg-base-200"
               onClick={(e) => {
                 let newDate = selectedDate.minus({ days: 1 })
                 if (
@@ -350,7 +350,7 @@ const Home: NextPage = () => {
               {'<<'}
             </button>
             <button
-              className="btn text-2xl"
+              className="btn text-2xl text-stone-200"
               onClick={(e) => setSelectedDate(serverTime)}
             >
               <span>
@@ -358,7 +358,7 @@ const Home: NextPage = () => {
               </span>
             </button>
             <button
-              className="btn border-none bg-base-200 text-center text-xl"
+              className="btn border-none text-center text-xl text-stone-400 dark:bg-base-200"
               onClick={(e) => {
                 let newDate = selectedDate.plus({ days: 1 })
                 if (
@@ -402,13 +402,15 @@ const Home: NextPage = () => {
 
                 <td
                   className={classNames('text-left', {
-                    'text-success': viewLocalizedTime,
+                    'text-green-700 dark:text-success': viewLocalizedTime,
                   })}
                 >
                   Current Time:
                 </td>
                 <td
-                  className={classNames({ 'text-success': viewLocalizedTime })}
+                  className={classNames({
+                    'text-green-700 dark:text-success': viewLocalizedTime,
+                  })}
                 >
                   {currDate.toLocaleString(DateTime.TIME_24_WITH_SHORT_OFFSET)}
                 </td>
@@ -429,13 +431,15 @@ const Home: NextPage = () => {
                 </td>
                 <td
                   className={classNames('text-left', {
-                    'text-success': !viewLocalizedTime,
+                    'text-green-700 dark:text-success': !viewLocalizedTime,
                   })}
                 >
                   Server Time:
                 </td>
                 <td
-                  className={classNames({ 'text-success': !viewLocalizedTime })}
+                  className={classNames({
+                    'text-green-700 dark:text-success': !viewLocalizedTime,
+                  })}
                 >
                   {serverTime.toLocaleString(
                     DateTime.TIME_24_WITH_SHORT_OFFSET
@@ -449,23 +453,26 @@ const Home: NextPage = () => {
         </div>
       </div>
       <SideBar />
-      <div className="flex min-h-screen flex-col items-center py-2">
+      <div className="flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
         <main className="w-full px-20 ">
           <table className="table w-full">
             <thead>
               <tr className="justify-center">
-                <td colSpan={2} className="text-center">
+                <td
+                  colSpan={2}
+                  className="bg-stone-200 text-center dark:bg-base-200"
+                >
                   Alarms
                 </td>
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-base-200">
-                <td className="bg-base-200"></td>
+              <tr>
+                <td className="border-stone-200 bg-stone-200 dark:border-base-200 dark:bg-base-200"></td>
               </tr>
               <tr className="flex">
-                <td className="w-1/4 min-w-fit bg-base-200">
-                  <table className="table w-full">
+                <td className="w-1/4 min-w-fit bg-stone-200 dark:bg-base-200">
+                  <table className="table w-full ">
                     <thead></thead>
                     <tbody>
                       <tr>
@@ -514,7 +521,7 @@ const Home: NextPage = () => {
                     </tbody>
                   </table>
                 </td>
-                <td className="top-0 w-full overflow-y-auto bg-base-200">
+                <td className="top-0 w-full overflow-y-auto bg-stone-200 dark:bg-base-200">
                   {currentEventsTable.length > 0 ? (
                     <table className="table w-full ">
                       <tbody className="ring-2 ring-orange-300">

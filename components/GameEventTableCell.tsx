@@ -3,6 +3,7 @@ import { GameEvent } from '../common'
 
 import Image from 'next/image'
 import { DateTime, Duration, Zone } from 'luxon'
+import classNames from 'classnames'
 type CellProps = {
   gameEvent: GameEvent
   serverTime: DateTime
@@ -34,26 +35,26 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
   }, [])
   if (gameEvent === null) {
     return (
-      <td className="m-2 flex basis-1/2 items-center space-x-4 rounded-none p-2"></td>
+      <td className="m-2 flex basis-1/2 items-center space-x-4 rounded-none bg-stone-100 p-2 dark:bg-base-100"></td>
     )
   }
   return (
     <td
       key={`${gameEvent.uuid} td`}
-      className="m-2 flex basis-1/2 items-center space-x-4 p-2"
+      className="m-2 flex basis-1/2 items-center space-x-4 bg-stone-100 p-2 dark:bg-base-100 "
     >
-      <div className="m-1 flex justify-center">
+      <div className="m-1 flex justify-center ">
         <Image
           src={`https://lostarkcodex.com/icons/${gameEvent.gameEvent.iconUrl}`}
           width={38}
           height={38}
         />
       </div>
-      <div className="basis-11/12 items-center font-sans text-xs font-bold">
+      <div className="basis-11/12 items-center  font-sans text-xs font-bold">
         <div className="ml-2 mr-4">
           <span className="block uppercase">
             [{gameEvent.gameEvent.minItemLevel}] {gameEvent.gameEvent.name}
-            <span className="float-right text-amber-200">
+            <span className="float-right text-amber-500 dark:text-amber-200">
               -{timeUntil.toFormat('hh:mm:ss')}
             </span>
           </span>
@@ -71,13 +72,12 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
               return (
                 <span key={`${gameEvent.uuid} ${idx}`}>
                   <span
-                    className={`${
-                      diff < 0
-                        ? 'text-slate-500'
-                        : diff < 900000
-                        ? 'text-amber-200'
-                        : 'text-success'
-                    }`}
+                    className={classNames({
+                      'text-slate-400': diff < 0,
+                      'text-amber-500 dark:text-amber-200':
+                        diff >= 0 && diff < 900000,
+                      'text-green-700 dark:text-success': diff >= 900000,
+                    })}
                   >
                     {startTime}
                     {!t.isEmpty() ? ` - ${endTime}` : ''}

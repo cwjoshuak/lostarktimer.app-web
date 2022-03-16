@@ -8,11 +8,12 @@ const ChangeLogModal = () => {
         <div className="modal-box">
           <h3 className="text-center text-lg font-bold uppercase">Changelog</h3>
           <p className="py-4">3/15/2022: Release v1.0!</p>
+          <p className="py-4">3/16/2022: Added light mode colors.</p>
           Planned:
           <ol>
-            <li key={1}>1. Add actual alarms and alerts.</li>
-            <li key={2}>2. Add more trackers.</li>
-            <li key={3}>3. Fix bugs introduced in 1 and 2.</li>
+            <li>1. Add actual alarm reminders, alerts + sounds.</li>
+            <li>2. Add more trackers.</li>
+            <li>3. Fix bugs introduced in 1 and 2.</li>
           </ol>
           <p> </p>
           <div className="modal-action">
