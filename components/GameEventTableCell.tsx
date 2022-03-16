@@ -8,10 +8,11 @@ type CellProps = {
   gameEvent: GameEvent
   serverTime: DateTime
   localizedTZ: Zone
+  view24HrTime: boolean | undefined
 }
 
 const GameEventTableCell = (props: CellProps): React.ReactElement => {
-  const { gameEvent, serverTime, localizedTZ } = props
+  const { gameEvent, serverTime, localizedTZ, view24HrTime } = props
   const [st, setServerTime] = useState(DateTime.now().setZone(serverTime.zone))
   const [timeUntil, setTimeUntil] = useState(
     Duration.fromMillis(gameEvent.latest(st)?.start.diff(st).toMillis())
@@ -50,7 +51,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
           height={38}
         />
       </div>
-      <div className="basis-11/12 items-center  font-sans text-xs font-bold">
+      <div className="basis-11/12 items-center  font-sans text-xs font-semibold">
         <div className="ml-2 mr-4">
           <span className="block uppercase">
             [{gameEvent.gameEvent.minItemLevel}] {gameEvent.gameEvent.name}
@@ -64,10 +65,14 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
 
               let startTime = t.start
                 .setZone(localizedTZ)
-                .toLocaleString(DateTime.TIME_24_SIMPLE)
+                .toLocaleString(
+                  view24HrTime ? DateTime.TIME_24_SIMPLE : DateTime.TIME_SIMPLE
+                )
               let endTime = t.end
                 .setZone(localizedTZ)
-                .toLocaleString(DateTime.TIME_24_SIMPLE)
+                .toLocaleString(
+                  view24HrTime ? DateTime.TIME_24_SIMPLE : DateTime.TIME_SIMPLE
+                )
 
               return (
                 <span key={`${gameEvent.uuid} ${idx}`}>

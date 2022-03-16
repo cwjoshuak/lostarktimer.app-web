@@ -68,6 +68,10 @@ const Home: NextPage = () => {
     'viewLocalizedTime',
     false
   )
+  const [view24HrTime, setView24HrTime] = useLocalStorage<boolean>(
+    'view24HrTime',
+    false
+  )
 
   const buttons = [
     useRef(null),
@@ -82,7 +86,15 @@ const Home: NextPage = () => {
     useRef(null),
     useRef(null),
   ]
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      let v24T = localStorage.getItem('view24HrTime')
+      if (!v24T) setView24HrTime(Boolean(v24T))
 
+      let vLT = localStorage.getItem('viewLocalizedTime')
+      if (!vLT) setViewLocalizedTime(Boolean(vLT))
+    }
+  }, [])
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrDate(DateTime.now())
@@ -91,7 +103,7 @@ const Home: NextPage = () => {
     return () => {
       clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
     }
-  }, [regionTZ, viewLocalizedTime])
+  }, [regionTZ, view24HrTime, viewLocalizedTime])
   useEffect(() => {
     setServerTime(DateTime.now().setZone(regionTZ))
     let gameEvents: Array<GameEvent> = []
@@ -162,7 +174,7 @@ const Home: NextPage = () => {
 
     setGameEvents(gameEvents)
     setTodayEvents(todayEvents)
-  }, [regionTZ, selectedDate, viewLocalizedTime])
+  }, [regionTZ, selectedDate, viewLocalizedTime, view24HrTime])
   useEffect(() => {
     generateFullEventsTable(-1)
   }, [todayEvents])
@@ -216,6 +228,7 @@ const Home: NextPage = () => {
             gameEvent={evt}
             serverTime={serverTime}
             localizedTZ={viewLocalizedTime ? currDate.zone : serverTime.zone}
+            view24HrTime={view24HrTime}
           />
         )
       }
@@ -291,6 +304,7 @@ const Home: NextPage = () => {
             gameEvent={evt}
             serverTime={serverTime}
             localizedTZ={viewLocalizedTime ? currDate.zone : serverTime.zone}
+            view24HrTime={view24HrTime}
           />
         )
       }
@@ -397,17 +411,38 @@ const Home: NextPage = () => {
             <tbody>
               <tr>
                 <td>
-                  <label className="label mr-2 cursor-pointer">
-                    <span className="label-text w-4/5 text-right font-bold">
-                      View in Current Time
-                    </span>
-                    <input
-                      type="checkbox"
-                      onChange={(e) => setViewLocalizedTime(e.target.checked)}
-                      defaultChecked={viewLocalizedTime}
-                      className="checkbox checkbox-sm"
-                    />
-                  </label>
+                  <div>
+                    <label className="label mr-2 cursor-pointer">
+                      <span className="label-text w-4/5 text-right font-bold">
+                        View in 24HR
+                      </span>
+                      <input
+                        type="checkbox"
+                        onClick={(e) =>
+                          setView24HrTime(
+                            (e.target as HTMLInputElement).checked
+                          )
+                        }
+                        defaultChecked={view24HrTime}
+                        className="checkbox checkbox-sm"
+                      />
+                    </label>
+                    <label className="label mr-2 cursor-pointer">
+                      <span className="label-text w-4/5 text-right font-bold">
+                        View in Current Time
+                      </span>
+                      <input
+                        type="checkbox"
+                        onClick={(e) =>
+                          setViewLocalizedTime(
+                            (e.target as HTMLInputElement).checked
+                          )
+                        }
+                        defaultChecked={viewLocalizedTime}
+                        className="checkbox checkbox-sm"
+                      />
+                    </label>
+                  </div>
                 </td>
 
                 <td
@@ -422,7 +457,11 @@ const Home: NextPage = () => {
                     'text-green-700 dark:text-success': viewLocalizedTime,
                   })}
                 >
-                  {currDate.toLocaleString(DateTime.TIME_24_WITH_SHORT_OFFSET)}
+                  {currDate.toLocaleString(
+                    view24HrTime
+                      ? DateTime.TIME_24_WITH_SHORT_OFFSET
+                      : DateTime.TIME_WITH_SHORT_OFFSET
+                  )}
                 </td>
               </tr>
 
@@ -453,7 +492,9 @@ const Home: NextPage = () => {
                   })}
                 >
                   {serverTime.toLocaleString(
-                    DateTime.TIME_24_WITH_SHORT_OFFSET
+                    view24HrTime
+                      ? DateTime.TIME_24_WITH_SHORT_OFFSET
+                      : DateTime.TIME_WITH_SHORT_OFFSET
                   )}
                 </td>
               </tr>
