@@ -1,2 +1,6 @@
+import ChangeLogModal from './ChangeLogModal'
 import GameEventTableCell from './GameEventTableCell'
-export { GameEventTableCell }
+import GitHubModal from './GitHubModal'
+import SideBar from './SideBar'
+
+export { ChangeLogModal, GameEventTableCell, GitHubModal, SideBar }

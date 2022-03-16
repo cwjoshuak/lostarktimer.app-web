@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { GameEvent } from '../common'
 
 import Image from 'next/image'
-import { DateTime, Duration } from 'luxon'
+import { DateTime, Duration, Zone } from 'luxon'
 type CellProps = {
   gameEvent: GameEvent
   serverTime: DateTime
+  localizedTZ: Zone
 }
 
 const GameEventTableCell = (props: CellProps): React.ReactElement => {
-  const { gameEvent, serverTime } = props
+  const { gameEvent, serverTime, localizedTZ } = props
   const [st, setServerTime] = useState(DateTime.now().setZone(serverTime.zone))
   const [timeUntil, setTimeUntil] = useState(
     Duration.fromMillis(gameEvent.latest(st)?.start.diff(st).toMillis())
@@ -37,7 +38,10 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
     )
   }
   return (
-    <td className="m-2 flex basis-1/2 items-center space-x-4 rounded-none p-2">
+    <td
+      key={`${gameEvent.uuid} td`}
+      className="m-2 flex basis-1/2 items-center space-x-4 p-2"
+    >
       <div className="m-1 flex justify-center">
         <Image
           src={`https://lostarkcodex.com/icons/${gameEvent.gameEvent.iconUrl}`}
@@ -56,10 +60,16 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
           <span className="inline whitespace-normal text-justify">
             {gameEvent.times.map((t, idx) => {
               let diff = t.start.diff(st).valueOf()
-              let startTime = t.start.toLocaleString(DateTime.TIME_24_SIMPLE)
-              let endTime = t.end.toLocaleString(DateTime.TIME_24_SIMPLE)
+
+              let startTime = t.start
+                .setZone(localizedTZ)
+                .toLocaleString(DateTime.TIME_24_SIMPLE)
+              let endTime = t.end
+                .setZone(localizedTZ)
+                .toLocaleString(DateTime.TIME_24_SIMPLE)
+
               return (
-                <span key={idx}>
+                <span key={`${gameEvent.uuid} ${idx}`}>
                   <span
                     className={`${
                       diff < 0

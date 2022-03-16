@@ -3,19 +3,15 @@ import Head from 'next/head'
 import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import { APIGameEvent, APIEventType } from '../common/api'
 import { GameEvent } from '../common'
-import { GameEventTableCell } from '../components'
+import {
+  ChangeLogModal,
+  GameEventTableCell,
+  GitHubModal,
+  SideBar,
+} from '../components'
 import { DateTime, Interval } from 'luxon'
-
-type EventTimingData = [
-  key: eventType,
-  mapping: {
-    [key: month]: { [key: day]: { [key: iLvl]: { [key: eventId]: [time] } } }
-  }
-]
-
-interface Events {
-  [key: string]: { [key: iLvl]: [] }
-}
+import useLocalStorage from '@olerichter00/use-localstorage'
+var classNames = require('classnames')
 
 type eventType = string
 type eventName = string
@@ -33,8 +29,6 @@ type EventIdMapping = [
 ]
 type EventTypeIconMapping = [eventType: string, eventIconUrl: string]
 
-// const eventTimings: EventTimingData = require('../data/data.json')
-
 const eventIDNameMapping: Array<APIGameEvent> = Object.entries(
   require('../data/events.json')
 ).map((e) => {
@@ -51,11 +45,11 @@ const eventTypeIconMapping: Array<APIEventType> =
 
 const Home: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
-  const [selectedDate, setSelectedDate] = useState(currDate)
   const [regionTZ, setRegionTZ] = useState<string>('UTC-8')
   const [serverTime, setServerTime] = useState<DateTime>(
     DateTime.now().setZone(regionTZ)
   )
+  const [selectedDate, setSelectedDate] = useState(serverTime)
   const [gameEvents, setGameEvents] = useState<Array<GameEvent> | undefined>(
     undefined
   )
@@ -67,6 +61,11 @@ const Home: NextPage = () => {
     Array<JSX.Element>
   >([])
   const [selectedEventType, setSelectedEventType] = useState(-1)
+  const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
+    'viewLocalizedTime',
+    false
+  )
+
   const buttons = [
     useRef(null),
     useRef(null),
@@ -80,6 +79,7 @@ const Home: NextPage = () => {
     useRef(null),
     useRef(null),
   ]
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrDate(DateTime.now())
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
     return () => {
       clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
     }
-  }, [regionTZ])
+  }, [regionTZ, viewLocalizedTime])
   useEffect(() => {
     setServerTime(DateTime.now().setZone(regionTZ))
     let gameEvents: Array<GameEvent> = []
@@ -130,12 +130,13 @@ const Home: NextPage = () => {
                 }
                 let end = DateTime.fromObject(
                   {
-                    day: Number(start.day),
+                    day: Number(start.day > day ? start.day : day),
                     hour: Number(endHr != '' ? endHr : start.hour),
                     minute: Number(endMin != '' ? endMin : start.minute),
                   },
                   { zone: regionTZ }
                 )
+
                 gameEvent.addTime(Interval.fromDateTimes(start, end))
               })
               gameEvents.push(gameEvent)
@@ -148,14 +149,13 @@ const Home: NextPage = () => {
     const todayEvents = gameEvents.filter(
       (ge) =>
         ge.times.find((t) => {
-          // console.log(t.start)
           return t.start && t.start.day === selectedDate.day
         }) !== undefined
     )
 
     setGameEvents(gameEvents)
     setTodayEvents(todayEvents)
-  }, [regionTZ, selectedDate])
+  }, [regionTZ, selectedDate, viewLocalizedTime])
   useEffect(() => {
     generateFullEventsTable(-1)
   }, [todayEvents])
@@ -205,22 +205,21 @@ const Home: NextPage = () => {
         let evt = events[i + j]
         children.push(
           <GameEventTableCell
-            key={
-              i +
-              j +
-              Number(
-                evt.gameEvent.minItemLevel +
-                  (evt.latest(serverTime)
-                    ? evt.latest(serverTime).start.hour
-                    : 0)
-              )
-            }
-            gameEvent={events[i + j]}
+            key={evt.uuid}
+            gameEvent={evt}
             serverTime={serverTime}
+            localizedTZ={viewLocalizedTime ? currDate.zone : serverTime.zone}
           />
         )
       }
-
+      if (children.length == 1) {
+        children.push(
+          <td
+            key={-1}
+            className="invisible m-2 flex basis-1/2 items-center space-x-4 p-2"
+          ></td>
+        )
+      }
       arr.push(
         <tr key={i} className="flex flex-row">
           {children}
@@ -281,22 +280,18 @@ const Home: NextPage = () => {
         let evt = events[i + j]
         children.push(
           <GameEventTableCell
-            key={
-              i +
-              j +
-              Number(
-                evt.gameEvent.minItemLevel +
-                  (evt.latest(serverTime)
-                    ? evt.latest(serverTime).start.hour
-                    : 0)
-              )
-            }
+            key={evt.uuid}
             gameEvent={evt}
             serverTime={serverTime}
+            localizedTZ={viewLocalizedTime ? currDate.zone : serverTime.zone}
           />
         )
       }
-
+      if (children.length == 1) {
+        children.push(
+          <td className="invisible m-2 flex basis-1/2 items-center space-x-4 p-2"></td>
+        )
+      }
       arr.push(
         <tr key={i} className="flex flex-row">
           {children}
@@ -314,6 +309,24 @@ const Home: NextPage = () => {
   }
   return (
     <>
+      <Head>
+        <title>Lost Ark Timer</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="bg-sky-800 py-2 text-center lg:px-4">
+        <div
+          className="flex items-center bg-sky-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
+          role="alert"
+        >
+          <span className="mx-4 flex-auto text-left font-semibold">
+            Events that start today and end on the next day (Ghost Ships /
+            Shangra) might have some weird UI issues when you switch to the next
+            day.
+          </span>
+        </div>
+      </div>
+      <ChangeLogModal />
+      <GitHubModal />
       <div className="navbar mt-4 w-full bg-base-100 px-20">
         <div className="navbar-start">
           <div className="flex items-center gap-2 ">
@@ -338,7 +351,7 @@ const Home: NextPage = () => {
             </button>
             <button
               className="btn text-2xl"
-              onClick={(e) => setSelectedDate(DateTime.now())}
+              onClick={(e) => setSelectedDate(serverTime)}
             >
               <span>
                 {selectedDate.monthLong} {selectedDate.day}
@@ -373,27 +386,57 @@ const Home: NextPage = () => {
           <table>
             <tbody>
               <tr>
-                <td rowSpan={2}>
-                  <select
-                    className="focus-visible: select mr-2 w-4/5 bg-base-200 outline-none"
-                    onChange={(e) => setRegionTZ(e.target.value)}
-                  >
-                    <option value="UTC-8">US West</option>
-                    <option value="UTC-5">US East</option>
-                    <option value="UTC+1">EU Central</option>
-                    <option value="UTC+0">EU West</option>
-                    <option value="UTC-3">South America</option>
-                  </select>
-                </td>
-                <td className="text-left">Current Time:</td>
                 <td>
+                  <label className="label mr-2 cursor-pointer">
+                    <span className="label-text w-4/5 text-right font-bold">
+                      Localize Time
+                    </span>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setViewLocalizedTime(e.target.checked)}
+                      defaultChecked={viewLocalizedTime}
+                      className="checkbox checkbox-sm"
+                    />
+                  </label>
+                </td>
+
+                <td
+                  className={classNames('text-left', {
+                    'text-success': viewLocalizedTime,
+                  })}
+                >
+                  Current Time:
+                </td>
+                <td
+                  className={classNames({ 'text-success': viewLocalizedTime })}
+                >
                   {currDate.toLocaleString(DateTime.TIME_24_WITH_SHORT_OFFSET)}
                 </td>
               </tr>
 
               <tr>
-                <td className="text-left">Server Time:</td>
                 <td>
+                  <select
+                    className="focus-visible: select mr-2 w-4/5 bg-base-200 outline-none"
+                    onChange={(e) => setRegionTZ(e.target.value)}
+                  >
+                    <option value="UTC-8">US West (UTC-8)</option>
+                    <option value="UTC-5">US East (UTC-5)</option>
+                    <option value="UTC+1">EU Central (UTC+1)</option>
+                    <option value="UTC+0">EU West (UTC+0)</option>
+                    <option value="UTC-3">South America (UTC-5)</option>
+                  </select>
+                </td>
+                <td
+                  className={classNames('text-left', {
+                    'text-success': !viewLocalizedTime,
+                  })}
+                >
+                  Server Time:
+                </td>
+                <td
+                  className={classNames({ 'text-success': !viewLocalizedTime })}
+                >
                   {serverTime.toLocaleString(
                     DateTime.TIME_24_WITH_SHORT_OFFSET
                   )}
@@ -405,12 +448,8 @@ const Home: NextPage = () => {
           <br />
         </div>
       </div>
+      <SideBar />
       <div className="flex min-h-screen flex-col items-center py-2">
-        <Head>
-          <title>Lost Ark Timer</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
         <main className="w-full px-20 ">
           <table className="table w-full">
             <thead>
@@ -421,6 +460,9 @@ const Home: NextPage = () => {
               </tr>
             </thead>
             <tbody>
+              <tr className="bg-base-200">
+                <td className="bg-base-200"></td>
+              </tr>
               <tr className="flex">
                 <td className="w-1/4 min-w-fit bg-base-200">
                   <table className="table w-full">
@@ -488,17 +530,9 @@ const Home: NextPage = () => {
             </tbody>
           </table>
         </main>
-        {/* <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer> */}
+        <footer className="flex h-12 w-full items-center justify-center border-t">
+          Thanks for visiting!
+        </footer>
       </div>
     </>
   )

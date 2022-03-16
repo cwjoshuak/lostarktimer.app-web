@@ -6,16 +6,21 @@
     "start": "next start"
   },
   "dependencies": {
+    "@olerichter00/use-localstorage": "^0.1.1",
+    "@tabler/icons": "^1.55.0",
     "@types/luxon": "^2.3.0",
+    "classnames": "^2.3.1",
     "daisyui": "^2.8.0",
     "luxon": "^2.3.1",
     "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
+    "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
