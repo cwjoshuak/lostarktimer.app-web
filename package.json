@@ -10,6 +10,7 @@
     "@tabler/icons": "^1.55.0",
     "@types/luxon": "^2.3.0",
     "classnames": "^2.3.1",
+    "core-js": "^3.21.1",
     "daisyui": "^2.8.0",
     "luxon": "^2.3.1",
     "next": "latest",

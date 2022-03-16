@@ -12,6 +12,8 @@ import {
 } from '../components'
 import { DateTime, Interval } from 'luxon'
 import useLocalStorage from '@olerichter00/use-localstorage'
+import 'core-js/features/array/at'
+
 var classNames = require('classnames')
 
 type eventType = string
@@ -152,6 +154,7 @@ const Home: NextPage = () => {
         ge.times.find((t) => {
           return t.start && t.start.day === selectedDate.day
         }) !== undefined &&
+        ge.times.length &&
         ge.times.at(0)?.start.day === selectedDate.day &&
         (ge.times.at(-1)?.start.day === selectedDate.plus({ days: 1 }).day ||
           ge.times.at(-1)?.start.day === selectedDate.day)
