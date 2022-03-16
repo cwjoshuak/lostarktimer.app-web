@@ -151,7 +151,10 @@ const Home: NextPage = () => {
       (ge) =>
         ge.times.find((t) => {
           return t.start && t.start.day === selectedDate.day
-        }) !== undefined
+        }) !== undefined &&
+        ge.times.at(0)?.start.day === selectedDate.day &&
+        (ge.times.at(-1)?.start.day === selectedDate.plus({ days: 1 }).day ||
+          ge.times.at(-1)?.start.day === selectedDate.day)
     )
 
     setGameEvents(gameEvents)
@@ -323,15 +326,14 @@ const Home: NextPage = () => {
           className="flex items-center bg-sky-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
           role="alert"
         >
-          <span className="sm:text-md mx-4 flex-auto text-left text-sm font-semibold">
-            Events that start today and end on the next day (Ghost Ships /
-            Shangra) might have some weird UI issues when you switch to the next
-            day.
+          <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
+            Currently accounts for server DST desync issues in the US regions.
           </span>
         </div>
       </div>
       <ChangeLogModal />
       <GitHubModal />
+
       <div className="navbar mt-4 w-full bg-base-300 px-4 dark:bg-base-100 lg:px-20">
         <div className="navbar-start">
           <div className="flex items-center gap-2 ">
@@ -394,7 +396,7 @@ const Home: NextPage = () => {
                 <td>
                   <label className="label mr-2 cursor-pointer">
                     <span className="label-text w-4/5 text-right font-bold">
-                      Localize Time
+                      View in Current Time
                     </span>
                     <input
                       type="checkbox"
@@ -457,9 +459,10 @@ const Home: NextPage = () => {
           <br />
         </div>
       </div>
-      <SideBar />
-      <div className="flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
-        <main className="w-full px-4 lg:px-20 ">
+
+      <div className="relative flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
+        <main className="mb-14 h-full w-full px-4 lg:px-20">
+          <SideBar />
           <table className="table w-full">
             <thead>
               <tr className="justify-center">
@@ -542,10 +545,11 @@ const Home: NextPage = () => {
             </tbody>
           </table>
         </main>
-        <footer className="flex h-12 w-full items-center justify-center border-t">
+        <footer className="absolute bottom-0 flex h-12 w-full items-center justify-center border-t bg-base-300">
           Thanks for visiting!
         </footer>
       </div>
+
       {process.env.NODE_ENV === 'production' ? (
         <Script
           src="https://static.cloudflareinsights.com/beacon.min.js"
