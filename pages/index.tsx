@@ -313,13 +313,17 @@ const Home: NextPage = () => {
       <Head>
         <title>Lost Ark Timer</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=0.35"
+        ></meta>
       </Head>
-      <div className="bg-sky-800 py-2 text-center lg:px-4">
+      <div className="relative bg-sky-800 py-2 text-center lg:px-4">
         <div
           className="flex items-center bg-sky-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
           role="alert"
         >
-          <span className="mx-4 flex-auto text-left font-semibold">
+          <span className="sm:text-md mx-4 flex-auto text-left text-sm font-semibold">
             Events that start today and end on the next day (Ghost Ships /
             Shangra) might have some weird UI issues when you switch to the next
             day.
@@ -328,7 +332,7 @@ const Home: NextPage = () => {
       </div>
       <ChangeLogModal />
       <GitHubModal />
-      <div className="navbar mt-4 w-full bg-base-300 px-20 dark:bg-base-100">
+      <div className="navbar mt-4 w-full bg-base-300 px-4 dark:bg-base-100 lg:px-20">
         <div className="navbar-start">
           <div className="flex items-center gap-2 ">
             <button
@@ -455,7 +459,7 @@ const Home: NextPage = () => {
       </div>
       <SideBar />
       <div className="flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
-        <main className="w-full px-20 ">
+        <main className="w-full px-4 lg:px-20 ">
           <table className="table w-full">
             <thead>
               <tr className="justify-center">
@@ -489,7 +493,7 @@ const Home: NextPage = () => {
                               // src="https://lostarkcodex.com/images/icon_calendar_event_0.webp"
                               className="absolute left-4"
                             />
-                            All
+                            <span className="">All</span>
                             <div className="absolute right-8">
                               {eventsInSection(-1)}
                             </div>
@@ -539,7 +543,7 @@ const Home: NextPage = () => {
           </table>
         </main>
         <footer className="flex h-12 w-full items-center justify-center border-t">
-          Thanks for visiting!{process.env.NODE_ENV}
+          Thanks for visiting!
         </footer>
       </div>
       {process.env.NODE_ENV === 'production' ? (
