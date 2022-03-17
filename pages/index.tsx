@@ -550,7 +550,7 @@ const Home: NextPage = () => {
                       <tr>
                         <td className="p-0">
                           <button
-                            className="btn btn-active btn-wide relative justify-start pl-16"
+                            className="btn btn-active btn-wide relative w-full justify-start pl-16"
                             onClick={(event) => {
                               buttonClick(event, -1)
                             }}
@@ -572,7 +572,7 @@ const Home: NextPage = () => {
                           <td className="p-0">
                             <button
                               key={e.id}
-                              className="btn btn-wide relative justify-start pl-16 pr-16"
+                              className="btn btn-wide relative w-full justify-start pl-16 pr-16"
                               onClick={(event) => {
                                 buttonClick(event, e.id)
                               }}
