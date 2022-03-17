@@ -376,8 +376,9 @@ const Home: NextPage = (props) => {
           role="alert"
         >
           <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
-            🎉 Server desync issue is fixed! Currently working on: Wandering
-            Merchant tracker.
+            ❗ Please ensure you re-select your region to reset the timezone to
+            the new one post patch. ❗ <br /> Server hours are currently 1 hour
+            ahead of real world time (with DST).
           </span>
         </div>
       </div>
@@ -505,8 +506,8 @@ const Home: NextPage = (props) => {
                     onChange={(e) => setRegionTZ(e.target.value)}
                     value={regionTZ}
                   >
-                    <option value="UTC-8">US West (UTC-8)</option>
-                    <option value="UTC-5">US East (UTC-5)</option>
+                    <option value="UTC-6">US West (UTC-6)</option>
+                    <option value="UTC-3">US East (UTC-3)</option>
                     <option value="UTC+1">EU Central (UTC+1)</option>
                     <option value="UTC+0">EU West (UTC+0)</option>
                     <option value="UTC-3">South America (UTC-5)</option>
