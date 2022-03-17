@@ -54,7 +54,7 @@ const Home: NextPage = (props) => {
   // const { isDown, endTime } = props as HomeProps
 
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
-  const [regionTZ, setRegionTZ] = useLocalStorage<string>('UTC-8', 'UTC-8')
+  const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
@@ -98,6 +98,18 @@ const Home: NextPage = (props) => {
   ]
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      let pls = localStorage.getItem('purgedLocalStorage')
+      if (!pls) {
+        localStorage.clear()
+        localStorage.setItem(
+          'purgedLocalStorage',
+          String(DateTime.now().toMillis())
+        )
+      }
+
+      let rTZ = localStorage.getItem('regionTZ')
+      if (!rTZ) setRegionTZ('UTC-7')
+
       let v24T = localStorage.getItem('view24HrTime')
       if (!v24T) setView24HrTime(Boolean(v24T))
 
@@ -107,7 +119,6 @@ const Home: NextPage = (props) => {
       let nim = localStorage.getItem('notifyInMins')
       if (!nim) setNotifyInMins(15)
     }
-    console.log(props)
   }, [])
   useEffect(() => {
     const timer = setInterval(() => {
@@ -509,8 +520,8 @@ const Home: NextPage = (props) => {
                     onChange={(e) => setRegionTZ(e.target.value)}
                     value={regionTZ}
                   >
-                    <option value="UTC-6">US West (UTC-6)</option>
-                    <option value="UTC-3">US East (UTC-3)</option>
+                    <option value="UTC-7">US West (UTC-7)</option>
+                    <option value="UTC-4">US East (UTC-4)</option>
                     <option value="UTC+1">EU Central (UTC+1)</option>
                     <option value="UTC+0">EU West (UTC+0)</option>
                     <option value="UTC-3">South America (UTC-5)</option>
@@ -521,18 +532,20 @@ const Home: NextPage = (props) => {
                     'text-green-700 dark:text-success': !viewLocalizedTime,
                   })}
                 >
-                  Server Time:
+                  Server Clock:
                 </td>
                 <td
                   className={classNames({
                     'text-green-700 dark:text-success': !viewLocalizedTime,
                   })}
                 >
-                  {serverTime.toLocaleString(
-                    view24HrTime
-                      ? DateTime.TIME_24_WITH_SHORT_OFFSET
-                      : DateTime.TIME_WITH_SHORT_OFFSET
-                  )}
+                  {serverTime
+                    .plus({ hours: 1 })
+                    .toLocaleString(
+                      view24HrTime
+                        ? DateTime.TIME_24_WITH_SHORT_OFFSET
+                        : DateTime.TIME_WITH_SHORT_OFFSET
+                    )}
                 </td>
               </tr>
             </tbody>
