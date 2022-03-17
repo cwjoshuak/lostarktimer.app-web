@@ -51,7 +51,7 @@ type HomeProps = {
   endTime: string
 }
 const Home: NextPage = (props) => {
-  const { isDown, endTime } = props as HomeProps
+  // const { isDown, endTime } = props as HomeProps
 
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('UTC-8', 'UTC-8')
@@ -353,7 +353,7 @@ const Home: NextPage = (props) => {
           content="width=device-width, initial-scale=0.35"
         ></meta>
       </Head>
-      {isDown && (
+      {/* {isDown && (
         <div className="relative bg-red-700/80 py-2 text-center lg:px-4">
           <div
             className="flex items-center bg-red-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
@@ -369,14 +369,15 @@ const Home: NextPage = (props) => {
             </a>
           </div>
         </div>
-      )}
+      )} */}
       <div className="relative bg-sky-800 py-2 text-center lg:px-4">
         <div
           className="flex items-center bg-sky-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
           role="alert"
         >
           <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
-            Currently accounts for server DST desync issues in the US regions.
+            🎉 Server desync issue is fixed! Currently working on: Wandering
+            Merchant tracker.
           </span>
         </div>
       </div>
@@ -651,15 +652,15 @@ const Home: NextPage = (props) => {
     </>
   )
 }
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_VERCEL_ENV
-        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-        : 'http://localhost:3000'
-    }/api/server-maintenance`
-  )
-  const data = await res.json()
-  return { props: data }
-}
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const res = await fetch(
+//     `${
+//       process.env.NEXT_PUBLIC_VERCEL_ENV
+//         ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+//         : 'http://localhost:3000'
+//     }/api/server-maintenance`
+//   )
+//   const data = await res.json()
+//   return { props: data }
+// }
 export default Home

@@ -26,8 +26,8 @@ export default function handler(
   let endTime = startTime.plus({ hours: 4 })
   console.log(endTime.diffNow())
   res.status(200).json({
-    isDown:
-      startTime.diffNow().toMillis() < 0 && endTime.diffNow().toMillis() > 0,
+    isDown: false,
+    // startTime.diffNow().toMillis() < 0 && endTime.diffNow().toMillis() > 0,
     endTime: endTime.toMillis().toString(),
   })
 }
