@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Script from 'next/script'
 import React, { useState, useEffect, useRef, ReactElement } from 'react'
@@ -46,7 +46,13 @@ const eventTypeIconMapping: Array<APIEventType> =
     }
   )
 
-const Home: NextPage = () => {
+type HomeProps = {
+  isDown: boolean
+  endTime: string
+}
+const Home: NextPage = (props) => {
+  const { isDown, endTime } = props as HomeProps
+
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('UTC-8', 'UTC-8')
   const [serverTime, setServerTime] = useState<DateTime>(
@@ -101,6 +107,7 @@ const Home: NextPage = () => {
       let nim = localStorage.getItem('notifyInMins')
       if (!nim) setNotifyInMins(15)
     }
+    console.log(props)
   }, [])
   useEffect(() => {
     const timer = setInterval(() => {
@@ -346,6 +353,23 @@ const Home: NextPage = () => {
           content="width=device-width, initial-scale=0.35"
         ></meta>
       </Head>
+      {isDown && (
+        <div className="relative bg-red-700/80 py-2 text-center lg:px-4">
+          <div
+            className="flex items-center bg-red-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
+            role="alert"
+          >
+            <a href="https://www.playlostark.com/en-us/support/server-status">
+              <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
+                🛠️ Lost Ark Server Maintenance. Estimated Downtime:{' '}
+                {DateTime.fromMillis(Number(endTime))
+                  .diffNow()
+                  .toFormat('hh:mm:ss')}
+              </span>
+            </a>
+          </div>
+        </div>
+      )}
       <div className="relative bg-sky-800 py-2 text-center lg:px-4">
         <div
           className="flex items-center bg-sky-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
@@ -627,5 +651,15 @@ const Home: NextPage = () => {
     </>
   )
 }
-
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const res = await fetch(
+    `${
+      process.env.NEXT_PUBLIC_VERCEL_ENV
+        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+        : 'http://localhost:3000'
+    }/api/server-maintenance`
+  )
+  const data = await res.json()
+  return { props: data }
+}
 export default Home
