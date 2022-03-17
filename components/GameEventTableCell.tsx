@@ -51,9 +51,9 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
           height={38}
         />
       </div>
-      <div className="basis-11/12 items-center  font-sans text-xs font-semibold">
+      <div className="basis-11/12 items-center font-sans text-xs font-semibold">
         <div className="ml-2 mr-4">
-          <span className="block uppercase">
+          <span className="block uppercase ">
             [{gameEvent.gameEvent.minItemLevel}] {gameEvent.gameEvent.name}
             <span className="float-right text-amber-500 dark:text-amber-200">
               -{timeUntil.toFormat('hh:mm:ss')}
@@ -78,7 +78,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                 <span key={`${gameEvent.uuid} ${idx}`}>
                   <span
                     className={classNames({
-                      'text-slate-400': diff < 0,
+                      'text-slate-400/25': diff < 0,
                       'text-amber-500 dark:text-amber-200':
                         diff >= 0 && diff < 900000,
                       'text-green-700 dark:text-success': diff >= 900000,
@@ -87,7 +87,13 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                     {startTime}
                     {!t.isEmpty() ? ` - ${endTime}` : ''}
                   </span>
-                  {idx < gameEvent.times.length - 1 ? ' / ' : ''}
+                  <span
+                    className={classNames({
+                      'text-slate-400/30': diff < 0,
+                    })}
+                  >
+                    {idx < gameEvent.times.length - 1 ? ' / ' : ''}
+                  </span>
                 </span>
               )
             })}
