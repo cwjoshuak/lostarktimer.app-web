@@ -10,7 +10,7 @@ import {
   GitHubModal,
   SideBar,
 } from '../components'
-import { DateTime, Interval } from 'luxon'
+import { DateTime, Duration, Interval } from 'luxon'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import 'core-js/features/array/at'
 
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('UTC-8', 'UTC-8')
   const [serverTime, setServerTime] = useState<DateTime>(
-    DateTime.now().setZone(regionTZ)
+    currDate.setZone(regionTZ)
   )
   const [selectedDate, setSelectedDate] = useState(serverTime)
   const [gameEvents, setGameEvents] = useState<Array<GameEvent> | undefined>(
@@ -66,11 +66,15 @@ const Home: NextPage = () => {
   const [selectedEventType, setSelectedEventType] = useState(-1)
   const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
     'viewLocalizedTime',
-    false
+    true
   )
   const [view24HrTime, setView24HrTime] = useLocalStorage<boolean>(
     'view24HrTime',
     false
+  )
+  const [notifyInMins, setNotifyInMins] = useLocalStorage<number>(
+    'notifyInMins',
+    15
   )
 
   const buttons = [
@@ -92,13 +96,17 @@ const Home: NextPage = () => {
       if (!v24T) setView24HrTime(Boolean(v24T))
 
       let vLT = localStorage.getItem('viewLocalizedTime')
-      if (!vLT) setViewLocalizedTime(Boolean(vLT))
+      if (!vLT) setViewLocalizedTime(true)
+
+      let nim = localStorage.getItem('notifyInMins')
+      if (!nim) setNotifyInMins(15)
     }
   }, [])
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrDate(DateTime.now())
-      setServerTime(DateTime.now().setZone(regionTZ))
+      let now = DateTime.now()
+      setCurrDate(now)
+      setServerTime(now.setZone(regionTZ))
     }, 1000)
     return () => {
       clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
@@ -181,7 +189,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     generateFullEventsTable(selectedEventType)
     generateCurrentEventsTable()
-  }, [serverTime.minute])
+  }, [serverTime.minute, notifyInMins])
   const buttonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: number
@@ -196,14 +204,14 @@ const Home: NextPage = () => {
   }
   const generateCurrentEventsTable = () => {
     let events: Array<GameEvent> = []
-
+    let ms = Duration.fromObject({ minutes: notifyInMins }).toMillis()
     events =
       todayEvents
         ?.filter((e) => {
           let latest = e.latest(serverTime)
           if (latest) {
             let value = latest.start.diff(serverTime).valueOf()
-            return 0 <= value && value <= 900000
+            return 0 <= value && value <= ms
           }
           return false
         })
@@ -250,7 +258,7 @@ const Home: NextPage = () => {
   }
   const generateFullEventsTable = (eventType: number) => {
     let events: Array<GameEvent> = []
-
+    let ms = Duration.fromObject({ minutes: notifyInMins }).toMillis()
     events =
       todayEvents
         ?.filter((e) => {
@@ -259,7 +267,7 @@ const Home: NextPage = () => {
           if (e.latest(serverTime)) {
             return (
               correctEventType &&
-              e.latest(serverTime).start.diff(serverTime).valueOf() >= 900000
+              e.latest(serverTime).start.diff(serverTime).valueOf() >= ms
             )
           }
           return correctEventType
@@ -513,9 +521,20 @@ const Home: NextPage = () => {
               <tr className="justify-center">
                 <td
                   colSpan={2}
-                  className="bg-stone-200 text-center dark:bg-base-200"
+                  className="relative bg-stone-200 text-center dark:bg-base-200"
                 >
                   Alarms
+                  <select
+                    className="select select-sm absolute right-6"
+                    onChange={(e) => setNotifyInMins(Number(e.target.value))}
+                    value={notifyInMins}
+                  >
+                    <option value={5}>5 min before</option>
+                    <option value={10}>10 min before</option>
+                    <option value={15}>15 min before</option>
+                    <option value={20}>20 min before</option>
+                    <option value={30}>30 min before</option>
+                  </select>
                 </td>
               </tr>
             </thead>
