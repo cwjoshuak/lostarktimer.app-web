@@ -123,13 +123,15 @@ const Home: NextPage = (props) => {
   useEffect(() => {
     const timer = setInterval(() => {
       let now = DateTime.now()
+      if (currDate.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now)
       setCurrDate(now)
       setServerTime(now.setZone(regionTZ))
     }, 1000)
     return () => {
       clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
     }
-  }, [regionTZ, view24HrTime, viewLocalizedTime])
+  }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate])
+
   useEffect(() => {
     setServerTime(DateTime.now().setZone(regionTZ))
     let gameEvents: Array<GameEvent> = []
@@ -390,9 +392,12 @@ const Home: NextPage = (props) => {
           role="alert"
         >
           <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
-            ❗ Please ensure you re-select your region to reset the timezone to
-            the new one post patch. ❗ <br /> Server hours are currently 1 hour
-            ahead of real world time (with DST).
+            <label
+              htmlFor="changelog-modal"
+              className="cursor-pointer text-teal-300"
+            >
+              Interesting things are planned. Click to find out.
+            </label>
           </span>
         </div>
       </div>
@@ -422,12 +427,17 @@ const Home: NextPage = (props) => {
               {'<<'}
             </button>
             <button
-              className="btn text-2xl text-stone-200"
+              className="btn relative text-2xl text-stone-200"
               onClick={(e) => setSelectedDate(serverTime)}
             >
               <span>
                 {selectedDate.monthLong} {selectedDate.day}
               </span>
+              {selectedDate.hasSame(currDate, 'day') ? null : (
+                <span className="absolute -bottom-2 text-[0.6rem]">
+                  ({selectedDate.toRelative()})
+                </span>
+              )}
             </button>
             <button
               className="btn border-none text-center text-xl text-stone-400 dark:bg-base-200"
@@ -451,9 +461,13 @@ const Home: NextPage = (props) => {
           </div>
         </div>
 
-        <a className="btn navbar-center btn-ghost text-xl normal-case">
-          Lost Ark Timer
-        </a>
+        <div className="navbar-center flex-col">
+          <a className="btn btn-ghost text-xl normal-case">Lost Ark Timer</a>
+
+          <div className="font-mono text-sm uppercase">
+            Thanks for all your feedback and suggestions!
+          </div>
+        </div>
         <div className="navbar-end text-right">
           <table>
             <tbody>
@@ -565,7 +579,9 @@ const Home: NextPage = (props) => {
                   colSpan={2}
                   className="relative bg-stone-200 text-center dark:bg-base-200"
                 >
-                  Alarms
+                  {selectedDate.hasSame(currDate, 'day')
+                    ? 'Alarms'
+                    : `Viewing events ${selectedDate.toRelative()}`}
                   <select
                     className="select select-sm absolute right-6"
                     onChange={(e) => setNotifyInMins(Number(e.target.value))}
