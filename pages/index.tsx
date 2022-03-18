@@ -465,7 +465,7 @@ const Home: NextPage = (props) => {
           <a className="btn btn-ghost text-xl normal-case">Lost Ark Timer</a>
 
           <div className="font-mono text-sm uppercase">
-            Thanks for all your feedback and suggestions!
+            Timers are fixed as of this morning. :)
           </div>
         </div>
         <div className="navbar-end text-right">
@@ -553,13 +553,11 @@ const Home: NextPage = (props) => {
                     'text-green-700 dark:text-success': !viewLocalizedTime,
                   })}
                 >
-                  {serverTime
-                    .plus({ hours: 1 })
-                    .toLocaleString(
-                      view24HrTime
-                        ? DateTime.TIME_24_WITH_SHORT_OFFSET
-                        : DateTime.TIME_WITH_SHORT_OFFSET
-                    )}
+                  {serverTime.toLocaleString(
+                    view24HrTime
+                      ? DateTime.TIME_24_WITH_SHORT_OFFSET
+                      : DateTime.TIME_WITH_SHORT_OFFSET
+                  )}
                 </td>
               </tr>
             </tbody>

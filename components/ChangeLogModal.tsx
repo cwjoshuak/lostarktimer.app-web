@@ -14,6 +14,10 @@ const ChangeLogModal = () => {
               <li>Wandering Merchants Feature ETA {'<'} 4.5 days?</li>
             </ul>
           </div>
+          <p className="py-4">3/17/2022:</p>
+          <ol className="list-disc pl-6">
+            <li>Fixed timers from morning's patch.</li>
+          </ol>
           <div>
             <p className="py-4">3/17/2022:</p>
             <ol className="list-disc pl-6">
