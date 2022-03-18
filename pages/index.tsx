@@ -58,7 +58,8 @@ const Home: NextPage = (props) => {
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
-  const [selectedDate, setSelectedDate] = useState(serverTime)
+  const [selectedDate, setSelectedDate] = useState(currDate.setZone(regionTZ))
+
   const [gameEvents, setGameEvents] = useState<Array<GameEvent> | undefined>(
     undefined
   )
@@ -82,6 +83,7 @@ const Home: NextPage = (props) => {
     'notifyInMins',
     15
   )
+  const [mounted, setMounted] = useState(false)
 
   const buttons = [
     useRef(null),
@@ -97,6 +99,9 @@ const Home: NextPage = (props) => {
     useRef(null),
   ]
   useEffect(() => {
+    // setSelectedDate(serverTime)
+    // console.log(DateTime.now().setZone(regionTZ))
+    // console.log(serverTime)
     if (typeof window !== 'undefined') {
       let pls = localStorage.getItem('purgedLocalStorage')
       if (!pls) {
@@ -121,6 +126,13 @@ const Home: NextPage = (props) => {
     }
   }, [])
   useEffect(() => {
+    if (regionTZ !== undefined) {
+      setMounted(true)
+      setServerTime(currDate.setZone(regionTZ))
+      setSelectedDate(currDate.setZone(regionTZ))
+    }
+  }, [regionTZ])
+  useEffect(() => {
     const timer = setInterval(() => {
       let now = DateTime.now()
       if (currDate.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now)
@@ -133,7 +145,7 @@ const Home: NextPage = (props) => {
   }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate])
 
   useEffect(() => {
-    setServerTime(DateTime.now().setZone(regionTZ))
+    if (regionTZ === undefined) return
     let gameEvents: Array<GameEvent> = []
 
     Object.entries(require('../data/data.json')).forEach((eventType) => {
@@ -359,6 +371,7 @@ const Home: NextPage = (props) => {
       return todayEvents?.filter((te) => te.eventType.id >= 0).length
     else return todayEvents?.filter((te) => te.eventType.id === eventId).length
   }
+
   return (
     <>
       <Head>
@@ -433,7 +446,7 @@ const Home: NextPage = (props) => {
               <span>
                 {selectedDate.monthLong} {selectedDate.day}
               </span>
-              {selectedDate.hasSame(currDate, 'day') ? null : (
+              {serverTime.hasSame(selectedDate, 'day') ? null : (
                 <span className="absolute -bottom-2 text-[0.6rem]">
                   ({selectedDate.toRelative()})
                 </span>
@@ -538,7 +551,7 @@ const Home: NextPage = (props) => {
                     <option value="UTC-4">US East (UTC-4)</option>
                     <option value="UTC+1">EU Central (UTC+1)</option>
                     <option value="UTC+0">EU West (UTC+0)</option>
-                    <option value="UTC-3">South America (UTC-5)</option>
+                    <option value="UTC-3">South America (UTC-3)</option>
                   </select>
                 </td>
                 <td
@@ -577,7 +590,7 @@ const Home: NextPage = (props) => {
                   colSpan={2}
                   className="relative bg-stone-200 text-center dark:bg-base-200"
                 >
-                  {selectedDate.hasSame(currDate, 'day')
+                  {selectedDate.hasSame(serverTime, 'day')
                     ? 'Alarms'
                     : `Viewing events ${selectedDate.toRelative()}`}
                   <select
