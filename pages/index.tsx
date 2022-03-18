@@ -13,6 +13,7 @@ import {
 import { DateTime, Duration, Interval } from 'luxon'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import 'core-js/features/array/at'
+import Link from 'next/link'
 
 var classNames = require('classnames')
 
@@ -380,7 +381,22 @@ const Home: NextPage = (props) => {
         <meta
           name="viewport"
           content="width=device-width, initial-scale=0.35"
-        ></meta>
+        />
+        <meta property="og:title" content="Lost Ark Timer" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.lostarktimer.app/" />
+        <meta
+          property="og:image"
+          content="https://www.lostarktimer.app/images/LA_Mokko_seed.png"
+        />
+        <meta
+          name="og:description"
+          content="Lost Ark Timer - Alarms for Lost Ark bosses, islands, events and more."
+        />
+        <meta
+          name="description"
+          content="Lost Ark Timer - Alarms for Lost Ark bosses, islands, events and more."
+        />
       </Head>
       {/* {isDown && (
         <div className="relative bg-red-700/80 py-2 text-center lg:px-4">
@@ -678,20 +694,32 @@ const Home: NextPage = (props) => {
             </tbody>
           </table>
         </main>
-        <footer className="absolute bottom-0 flex h-12 w-full items-center justify-center border-t bg-base-300">
-          Thanks for visiting!
+        <footer className="absolute bottom-0 h-6 w-full border-t bg-base-300 text-right text-xs font-light uppercase">
+          <Link href="/privacy">Privacy Policy</Link>
         </footer>
       </div>
 
       {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? (
-        <Script
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "a4240e015e2044669726099a04d1e7a7"}'
-          strategy="afterInteractive"
-          onError={(e) => {
-            console.error('Script failed to load', e)
-          }}
-        />
+        <>
+          <Script
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "a4240e015e2044669726099a04d1e7a7"}'
+            strategy="afterInteractive"
+            onError={(e) => {
+              console.error('Script failed to load', e)
+            }}
+          />
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-Z2D1S06JHH"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-Z2D1S06JHH');`}
+          </Script>{' '}
+        </>
       ) : null}
     </>
   )
