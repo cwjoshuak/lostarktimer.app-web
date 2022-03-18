@@ -55,6 +55,11 @@ const Home: NextPage = (props) => {
 
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
+  const [regionTZName, setRegionTZName] = useLocalStorage<string>(
+    'regionTZName',
+    'US West'
+  )
+
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
@@ -98,6 +103,14 @@ const Home: NextPage = (props) => {
     useRef(null),
     useRef(null),
   ]
+  const regions = {
+    'US West': 'UTC-7',
+    'US East': 'UTC-4',
+    'EU Central': 'UTC-1',
+    'EU West': 'UTC-0',
+    'South America': 'UTC-4',
+  }
+
   useEffect(() => {
     // setSelectedDate(serverTime)
     // console.log(DateTime.now().setZone(regionTZ))
@@ -114,6 +127,9 @@ const Home: NextPage = (props) => {
 
       let rTZ = localStorage.getItem('regionTZ')
       if (!rTZ) setRegionTZ('UTC-7')
+
+      let rTZN = localStorage.getItem('regionTZName')
+      if (!rTZN) setRegionTZName('US West')
 
       let v24T = localStorage.getItem('view24HrTime')
       if (!v24T) setView24HrTime(Boolean(v24T))
@@ -559,14 +575,25 @@ const Home: NextPage = (props) => {
                 <td>
                   <select
                     className="focus-visible: select mr-2 max-w-fit bg-base-200 outline-none"
-                    onChange={(e) => setRegionTZ(e.target.value)}
-                    value={regionTZ}
+                    onChange={(e) => {
+                      let region = e.target.value as
+                        | 'US West'
+                        | 'US East'
+                        | 'EU Central'
+                        | 'EU West'
+                        | 'South America'
+
+                      setRegionTZ(regions[region])
+                      setRegionTZName(region)
+                    }}
+                    value={regionTZName}
                   >
-                    <option value="UTC-7">US West (UTC-7)</option>
-                    <option value="UTC-4">US East (UTC-4)</option>
-                    <option value="UTC+1">EU Central (UTC+1)</option>
-                    <option value="UTC+0">EU West (UTC+0)</option>
-                    <option value="UTC-3">South America (UTC-3)</option>
+                    {Object.entries(regions).map(([name, tz]) => (
+                      <option
+                        key={name}
+                        value={name}
+                      >{`${name} (${tz})`}</option>
+                    ))}
                   </select>
                 </td>
                 <td
