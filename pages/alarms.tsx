@@ -129,7 +129,7 @@ const Alarms: NextPage = () => {
   const regions = {
     'US West': 'UTC-7',
     'US East': 'UTC-4',
-    'EU Central': 'UTC-1',
+    'EU Central': 'UTC+1',
     'EU West': 'UTC-0',
     'South America': 'UTC-4',
   }
