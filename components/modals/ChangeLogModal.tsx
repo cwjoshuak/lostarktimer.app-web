@@ -15,6 +15,7 @@ const ChangeLogModal = () => {
           </div>
           <p className="py-4">3/19/2022:</p>
           <ol className="list-disc pl-6">
+            <li>Fix: alarms should now work after correct user interaction.</li>
             <li>Added actual alarm reminders, alerts and sounds.</li>
             <li>Added hiding of events and customization of hidden events.</li>
             <li>Moved settings into config modal.</li>

@@ -12,6 +12,7 @@ import { alert1, alert2, alert3, alert4, alert5, alert6 } from '../sounds'
 import 'core-js/features/array/at'
 import { IconSettings } from '@tabler/icons'
 import { v4 as uuidv4 } from 'uuid'
+import usePrevious from '../util/usePrevious'
 var classNames = require('classnames')
 
 type AlertSoundKeys =
@@ -61,7 +62,6 @@ const sounds = {
 }
 
 const Alarms: NextPage = () => {
-  Howler.volume(0.1)
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
   const [regionTZName, setRegionTZName] = useLocalStorage<string>(
@@ -81,6 +81,10 @@ const Alarms: NextPage = () => {
   const [currentEventsTable, setCurrentEventsTable] = useState<
     Array<JSX.Element>
   >([])
+
+  const [currentEventsIds, setCurrentEventsIds] = useState<Array<number>>([])
+  const previousEventIds = usePrevious(currentEventsIds)
+
   const [selectedEventType, setSelectedEventType] = useState(-1)
   const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
     'viewLocalizedTime',
@@ -113,6 +117,7 @@ const Alarms: NextPage = () => {
     false
   )
   const [mounted, setMounted] = useState(false)
+  const [volume, setVolume] = useLocalStorage<number>('volume', 0.4)
   const buttons = [
     useRef(null),
     useRef(null),
@@ -140,13 +145,25 @@ const Alarms: NextPage = () => {
       setSelectedDate(currDate.setZone(regionTZ))
     }
   }, [regionTZ])
-  useEffect(() => {
-    if (unlockedAudio) return
-    let listener = () => setUnlockedAudio(true)
 
-    document.addEventListener('click', listener, true)
-    return () => document.removeEventListener('click', listener, true)
-  }, [unlockedAudio])
+  useEffect(() => {
+    if (previousEventIds) {
+      let difference = (previousEventIds || [])
+        .filter((x) => !currentEventsIds.includes(x))
+        .concat(currentEventsIds.filter((x) => !previousEventIds.includes(x)))
+      if (difference.length === 0) return
+    }
+    if (alertSound && alertSound !== 'muted') {
+      let s = new Howl({
+        src: sounds[alertSound as AlertSoundKeys] as unknown as string,
+      })
+      s.play()
+    }
+  }, [currentEventsIds])
+  useEffect(() => {
+    if (volume && volume >= 0) Howler.volume(volume)
+  }, [volume])
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       let rTZ = localStorage.getItem('regionTZ')
@@ -165,6 +182,7 @@ const Alarms: NextPage = () => {
       if (!nim) setNotifyInMins(15)
     }
     setMounted(true)
+    Howler.autoSuspend = false
   }, [])
   useEffect(() => {
     const timer = setInterval(() => {
@@ -373,7 +391,6 @@ const Alarms: NextPage = () => {
         (currentEventsTable.length !== 0 ||
           currentEventsTableData !== currentEventsTable)
       ) {
-        Howler.autoSuspend = false
         let s = new Howl({
           src: sounds[alertSound as AlertSoundKeys] as unknown as string,
           onunlock: (id) => setUnlockedAudio(true),
@@ -383,7 +400,7 @@ const Alarms: NextPage = () => {
     }
 
     setFullEventsTable(createTableData(allEventsTable))
-    setCurrentEventsTable(createTableData(currEventsTable))
+    setCurrentEventsTable(currentEventsTableData)
   }
 
   const createTableData = (events: Array<GameEvent>) => {
@@ -610,7 +627,16 @@ const Alarms: NextPage = () => {
 
       <div className="relative flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
         {alertSound !== 'muted' && !unlockedAudio && (
-          <div className="alert alert-warning mb-2 w-fit justify-self-center shadow-lg duration-300 ease-out">
+          <div
+            className="alert alert-warning mb-4 w-fit justify-self-center shadow-lg duration-300 ease-out"
+            onClick={() => {
+              setUnlockedAudio(true)
+              let s = new Howl({
+                src: sounds[alertSound as AlertSoundKeys] as unknown as string,
+              })
+              s.play()
+            }}
+          >
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -625,7 +651,7 @@ const Alarms: NextPage = () => {
                   d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                 />
               </svg>
-              <span>Interact with page to start receiving alert sounds!</span>
+              <span>Click on me to start receiving alert sounds!</span>
             </div>
           </div>
         )}

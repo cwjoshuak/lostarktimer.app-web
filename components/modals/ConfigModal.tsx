@@ -8,6 +8,7 @@ type ConfigModalProps = {
 import { Howl, Howler } from 'howler'
 import { alert1, alert2, alert3, alert4, alert5, alert6 } from '../../sounds'
 import useLocalStorage from '@olerichter00/use-localstorage'
+import { IconVolume2, IconVolume3 } from '@tabler/icons'
 
 const sounds = {
   'Alert 1': alert1,
@@ -52,6 +53,7 @@ const ConfigModal = (props: ConfigModalProps) => {
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
     [key: string]: number
   }>('disabledAlarms', {})
+  const [volume, setVolume] = useLocalStorage('volume', 0.4)
   return (
     <>
       <input type="checkbox" id="config-modal" className="modal-toggle" />
@@ -170,6 +172,30 @@ const ConfigModal = (props: ConfigModalProps) => {
                   ))}
                 </select>
               </label>
+              <div className="ml-auto flex w-3/4 justify-end gap-1">
+                <IconVolume2 className="stroke-1" />
+                <input
+                  className="range range-accent range-xs self-center"
+                  type="range"
+                  min={0}
+                  max={1}
+                  step={0.02}
+                  defaultValue={volume}
+                  onChange={(event) => {
+                    setVolume(event.target.valueAsNumber)
+                  }}
+                  onMouseUpCapture={(event) => {
+                    let s = new Howl({
+                      src: sounds[
+                        alertSound as AlertSoundKeys
+                      ] as unknown as string,
+                    })
+                    Howler.stop()
+                    s.play()
+                  }}
+                />
+                <IconVolume3 className="stroke-1" />
+              </div>
             </div>
           </div>
           <div className="modal-action mb-5 justify-center">
