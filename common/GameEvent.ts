@@ -6,6 +6,7 @@ class GameEvent {
   gameEvent: APIGameEvent
   uuid: string
   times: Array<Interval> = []
+  disabled: DateTime | null = null
   constructor(et: APIEventType, ge: APIGameEvent) {
     this.eventType = et
     this.gameEvent = ge
@@ -14,7 +15,7 @@ class GameEvent {
   addTime(t: Interval) {
     this.times.push(t)
   }
-  latest(t: DateTime) {
+  latest(t: DateTime): Interval {
     return this.times.filter((ti) => ti.start.diff(t).valueOf() > 0)[0]
   }
 }

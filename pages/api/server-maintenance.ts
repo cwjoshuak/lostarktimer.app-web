@@ -21,10 +21,8 @@ export default function handler(
     },
     { zone: tz }
   )
-  console.log(startTime.diffNow())
 
   let endTime = startTime.plus({ hours: 4 })
-  console.log(endTime.diffNow())
   res.status(200).json({
     isDown: false,
     // startTime.diffNow().toMillis() < 0 && endTime.diffNow().toMillis() > 0,

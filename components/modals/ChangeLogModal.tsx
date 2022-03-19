@@ -10,11 +10,17 @@ const ChangeLogModal = () => {
           <div className="text-violet-500">
             Planned:
             <ul className="list-disc pl-6">
-              <li>Add actual alarm reminders, alerts + sounds.</li>
-              <li>Wandering Merchants Feature ETA {'<'} 4.5 days?</li>
+              <li>Wandering Merchants Feature ETA {'<'} 3.5 days?</li>
             </ul>
           </div>
-          <p className="py-4">3/17/2022:</p>
+          <p className="py-4">3/19/2022:</p>
+          <ol className="list-disc pl-6">
+            <li>Added actual alarm reminders, alerts and sounds.</li>
+            <li>Added hiding of events and customization of hidden events.</li>
+            <li>Moved settings into config modal.</li>
+          </ol>
+
+          <p className="py-4">3/18/2022:</p>
           <ol className="list-disc pl-6">
             <li>Fixed timers from morning's patch.</li>
           </ol>

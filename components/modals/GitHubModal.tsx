@@ -9,8 +9,9 @@ const GitHubModal = () => {
         <div className="modal-box">
           <h3 className="text-center text-lg font-bold uppercase">GitHub</h3>
           <p className="py-4">
-            I will post a link to the repo in maybe {'<'}2 days? Need to add a
-            readme and refactor some more! Feel free to check out my{' '}
+            The repo is almost ready! I refactored a ton of code and should
+            probably release it along with the wandering merchant updates within
+            a few more days! Stay tuned. Check out my{' '}
             <a className="text-blue-400" href="https://github.com/cwjoshuak">
               GitHub
             </a>{' '}
