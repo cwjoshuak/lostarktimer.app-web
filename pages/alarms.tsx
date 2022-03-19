@@ -9,10 +9,11 @@ import { DateTime, Duration, Interval } from 'luxon'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { Howl, Howler } from 'howler'
 import { alert1, alert2, alert3, alert4, alert5, alert6 } from '../sounds'
-
+import 'core-js/features/array/at'
 import { IconSettings } from '@tabler/icons'
 import { v4 as uuidv4 } from 'uuid'
 var classNames = require('classnames')
+
 type AlertSoundKeys =
   | 'Alert 1'
   | 'Alert 2'
