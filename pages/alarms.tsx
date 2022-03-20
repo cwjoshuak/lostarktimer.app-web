@@ -161,7 +161,7 @@ const Alarms: NextPage = () => {
     }
   }, [currentEventsIds])
   useEffect(() => {
-    if (volume && volume >= 0) Howler.volume(volume)
+    if (volume !== undefined) Howler.volume(volume)
   }, [volume])
 
   useEffect(() => {
