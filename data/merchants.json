@@ -2,109 +2,227 @@
   {
     "name": "Ben",
     "continent": "Rethramis",
+    "locations": {
+      "Ankumo Mountain": "wandering_merchant_ben_ankumo_mountain_v2.jpg",
+      "Log Hill": "wandering_merchant_ben_log_hill_v2.jpg",
+      "Rethramis": "wandering_merchant_ben_rethramis_border_v2.jpg"
+    },
     "schedule": 3,
-    "items": [
-      70500000, 70500001, 70500002, 70501000, 63200095, 63200094, 63200222
-    ]
+    "items": {
+      "rapport": [70500000, 70500001, 70500002, 70501000],
+      "cards": [63200095, 63200094, 63200222],
+      "cooking": []
+    }
   },
   {
     "name": "Lucas",
     "continent": "Yudia",
+    "locations": {
+      "Ozhorn Hill": "yudia_wandering_merchant_lucas_ozhorn_hill.jpg",
+      "Saland Hill": "yudia_wandering_merchant_lucas_saland_hill.jpg"
+    },
     "schedule": 1,
-
-    "items": [70503001, 70500003, 70501001, 63200185, 63200227, 63200102]
+    "items": {
+      "rapport": [70503001, 70500003, 70501001],
+      "cards": [63200185, 63200227, 63200102],
+      "cooking": []
+    }
   },
   {
     "name": "Malone",
     "continent": "West Luterra",
+    "locations": {
+      "Battlebound Plains": "malone_battlebound_plains.jpg",
+      "Bilbrin Forest Hill": "malone_bilbrin_forest.jpg",
+      "Lakebar": "malone_lakebar.jpg",
+      "Medrick Monastery": "malone_medrick_monastery.jpg",
+      "Mount Zagoras": "malone_mount_zagoras.jpg"
+    },
     "schedule": 2,
-    "items": [
-      70500013, 70500011, 70500006, 70501002, 63200191, 63200188, 63200106,
-      921405
-    ]
+    "items": {
+      "rapport": [70500013, 70500011, 70500006, 70501002],
+      "cards": [63200191, 63200188, 63200106],
+      "cooking": [921405]
+    }
   },
   {
     "name": "Morris",
     "continent": "East Luterra",
+    "locations": {
+      "Dyorika Plains": "morris_dyorika_plains_10.jpg",
+      "Flowering Orchard": "morris_flowering_orchard_10.jpg",
+      "Sunbright Hill": "morris_sunbright_hill_10.jpg"
+    },
     "schedule": 1,
-    "items": [
-      70500012, 70500007, 70500008, 70501002, 63200192, 63200226, 63200104,
-      63200024, 931505
-    ]
+    "items": {
+      "rapport": [70500012, 70500007, 70500008, 70501002],
+      "cards": [63200192, 63200226, 63200104, 63200024],
+      "cooking": [931505]
+    }
   },
   {
     "name": "Burt",
     "continent": "East Luterra",
+    "locations": {
+      "Blackrose Chapel": "burt_blackrose_chapel_v4.jpg",
+      "Boreas Domain": "burt_boreas_domain_v4.jpg",
+      "Croconys Seashore North": "burt_croconys_seashore_north.png",
+      "Croconys Seashore South": "burt_croconys_seashore_south.png",
+      "Leyar Terrace": "burt_leyar_terrace_v4.jpg"
+    },
     "schedule": 2,
-    "items": [
-      70500012, 70500007, 70500008, 70501002, 63200111, 63200118, 63200024,
-      931512
-    ]
+    "items": {
+      "rapport": [70500012, 70500007, 70500008, 70501002],
+      "cards": [63200111, 63200118, 63200024],
+      "cooking": [931512]
+    }
   },
   {
     "name": "Oliver",
     "continent": "Tortoyk",
+    "locations": {
+      "Forest of Giants": "wandering_merchant_oliver_forest_of_giants.jpg",
+      "Seaswept Woods": "wandering_merchant_oliver_seaswept_woods.jpg",
+      "Skyreach Steppe": "wandering_merchant_oliver_skyreach_steppe.jpg",
+      "Sweetwater Forest": "wandering_merchant_oliver_sweetwater_forest.jpg"
+    },
     "schedule": 2,
-    "items": [70500015, 70500016, 70500014, 70501003, 63200122, 63200030]
+    "items": {
+      "rapport": [70500015, 70500016, 70500014, 70501003],
+      "cards": [63200197, 63200122, 63200030],
+      "cooking": []
+    }
   },
   {
     "name": "Mac",
     "continent": "Anikka",
+    "locations": {
+      "Delphi Township": "traveling_merchant_mac_delphi_township.jpg",
+      "Melody Forest": "traveling_merchant_mac_melody_forest.jpg",
+      "Prisma Valley": "traveling_merchant_mac_mirror_valley.jpg",
+      "Rattan Hill": "traveling_merchant_mac_rattan_hill.jpg",
+      "Twilight Mists": "traveling_merchant_mac_twilight_mists.jpg"
+    },
     "schedule": 1,
-    "items": [70503000, 70501004, 63200206, 63200205, 63200228, 63200008]
+    "items": {
+      "rapport": [70503000, 70501004],
+      "cards": [63200206, 63200205, 63200228, 63200008],
+      "cooking": []
+    }
   },
   {
     "name": "Nox",
     "continent": "Arthetine",
+    "locations": {
+      "Arid Path": "wandering_merchant_nox_arid_path.jpg",
+      "Nebel Horn": "wandering_merchant_nox_nebel_horn.jpg",
+      "Riza Falls": "wandering_merchant_nox_riza_falls.jpg",
+      "Scraplands": "wandering_merchant_nox_scraplands.jpg",
+      "Tottrich": "wandering_merchant_nox_tottrich.jpg",
+      "Windbringer Hill": "wandering_merchant_nox_windbringer_hill.jpg"
+    },
     "schedule": 2,
-    "items": [70501005, 70503006, 63200174, 63200136, 63200035, 920404]
+    "items": {
+      "rapport": [70503006, 70501005],
+      "cards": [63200174, 63200136, 63200035],
+      "cooking": [920404]
+    }
   },
   {
     "name": "Peter",
     "continent": "North Vern",
+    "locations": {
+      "Balankar Mountains": "wandering_merchant_nox_balankar_mountains.jpg",
+      "Fesnar Highland": "wandering_merchant_peter_fesnar_highland.jpg",
+      "Parna Forest": "wandering_merchant_peter_parna_forest.jpg",
+      "Port Krona": "wandering_merchant_peter_port_krona.jpg",
+      "Vernese Forest": "wandering_merchant_peter_vernese_forest.jpg"
+    },
     "schedule": 3,
-    "items": [
-      70500026, 70500028, 70500024, 70500025, 70500027, 70501006, 63200148,
-      63200146, 63200039
-    ]
+    "items": {
+      "rapport": [70500026, 70500028, 70500024, 70500025, 70500027, 70501006],
+      "cards": [63200148, 63200146, 63200039],
+      "cooking": []
+    }
   },
   {
     "name": "Jeffrey",
     "continent": "Shushire",
+    "locations": {
+      "Bitterwind Hill": "wandering_merchant_jeffrey_bitterwind_hill_v2.jpg",
+      "Frozen Sea": "wandering_merchant_jeffrey_frozen_sea_v2.jpg",
+      "Iceblood Plateau": "wandering_merchant_jeffrey_ice_blood_plateau_v2.jpg",
+      "Icewing Heights": "wandering_merchant_jeffrey_icewing_heights_v2.jpg",
+      "Lake Eternity": "wandering_merchant_jeffrey_lake_eternity_v2.jpg"
+    },
     "schedule": 1,
-    "items": [70503005, 70501007, 63200209, 63200144, 63200038, 930605]
+    "items": {
+      "rapport": [70503005, 70501007],
+      "cards": [63200209, 63200144, 63200038],
+      "cooking": [930605]
+    }
   },
   {
     "name": "Aricer",
     "continent": "Rohendel",
+    "locations": {
+      "Breezesome Brae": "aricer_breezesome_brae_v4.jpg",
+      "Elzowin's Shade": "aricer_elzowins_shade_v4.jpg",
+      "Glass Lotus Lake": "aricer_glass_lotus_lake_v4.jpg",
+      "Lake Shiverwave": "aricer_lake_shiverwave_v4.jpg",
+      "Xeneela Ruins": "aricer_breezesome_brae_v4.jpg"
+    },
     "schedule": 2,
-    "items": [
-      70500056, 70500034, 70500033, 70501010, 63200108, 63200158, 63200050,
-      930902
-    ]
+    "items": {
+      "rapport": [70500056, 70500034, 70500033, 70501010],
+      "cards": [63200108, 63200158, 63200050],
+      "cooking": [930902]
+    }
   },
   {
     "name": "Laitir",
     "continent": "Yorn",
+    "locations": {
+      "Black Anvil Mine": "laitir_black_anvil_mine_v1.jpg",
+      "Hall of Promise": "laitir_hall_of_promise_v1.jpg",
+      "Iron Hammer Mine": "laitir_iron_hammer_mine_v1.jpg",
+      "Unfinished Garden": "laitir_unfinished_garden_v1.jpg",
+      "Yorn's Cradle": "laitir_yorns_cradle_v1.jpg"
+    },
     "schedule": 3,
-    "items": [70503008, 70500037, 63200164, 63200165, 63200053, 920701]
+    "items": {
+      "rapport": [70503008, 70500037],
+      "cards": [63200164, 63200165, 63200053],
+      "cooking": [920701]
+    }
   },
   {
     "name": "Dorella",
     "continent": "Feiton",
+    "locations": {
+      "Kalaja": "feiton_wandering_merchant_v1.jpg"
+    },
     "schedule": 1,
-    "items": [
-      70500040, 70500038, 70500039, 70501008, 63200171, 63200170, 63200057,
-      921004
-    ]
+    "items": {
+      "rapport": [70500040, 70500038, 70500039, 70501008],
+      "cards": [63200171, 63200170, 63200057],
+      "cooking": [921004]
+    }
   },
   {
     "name": "Rayni",
     "continent": "Punika",
+    "locations": {
+      "Tideshelf Path": "punika_wandering_merchant_1_v1.jpg",
+      "Starsand Beach": "punika_wandering_merchant_2_v1.jpg",
+      "Tikatika Colony": "punika_wandering_merchant_3_v1.jpg",
+      "Secret Forest": "punika_wandering_merchant_4_v1.jpg"
+    },
     "schedule": 2,
-    "items": [
-      70500060, 70500059, 70500061, 70501011, 63200308, 63200310, 63200309,
-      63200305
-    ]
+    "items": {
+      "rapport": [70500060, 70500059, 70500061, 70501011],
+      "cards": [63200308, 63200310, 63200309, 63200305],
+      "cooking": [920803]
+    }
   }
 ]

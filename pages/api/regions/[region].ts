@@ -22,12 +22,6 @@ export default async function handler(
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     : 'http://localhost:3000'
 
-  // let items: Item[] = (await (
-  //   await fetch(baseURL + `/items/${merchant}`)
-  // ).json()) as unknown as Item[]
-
-  console.log(regions)
-  console.log(regions[region as string])
   const servers = regions[region as string]
   if (servers) {
     res.status(200).json({

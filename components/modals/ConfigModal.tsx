@@ -57,7 +57,7 @@ const ConfigModal = (props: ConfigModalProps) => {
   return (
     <>
       <input type="checkbox" id="config-modal" className="modal-toggle" />
-      <div className="modal items-center">
+      <div className="modal items-center overflow-x-hidden">
         <div className="modal-box p-0">
           <div className="w-full bg-base-200 p-2">
             <h3 className="text-center text-lg font-bold uppercase">

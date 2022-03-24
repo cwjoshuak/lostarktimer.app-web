@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { DateTime, Duration, Zone } from 'luxon'
 import classNames from 'classnames'
 import useLocalStorage from '@olerichter00/use-localstorage'
+import { generateTimestampStrings } from '../util/createTableData'
 type CellProps = {
   gameEvent: GameEvent
   serverTime: DateTime
@@ -49,7 +50,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
 
   if (gameEvent === null) {
     return (
-      <td className="m-2 flex basis-1/2 items-center space-x-4 rounded-none bg-stone-100 p-2 dark:bg-base-100"></td>
+      <td className="m-2 flex basis-1/2 items-center space-x-4 bg-stone-100 p-2 dark:bg-base-100"></td>
     )
   }
   return (
@@ -84,47 +85,16 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
               </span>
             </span>
             <span className="inline whitespace-normal text-justify">
-              {gameEvent.times.map((t, idx) => {
-                let diff = t.start.diff(serverTime).valueOf()
-
-                let startTime = t.start
-                  .setZone(localizedTZ)
-                  .toLocaleString(
-                    view24HrTime
-                      ? DateTime.TIME_24_SIMPLE
-                      : DateTime.TIME_SIMPLE
-                  )
-                let endTime = t.end
-                  .setZone(localizedTZ)
-                  .toLocaleString(
-                    view24HrTime
-                      ? DateTime.TIME_24_SIMPLE
-                      : DateTime.TIME_SIMPLE
-                  )
-
-                return (
-                  <span key={`${gameEvent.uuid} ${idx}`}>
-                    <span
-                      className={classNames({
-                        'text-slate-400/25': diff < 0,
-                        'text-amber-500 dark:text-amber-200':
-                          diff >= 0 && diff < 900000,
-                        'text-green-700 dark:text-success': diff >= 900000,
-                      })}
-                    >
-                      {startTime}
-                      {!t.isEmpty() ? ` - ${endTime}` : ''}
-                    </span>
-                    <span
-                      className={classNames({
-                        'text-slate-400/30': diff < 0,
-                      })}
-                    >
-                      {idx < gameEvent.times.length - 1 ? ' / ' : ''}
-                    </span>
-                  </span>
+              {gameEvent.times.map((t, idx) =>
+                generateTimestampStrings(
+                  gameEvent,
+                  t,
+                  serverTime,
+                  localizedTZ,
+                  view24HrTime || false,
+                  idx
                 )
-              })}
+              )}
             </span>
           </div>
         </div>

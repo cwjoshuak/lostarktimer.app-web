@@ -1,18 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useState, useEffect, useRef, ReactElement } from 'react'
-
+import React, { useState, useEffect, useRef } from 'react'
 import { APIGameEvent, APIEventType } from '../common/api'
 import { GameEvent } from '../common'
-import { ConfigModal, GameEventTableCell } from '../components'
+import { ConfigModal } from '../components'
 import { DateTime, Duration, Interval } from 'luxon'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { Howl, Howler } from 'howler'
 import { alert1, alert2, alert3, alert4, alert5, alert6 } from '../sounds'
 import 'core-js/features/array/at'
 import { IconSettings } from '@tabler/icons'
-import { v4 as uuidv4 } from 'uuid'
 import usePrevious from '../util/usePrevious'
+import { createTableData } from '../util/createTableData'
+import { RegionKey } from '../util/types/types'
+import { RegionTimeZoneMapping } from '../util/static'
+
 var classNames = require('classnames')
 
 type AlertSoundKeys =
@@ -22,15 +24,10 @@ type AlertSoundKeys =
   | 'Alert 4'
   | 'Alert 5'
   | 'Alert 6'
-type eventType = string
 type eventName = string
 type iconUrl = string
 type iLvlInt = number
-type month = string
-type day = string
-type iLvl = string
 type eventId = string
-type time = string
 
 type EventIdMapping = [
   id: eventId,
@@ -63,8 +60,11 @@ const sounds = {
 
 const Alarms: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
-  const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
-  const [regionTZName, setRegionTZName] = useLocalStorage<string>(
+  const [regionTZ, setRegionTZ] = useLocalStorage<string>(
+    'regionTZ',
+    RegionTimeZoneMapping['US West']
+  )
+  const [regionTZName, setRegionTZName] = useLocalStorage<RegionKey>(
     'regionTZName',
     'US West'
   )
@@ -131,13 +131,7 @@ const Alarms: NextPage = () => {
     useRef(null),
     useRef(null),
   ]
-  const regions = {
-    'US West': 'UTC-7',
-    'US East': 'UTC-4',
-    'EU Central': 'UTC+1',
-    'EU West': 'UTC-0',
-    'South America': 'UTC-4',
-  }
+
   useEffect(() => {
     if (regionTZ !== undefined) {
       setMounted(true)
@@ -165,22 +159,6 @@ const Alarms: NextPage = () => {
   }, [volume])
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      let rTZ = localStorage.getItem('regionTZ')
-      if (!rTZ) setRegionTZ('UTC-7')
-
-      let rTZN = localStorage.getItem('regionTZName')
-      if (!rTZN) setRegionTZName('US West')
-
-      let v24T = localStorage.getItem('view24HrTime')
-      if (!v24T) setView24HrTime(Boolean(v24T))
-
-      let vLT = localStorage.getItem('viewLocalizedTime')
-      if (!vLT) setViewLocalizedTime(true)
-
-      let nim = localStorage.getItem('notifyInMins')
-      if (!nim) setNotifyInMins(15)
-    }
     setMounted(true)
     Howler.autoSuspend = false
   }, [])
@@ -192,7 +170,7 @@ const Alarms: NextPage = () => {
       setServerTime(now.setZone(regionTZ))
     }, 1000)
     return () => {
-      clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
+      clearInterval(timer) // Return a function to clear the timer so that it will stop being called on unmount
     }
   }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate])
 
@@ -379,7 +357,14 @@ const Alarms: NextPage = () => {
         a.latest(serverTime).start.valueOf() -
         b.latest(serverTime).start.valueOf()
     )
-    const currentEventsTableData = createTableData(currEventsTable)
+    const currentEventsTableData = createTableData({
+      events: currEventsTable,
+      serverTime,
+      currDate,
+      viewLocalizedTime: viewLocalizedTime || true,
+      view24HrTime: view24HrTime || false,
+      isGameEvent: true,
+    })
 
     if (
       currentEventsTableData.length > 0 &&
@@ -399,46 +384,19 @@ const Alarms: NextPage = () => {
       }
     }
 
-    setFullEventsTable(createTableData(allEventsTable))
+    setFullEventsTable(
+      createTableData({
+        events: allEventsTable,
+        serverTime,
+        currDate,
+        viewLocalizedTime: viewLocalizedTime || true,
+        view24HrTime: view24HrTime || false,
+        isGameEvent: true,
+      })
+    )
     setCurrentEventsTable(currentEventsTableData)
   }
 
-  const createTableData = (events: Array<GameEvent>) => {
-    let arr: React.ReactElement[] = []
-    for (let i = 0; i < events.length; i += 2) {
-      let children: ReactElement[] = []
-      for (
-        let j = 0;
-        i + j < (i + 2 < events.length ? i + 2 : events.length);
-        j++
-      ) {
-        let evt = events[i + j]
-        children.push(
-          <GameEventTableCell
-            key={evt.uuid}
-            gameEvent={evt}
-            serverTime={serverTime}
-            localizedTZ={viewLocalizedTime ? currDate.zone : serverTime.zone}
-            view24HrTime={view24HrTime}
-          />
-        )
-      }
-      if (children.length == 1) {
-        children.push(
-          <td
-            key={uuidv4()}
-            className="invisible m-2 flex basis-1/2 items-center space-x-4 p-2"
-          ></td>
-        )
-      }
-      arr.push(
-        <tr key={i} className="flex flex-row">
-          {children}
-        </tr>
-      )
-    }
-    return arr
-  }
   // return react text node for game type buttons [disabled / all events]
   const eventsInSection = (eventId: number) => {
     let allEvents =
@@ -472,25 +430,7 @@ const Alarms: NextPage = () => {
         viewLocalizedTime={viewLocalizedTime}
         setViewLocalizedTime={setViewLocalizedTime}
       />
-      {/* {isDown && (
-          <div className="relative bg-red-700/80 py-2 text-center lg:px-4">
-            <div
-              className="flex items-center bg-red-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
-              role="alert"
-            >
-              <a href="https://www.playlostark.com/en-us/support/server-status">
-                <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
-                  🛠️ Lost Ark Server Maintenance. Estimated Downtime:{' '}
-                  {DateTime.fromMillis(Number(endTime))
-                    .diffNow()
-                    .toFormat('hh:mm:ss')}
-                </span>
-              </a>
-            </div>
-          </div>
-        )} */}
-
-      <div className="navbar mt-4 flex w-full flex-col bg-base-300 px-4 dark:bg-base-100 sm:flex-row lg:px-20">
+      <div className="navbar flex w-full flex-col bg-base-300 px-4 pt-4 dark:bg-base-100 sm:flex-row lg:px-20">
         <div className="navbar-start mr-4">
           <div className="flex items-center gap-2 ">
             <button
@@ -556,19 +496,14 @@ const Alarms: NextPage = () => {
           <select
             className="focus-visible: select mr-2 max-w-fit bg-base-200 outline-none"
             onChange={(e) => {
-              let region = e.target.value as
-                | 'US West'
-                | 'US East'
-                | 'EU Central'
-                | 'EU West'
-                | 'South America'
+              let region = e.target.value as RegionKey
 
-              setRegionTZ(regions[region])
+              setRegionTZ(RegionTimeZoneMapping[region])
               setRegionTZName(region)
             }}
             value={regionTZName}
           >
-            {Object.entries(regions).map(([name, tz]) => (
+            {Object.entries(RegionTimeZoneMapping).map(([name, tz]) => (
               <option key={name} value={name}>{`${name} (${tz})`}</option>
             ))}
           </select>
@@ -625,7 +560,7 @@ const Alarms: NextPage = () => {
         </div>
       </div>
 
-      <div className="relative flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
+      <div className=" flex min-h-screen flex-col items-center bg-base-300 py-2 dark:bg-base-100">
         {alertSound !== 'muted' && !unlockedAudio && (
           <div
             className="alert alert-warning mb-4 w-fit justify-self-center shadow-lg duration-300 ease-out"
@@ -703,10 +638,6 @@ const Alarms: NextPage = () => {
                             }}
                             ref={buttons[0]}
                           >
-                            <img
-                              // src="https://lostarkcodex.com/images/icon_calendar_event_0.webp"
-                              className="absolute left-4"
-                            />
                             <span className="">All</span>
                             <div className="absolute right-8">
                               {eventsInSection(-1)}
@@ -740,7 +671,7 @@ const Alarms: NextPage = () => {
                     </tbody>
                   </table>
                 </td>
-                <td className="loading top-0 w-full bg-stone-200 dark:bg-base-200">
+                <td className="top-0 w-full bg-stone-200 dark:bg-base-200">
                   {currentEventsTable.length > 0 ? (
                     <table key="currentEventsTable" className="table w-full ">
                       <tbody className="block ring-2 ring-orange-300">

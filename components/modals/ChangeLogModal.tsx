@@ -4,15 +4,28 @@ const ChangeLogModal = () => {
   return (
     <>
       <input type="checkbox" id="changelog-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
+      <label
+        htmlFor="changelog-modal"
+        className="modal w-full overflow-x-hidden"
+      >
+        <div className="modal-box w-full">
           <h3 className="text-center text-lg font-bold uppercase">Changelog</h3>
           <div className="text-violet-500">
             Planned:
             <ul className="list-disc pl-6">
-              <li>Wandering Merchants Feature ETA {'<'} 3.5 days?</li>
+              <li>Wandering Merchant Ships</li>
+              <li>Daily Reset Timer</li>
+              <li>Procyon Compass Checkboxes</li>
             </ul>
           </div>
+          <p className="py-4">3/24/2022:</p>
+          <ol className="list-disc pl-6">
+            <li>Feature Release: Wandering Merchants!</li>
+            <li>Added actual alarm reminders, alerts and sounds.</li>
+            <li>Added hiding of events and customization of hidden events.</li>
+            <li>Moved settings into config modal.</li>
+          </ol>
+
           <p className="py-4">3/19/2022:</p>
           <ol className="list-disc pl-6">
             <li>Fix: alarms should now work after correct user interaction.</li>
@@ -48,13 +61,8 @@ const ChangeLogModal = () => {
             </ol>
           </div>
           <p className="py-4">3/15/2022: Release v1.0!</p>
-          <div className="modal-action">
-            <label htmlFor="changelog-modal" className="btn">
-              Yay!
-            </label>
-          </div>
         </div>
-      </div>
+      </label>
     </>
   )
 }

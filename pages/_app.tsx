@@ -3,14 +3,20 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
 import { useRouter } from 'next/router'
-
 import { ChangeLogModal, GitHubModal, SideBar } from '../components'
 import Link from 'next/link'
 import classNames from 'classnames'
-import { IconBrandTwitch } from '@tabler/icons'
-
+import {
+  IconBrandGit,
+  IconBrandGithub,
+  IconBrandTwitch,
+  IconGitBranch,
+  IconGitFork,
+} from '@tabler/icons'
+import { SWRConfig } from 'swr'
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
+
   return (
     <>
       <Head>
@@ -42,11 +48,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           role="alert"
         >
           <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
-            <label
-              htmlFor="changelog-modal"
-              className="cursor-pointer text-teal-300"
-            >
-              Interesting things are planned. Click to find out.
+            <label className="cursor-pointer text-teal-300">
+              <a href="https://discord.gg/beFb23WgNC">
+                Suggestions {'&'} Feedback: https://discord.gg/beFb23WgNC
+              </a>
             </label>
           </span>
         </div>
@@ -72,35 +77,54 @@ function MyApp({ Component, pageProps }: AppProps) {
                 'tab-active': router.pathname == '/merchants',
               })}
             >
-              <span className="tooltip tooltip-bottom" data-tip="eta soon">
-                <Link href="">Merchants</Link>
-              </span>
+              <Link href="/merchants">Merchants</Link>
             </span>
           </div>
         </div>
-        <div className="navbar-center flex-col">
+        <div className="navbar-center hidden flex-col sm:flex">
           <a className="btn btn-ghost text-xl normal-case">Lost Ark Timer</a>
 
           <div className="font-mono text-sm uppercase">
-            Added alert sounds, hiding events and more! Check the Settings.
+            <Link href="/merchants">
+              <span className="cursor-pointer text-teal-600 hover:text-teal-400">
+                Wandering Merchants
+              </span>
+            </Link>{' '}
+            update is here! So is the{' '}
+            <a
+              className="text-teal-600 hover:text-teal-400"
+              href="https://github.com/cwjoshuak/lostarktimer.app-web"
+            >
+              code
+            </a>
+            .
           </div>
         </div>
         <div className="navbar-end text-right text-lg font-semibold uppercase"></div>
       </div>
-      <div className="relative">
+      <SWRConfig
+        value={{
+          refreshInterval: 30000,
+          dedupingInterval: 20000,
+          focusThrottleInterval: 20000,
+          fetcher: (resource, init) =>
+            fetch(resource, init).then((res) => res.json()),
+        }}
+      >
         <Component className="z-0" {...pageProps} />
-        <footer className="absolute bottom-0 z-50 flex h-12 w-full items-center justify-center border-t bg-base-300">
-          I might start streaming myself coding the website, just for fun.
-          Starting Monday. Follow ={'>'}
-          <a
-            className="ml-1"
-            href="https://www.twitch.tv/delay3d"
-            style={{ color: '#6441a5' }}
-          >
-            <IconBrandTwitch className="inline" /> https://www.twitch.tv/delay3d
-          </a>
-        </footer>
-      </div>
+      </SWRConfig>
+      <footer className="relative bottom-0 z-50 flex h-12 w-full items-center justify-center border-t bg-base-300">
+        I might start streaming myself coding the website, just for fun.
+        Starting Monday. Follow ={'>'}
+        <a
+          className="ml-1"
+          href="https://www.twitch.tv/delay3d"
+          style={{ color: '#6441a5' }}
+        >
+          <IconBrandTwitch className="inline" /> https://www.twitch.tv/delay3d
+        </a>
+      </footer>
+      <div className="relative w-screen"></div>
       {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? (
         <Script
           src="https://static.cloudflareinsights.com/beacon.min.js"
