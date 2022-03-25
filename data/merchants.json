@@ -3,9 +3,9 @@
     "name": "Ben",
     "continent": "Rethramis",
     "locations": {
-      "Ankumo Mountain": "wandering_merchant_ben_ankumo_mountain_v2.jpg",
-      "Log Hill": "wandering_merchant_ben_log_hill_v2.jpg",
-      "Rethramis": "wandering_merchant_ben_rethramis_border_v2.jpg"
+      "Ankumo Mountain": "938034573055520828/939982364401094718/Ankumo_Mountain.png",
+      "Log Hill": "936152768052359208/943249414447837195/Loghill.png",
+      "Rethramis": "938034573055520828/939982364854083665/Rethramis_Border.png"
     },
     "schedule": 3,
     "items": {
@@ -18,8 +18,8 @@
     "name": "Lucas",
     "continent": "Yudia",
     "locations": {
-      "Ozhorn Hill": "yudia_wandering_merchant_lucas_ozhorn_hill.jpg",
-      "Saland Hill": "yudia_wandering_merchant_lucas_saland_hill.jpg"
+      "Ozhorn Hill": "938034573055520828/939981463774986340/Ozhorn_Hill.png",
+      "Saland Hill": "938034573055520828/939981464076943400/Saland_Hill.png"
     },
     "schedule": 1,
     "items": {
@@ -32,11 +32,11 @@
     "name": "Malone",
     "continent": "West Luterra",
     "locations": {
-      "Battlebound Plains": "malone_battlebound_plains.jpg",
-      "Bilbrin Forest Hill": "malone_bilbrin_forest.jpg",
-      "Lakebar": "malone_lakebar.jpg",
-      "Medrick Monastery": "malone_medrick_monastery.jpg",
-      "Mount Zagoras": "malone_mount_zagoras.jpg"
+      "Battlebound Plains": "938034573055520828/939980328733388810/Battlebound_Plains.png",
+      "Bilbrin Forest Hill": "938034573055520828/939980329001832488/Bilbrin_Forest.png",
+      "Lakebar": "938034573055520828/939980329303826442/Lakebar.png",
+      "Medrick Monastery": "938034573055520828/939980329517740042/Medrick_Monastery.png",
+      "Mount Zagoras": "938034573055520828/939980329802924062/Mount_Zagoras.png"
     },
     "schedule": 2,
     "items": {
@@ -49,9 +49,9 @@
     "name": "Morris",
     "continent": "East Luterra",
     "locations": {
-      "Dyorika Plains": "morris_dyorika_plains_10.jpg",
-      "Flowering Orchard": "morris_flowering_orchard_10.jpg",
-      "Sunbright Hill": "morris_sunbright_hill_10.jpg"
+      "Dyorika Plains": "938034573055520828/938036659264585778/Dyorika_Plain.png",
+      "Flowering Orchard": "938034573055520828/938036659600121856/Flowering_Orchard.png",
+      "Sunbright Hill": "938034573055520828/938036659876941844/Sunbright_Hill.png"
     },
     "schedule": 1,
     "items": {
@@ -64,11 +64,11 @@
     "name": "Burt",
     "continent": "East Luterra",
     "locations": {
-      "Blackrose Chapel": "burt_blackrose_chapel_v4.jpg",
-      "Boreas Domain": "burt_boreas_domain_v4.jpg",
-      "Croconys Seashore North": "burt_croconys_seashore_north.png",
-      "Croconys Seashore South": "burt_croconys_seashore_south.png",
-      "Leyar Terrace": "burt_leyar_terrace_v4.jpg"
+      "Blackrose Chapel": "938034573055520828/939977598430216192/Blackrose_Chapel.png",
+      "Boreas Domain": "938034573055520828/939977598711255090/Boreas_Domain.png",
+      "Croconys Seashore North": "938034573055520828/939977598988071002/Croconys_Seashore_North.png",
+      "Croconys Seashore South": "938034573055520828/939977599210360902/Croconys_Seashore_South.png",
+      "Leyar Terrace": "938034573055520828/939977599462031380/Leyar_Terrace.png"
     },
     "schedule": 2,
     "items": {
@@ -81,10 +81,10 @@
     "name": "Oliver",
     "continent": "Tortoyk",
     "locations": {
-      "Forest of Giants": "wandering_merchant_oliver_forest_of_giants.jpg",
-      "Seaswept Woods": "wandering_merchant_oliver_seaswept_woods.jpg",
-      "Skyreach Steppe": "wandering_merchant_oliver_skyreach_steppe.jpg",
-      "Sweetwater Forest": "wandering_merchant_oliver_sweetwater_forest.jpg"
+      "Forest of Giants": "938034573055520828/939975838756118538/Forest_of_Giants.png",
+      "Seaswept Woods": "938034573055520828/939975839238471680/Seaswept_Woods.png",
+      "Skyreach Steppe": "938034573055520828/939975839783743538/Skyreach_Steppe.png",
+      "Sweetwater Forest": "938034573055520828/939975840274456617/Sweetwater_Forest.png"
     },
     "schedule": 2,
     "items": {
@@ -97,11 +97,11 @@
     "name": "Mac",
     "continent": "Anikka",
     "locations": {
-      "Delphi Township": "traveling_merchant_mac_delphi_township.jpg",
-      "Melody Forest": "traveling_merchant_mac_melody_forest.jpg",
-      "Prisma Valley": "traveling_merchant_mac_mirror_valley.jpg",
-      "Rattan Hill": "traveling_merchant_mac_rattan_hill.jpg",
-      "Twilight Mists": "traveling_merchant_mac_twilight_mists.jpg"
+      "Delphi Township": "938034573055520828/939973548301250640/Delphi_Township.png",
+      "Melody Forest": "938034573055520828/939973548540305519/Melody_Forest.png",
+      "Prisma Valley": "936152768052359208/942462623776124998/Prisma_Valley.png",
+      "Rattan Hill": "938034573055520828/939973549106532392/Rattan_Hill.png",
+      "Twilight Mists": "938034573055520828/939973549374988368/Twilight_Mist.png"
     },
     "schedule": 1,
     "items": {
@@ -114,12 +114,12 @@
     "name": "Nox",
     "continent": "Arthetine",
     "locations": {
-      "Arid Path": "wandering_merchant_nox_arid_path.jpg",
-      "Nebel Horn": "wandering_merchant_nox_nebel_horn.jpg",
-      "Riza Falls": "wandering_merchant_nox_riza_falls.jpg",
-      "Scraplands": "wandering_merchant_nox_scraplands.jpg",
-      "Tottrich": "wandering_merchant_nox_tottrich.jpg",
-      "Windbringer Hill": "wandering_merchant_nox_windbringer_hill.jpg"
+      "Arid Path": "938034573055520828/939974911433244702/Arid_Path.png",
+      "Nebel Horn": "938034573055520828/939974911802372126/Nebelhorn.png",
+      "Riza Falls": "938034573055520828/939974912335024168/Riza_Falls.png",
+      "Scraplands": "938034573055520828/939974912628637727/Scraplands.png",
+      "Tottrich": "938034573055520828/939974912985157682/Totrich.png",
+      "Windbringer Hill": "938034573055520828/939974913282945114/Windbringer_Hill.png"
     },
     "schedule": 2,
     "items": {
@@ -132,11 +132,11 @@
     "name": "Peter",
     "continent": "North Vern",
     "locations": {
-      "Balankar Mountains": "wandering_merchant_nox_balankar_mountains.jpg",
-      "Fesnar Highland": "wandering_merchant_peter_fesnar_highland.jpg",
-      "Parna Forest": "wandering_merchant_peter_parna_forest.jpg",
-      "Port Krona": "wandering_merchant_peter_port_krona.jpg",
-      "Vernese Forest": "wandering_merchant_peter_vernese_forest.jpg"
+      "Balankar Mountains": "938034573055520828/939968975968821288/Balankar_Mountain.png",
+      "Fesnar Highland": "938034573055520828/939968976203677746/Fesnar_Highland.png",
+      "Parna Forest": "938034573055520828/939968976430190682/Parna_Forest.png",
+      "Port Krona": "938034573055520828/939968976853798932/Port_Krona.png",
+      "Vernese Forest": "938034573055520828/939968977487151135/Vernese_Forest.png"
     },
     "schedule": 3,
     "items": {
@@ -149,11 +149,11 @@
     "name": "Jeffrey",
     "continent": "Shushire",
     "locations": {
-      "Bitterwind Hill": "wandering_merchant_jeffrey_bitterwind_hill_v2.jpg",
-      "Frozen Sea": "wandering_merchant_jeffrey_frozen_sea_v2.jpg",
-      "Iceblood Plateau": "wandering_merchant_jeffrey_ice_blood_plateau_v2.jpg",
-      "Icewing Heights": "wandering_merchant_jeffrey_icewing_heights_v2.jpg",
-      "Lake Eternity": "wandering_merchant_jeffrey_lake_eternity_v2.jpg"
+      "Bitterwind Hill": "938034573055520828/939967157280858203/Bitterwind_Hill.png",
+      "Frozen Sea": "938034573055520828/939967157578661948/Frozen_Sea.png",
+      "Iceblood Plateau": "938034573055520828/939967157922582618/Iceblood_Plateau.png",
+      "Icewing Heights": "938034573055520828/939967158224556042/Icewing_Heights.png",
+      "Lake Eternity": "938034573055520828/939967158581092404/Lake_Eternity.png"
     },
     "schedule": 1,
     "items": {
@@ -166,11 +166,11 @@
     "name": "Aricer",
     "continent": "Rohendel",
     "locations": {
-      "Breezesome Brae": "aricer_breezesome_brae_v4.jpg",
-      "Elzowin's Shade": "aricer_elzowins_shade_v4.jpg",
-      "Glass Lotus Lake": "aricer_glass_lotus_lake_v4.jpg",
-      "Lake Shiverwave": "aricer_lake_shiverwave_v4.jpg",
-      "Xeneela Ruins": "aricer_breezesome_brae_v4.jpg"
+      "Breezesome Brae": "938034573055520828/939965588594360360/Breezesome_Brae.png",
+      "Elzowin's Shade": "938034573055520828/939965588955082752/Elzowins_Shade.png",
+      "Glass Lotus Lake": "938034573055520828/939965589399674880/Glass_Lotus_Lake.png",
+      "Lake Shiverwave": "938034573055520828/939965589680709682/Lake_Shiverwave.png",
+      "Xeneela Ruins": "938034573055520828/939965589949120622/Xeneela_Ruins.png"
     },
     "schedule": 2,
     "items": {
@@ -183,11 +183,11 @@
     "name": "Laitir",
     "continent": "Yorn",
     "locations": {
-      "Black Anvil Mine": "laitir_black_anvil_mine_v1.jpg",
-      "Hall of Promise": "laitir_hall_of_promise_v1.jpg",
-      "Iron Hammer Mine": "laitir_iron_hammer_mine_v1.jpg",
-      "Unfinished Garden": "laitir_unfinished_garden_v1.jpg",
-      "Yorn's Cradle": "laitir_yorns_cradle_v1.jpg"
+      "Black Anvil Mine": "936152768052359208/943266039939104790/Black_Anvil_Mine.png",
+      "Hall of Promise": "936152768052359208/943266039033131018/Hall_of_Promise.png",
+      "Iron Hammer Mine": "936152768052359208/943266039402205274/Iron_Hammer_Mine.png",
+      "Unfinished Garden": "936152768052359208/943266040308187156/Unfinished_Garden.png",
+      "Yorn's Cradle": "936152768052359208/943266040656306176/Yorns_Cradle.png"
     },
     "schedule": 3,
     "items": {
@@ -200,7 +200,7 @@
     "name": "Dorella",
     "continent": "Feiton",
     "locations": {
-      "Kalaja": "feiton_wandering_merchant_v1.jpg"
+      "Kalaja": "938034573055520828/939605202015772692/Kallazar.png"
     },
     "schedule": 1,
     "items": {
@@ -213,10 +213,10 @@
     "name": "Rayni",
     "continent": "Punika",
     "locations": {
-      "Tideshelf Path": "punika_wandering_merchant_1_v1.jpg",
-      "Starsand Beach": "punika_wandering_merchant_2_v1.jpg",
-      "Tikatika Colony": "punika_wandering_merchant_3_v1.jpg",
-      "Secret Forest": "punika_wandering_merchant_4_v1.jpg"
+      "Tideshelf Path": "938034573055520828/939608860145102939/Shallow_Sea_Road.png",
+      "Starsand Beach": "938034573055520828/939608860447084584/Star_Sand_Beach.png",
+      "Tikatika Colony": "938034573055520828/939608860715548672/Tikku_Gardens.png",
+      "Secret Forest": "938034573055520828/939608859935395920/Mangrove_Forest.png"
     },
     "schedule": 2,
     "items": {

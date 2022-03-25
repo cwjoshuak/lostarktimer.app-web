@@ -104,7 +104,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                     >
                       {merchant.spawned ? (
                         <a
-                          href={`/images/merchantLocations/${imageUrl}`}
+                          href={`https://cdn.discordapp.com/attachments/${imageUrl}`}
                         >{`${merchant.location}`}</a>
                       ) : (
                         'Unknown'
