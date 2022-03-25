@@ -101,7 +101,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content menu rounded-box top-0 right-0 w-52 bg-base-300 p-2 text-sm shadow"
+        className="min-w-52 dropdown-content menu rounded-box top-0 right-0 bg-base-300 p-2 text-sm shadow"
       >
         {[945, 946, 947, 948, 949, 950, 951].includes(
           Number(gameEvent.gameEvent.id)
