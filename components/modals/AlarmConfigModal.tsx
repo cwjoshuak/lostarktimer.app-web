@@ -25,7 +25,7 @@ type AlertSoundKeys =
   | 'Alert 4'
   | 'Alert 5'
   | 'Alert 6'
-const ConfigModal = (props: ConfigModalProps) => {
+const AlarmConfigModal = (props: ConfigModalProps) => {
   const {
     // view24HrTime,
     // setView24HrTime,
@@ -56,7 +56,7 @@ const ConfigModal = (props: ConfigModalProps) => {
   const [volume, setVolume] = useLocalStorage('volume', 0.4)
   return (
     <>
-      <input type="checkbox" id="config-modal" className="modal-toggle" />
+      <input type="checkbox" id="alarm-config-modal" className="modal-toggle" />
       <div className="modal items-center overflow-x-hidden">
         <div className="modal-box p-0">
           <div className="w-full bg-base-200 p-2">
@@ -199,7 +199,7 @@ const ConfigModal = (props: ConfigModalProps) => {
             </div>
           </div>
           <div className="modal-action mb-5 justify-center">
-            <label htmlFor="config-modal" className="btn btn-block w-4/5">
+            <label htmlFor="alarm-config-modal" className="btn btn-block w-4/5">
               All Done!
             </label>
           </div>
@@ -209,4 +209,4 @@ const ConfigModal = (props: ConfigModalProps) => {
   )
 }
 
-export default ConfigModal
+export default AlarmConfigModal

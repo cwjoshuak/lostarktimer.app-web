@@ -13,7 +13,8 @@ import io, { Socket } from 'socket.io-client'
 import { MerchantAPIData, RegionKey, ServerKey } from '../util/types/types'
 import Image from 'next/image'
 import { RegionTimeZoneMapping } from '../util/static'
-import { IconLoader, IconLoaderQuarter } from '@tabler/icons'
+import { IconLoader, IconLoaderQuarter, IconSettings } from '@tabler/icons'
+import { MerchantConfigModal } from '../components'
 
 interface Merchant {
   location: string
@@ -181,11 +182,23 @@ const Merchants: NextPage = (props) => {
       <Head>
         <title>Merchants - Lost Ark Timer</title>
       </Head>
+      <MerchantConfigModal
+        view24HrTime={view24HrTime}
+        setView24HrTime={setView24HrTime}
+        viewLocalizedTime={viewLocalizedTime}
+        setViewLocalizedTime={setViewLocalizedTime}
+      />
       <div className="flex min-h-screen flex-col items-center whitespace-normal bg-base-300 py-2 dark:bg-base-100">
         <div className="ml-auto flex w-full justify-end px-4 lg:px-20">
-          <div className="mr-auto w-1/5 whitespace-normal text-center text-sm uppercase lg:text-lg">
+          <div className="w-1/5 whitespace-normal text-center text-sm uppercase lg:text-lg">
             NOTE: Times shown currently are in <strong>server time</strong>.
           </div>
+          <label
+            htmlFor="merchant-config-modal"
+            className="btn btn-ghost ml-2 mr-auto cursor-pointer "
+          >
+            <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
+          </label>
           <div className="mr-4 mb-2 w-40 flex-col">
             <select
               className="select select-bordered select-sm w-full"
@@ -250,7 +263,7 @@ const Merchants: NextPage = (props) => {
           <table className="table w-full">
             <thead>
               <tr className="relative justify-center text-center">
-                <td colSpan={2} className="bg-stone-300 dark:bg-base-200">
+                <td colSpan={2} className="bg-stone-400 dark:bg-base-200">
                   Wandering Merchants
                   <a href="https://saint-bot.webflow.io/">
                     <div className="absolute right-4 top-2 flex items-center justify-center gap-2">
@@ -275,7 +288,7 @@ const Merchants: NextPage = (props) => {
             <tbody>
               <tr>
                 <td
-                  className="flex flex-row justify-evenly border-b-0 bg-stone-300 px-8 py-0 text-center text-xs dark:bg-base-200"
+                  className="flex flex-row justify-evenly border-b-0 bg-stone-400 px-8 py-0 text-center text-xs dark:bg-base-200"
                   colSpan={2}
                 >
                   <div className="flex flex-col">
@@ -356,7 +369,7 @@ const Merchants: NextPage = (props) => {
                 </td>
               </tr>
               <tr className="flex flex-row">
-                <td className="w-full bg-stone-300 dark:bg-base-200">
+                <td className="w-full bg-stone-400 dark:bg-base-200">
                   <table className="w-full">
                     <thead>
                       <tr></tr>

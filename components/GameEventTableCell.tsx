@@ -50,13 +50,13 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
 
   if (gameEvent === null) {
     return (
-      <td className="m-2 flex basis-1/2 items-center space-x-4 bg-stone-100 p-2 dark:bg-base-100"></td>
+      <td className="m-2 flex basis-1/2 items-center space-x-4 border-0 bg-stone-100 bg-stone-200/80 p-2 dark:bg-base-100"></td>
     )
   }
   return (
     <td
       key={`${gameEvent.uuid} td`}
-      className="dropdown m-2 flex basis-1/2 bg-stone-100 p-2 hover:cursor-pointer dark:bg-base-100 dark:hover:bg-base-100/70"
+      className="dropdown m-2 flex basis-1/2 border-0 bg-stone-200/80 p-2 shadow-md hover:cursor-pointer  dark:bg-base-100 dark:hover:bg-base-100/70"
       tabIndex={0}
     >
       <div

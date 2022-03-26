@@ -3,7 +3,7 @@ import Head from 'next/head'
 import React, { useState, useEffect, useRef } from 'react'
 import { APIGameEvent, APIEventType } from '../common/api'
 import { GameEvent } from '../common'
-import { ConfigModal } from '../components'
+import { AlarmConfigModal } from '../components'
 import { DateTime, Duration, Interval } from 'luxon'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { Howl, Howler } from 'howler'
@@ -424,7 +424,7 @@ const Alarms: NextPage = () => {
           content="width=device-width, initial-scale=0.35"
         ></meta>
       </Head>
-      <ConfigModal
+      <AlarmConfigModal
         view24HrTime={view24HrTime}
         setView24HrTime={setView24HrTime}
         viewLocalizedTime={viewLocalizedTime}
@@ -485,7 +485,7 @@ const Alarms: NextPage = () => {
               {'>>'}
             </button>
             <label
-              htmlFor="config-modal"
+              htmlFor="alarm-config-modal"
               className="btn btn-ghost cursor-pointer"
             >
               <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
@@ -596,7 +596,7 @@ const Alarms: NextPage = () => {
               <tr className="justify-center">
                 <td
                   colSpan={2}
-                  className="relative bg-stone-200 text-center dark:bg-base-200"
+                  className="relative bg-stone-400 text-center dark:bg-base-200"
                 >
                   {selectedDate.hasSame(serverTime, 'day')
                     ? 'Alarms'
@@ -622,10 +622,10 @@ const Alarms: NextPage = () => {
             </thead>
             <tbody>
               <tr>
-                <td className="border-stone-200 bg-stone-200 dark:border-base-200 dark:bg-base-200"></td>
+                <td className="border-0 bg-stone-400 dark:bg-base-200"></td>
               </tr>
               <tr className="flex">
-                <td className="w-1/4 min-w-fit bg-stone-200 dark:bg-base-200">
+                <td className="w-1/4 min-w-fit bg-stone-400 dark:bg-base-200">
                   <table className="table w-full ">
                     <thead></thead>
                     <tbody>
@@ -671,7 +671,7 @@ const Alarms: NextPage = () => {
                     </tbody>
                   </table>
                 </td>
-                <td className="top-0 w-full bg-stone-200 dark:bg-base-200">
+                <td className="top-0 w-full bg-stone-400 dark:bg-base-200">
                   {currentEventsTable.length > 0 ? (
                     <table key="currentEventsTable" className="table w-full ">
                       <tbody className="block ring-2 ring-orange-300">
