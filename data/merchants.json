@@ -5,7 +5,7 @@
     "locations": {
       "Ankumo Mountain": "938034573055520828/939982364401094718/Ankumo_Mountain.png",
       "Log Hill": "936152768052359208/943249414447837195/Loghill.png",
-      "Rethramis": "938034573055520828/939982364854083665/Rethramis_Border.png"
+      "Rethramis Border": "938034573055520828/939982364854083665/Rethramis_Border.png"
     },
     "schedule": 3,
     "items": {
@@ -167,7 +167,7 @@
     "continent": "Rohendel",
     "locations": {
       "Breezesome Brae": "938034573055520828/939965588594360360/Breezesome_Brae.png",
-      "Elzowin's Shade": "938034573055520828/939965588955082752/Elzowins_Shade.png",
+      "Elzowins Shade": "938034573055520828/939965588955082752/Elzowins_Shade.png",
       "Glass Lotus Lake": "938034573055520828/939965589399674880/Glass_Lotus_Lake.png",
       "Lake Shiverwave": "938034573055520828/939965589680709682/Lake_Shiverwave.png",
       "Xeneela Ruins": "938034573055520828/939965589949120622/Xeneela_Ruins.png"
