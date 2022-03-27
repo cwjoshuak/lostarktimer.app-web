@@ -221,7 +221,7 @@ const Alarms: NextPage = () => {
                 let end = DateTime.fromObject(
                   {
                     month: start.month,
-                    day: Number(start.day > day ? start.day : day),
+                    day: start.day,
                     hour: Number(endHr != '' ? endHr : start.hour),
                     minute: Number(endMin != '' ? endMin : start.minute),
                   },
