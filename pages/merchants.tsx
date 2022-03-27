@@ -13,7 +13,7 @@ import io, { Socket } from 'socket.io-client'
 import { MerchantAPIData, RegionKey, ServerKey } from '../util/types/types'
 import Image from 'next/image'
 import { RegionTimeZoneMapping } from '../util/static'
-import { IconLoader, IconLoaderQuarter, IconSettings } from '@tabler/icons'
+import { IconSettings } from '@tabler/icons'
 import { MerchantConfigModal } from '../components'
 
 interface Merchant {
@@ -184,15 +184,16 @@ const Merchants: NextPage = (props) => {
       />
       <div className="flex min-h-screen flex-col items-center whitespace-normal bg-base-300 py-2 dark:bg-base-100">
         <div className="ml-auto flex w-full justify-end px-4 lg:px-20">
-          <div className="w-1/5 whitespace-normal text-center text-sm uppercase lg:text-lg">
+          <div className="hidden w-1/5 whitespace-normal text-center text-sm uppercase sm:inline lg:text-lg">
             NOTE: Times shown currently are in <strong>server time</strong>.
           </div>
           <label
             htmlFor="merchant-config-modal"
-            className="btn btn-ghost ml-2 mr-auto cursor-pointer "
+            className="btn btn-ghost ml-2 mr-auto cursor-pointer"
           >
             <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
           </label>
+
           <div className="mr-4 mb-2 w-40 flex-col">
             <select
               className="select select-bordered select-sm w-full"
@@ -258,17 +259,25 @@ const Merchants: NextPage = (props) => {
             <thead>
               <tr className="relative justify-center text-center">
                 <td colSpan={2} className="bg-stone-400 dark:bg-base-200">
-                  Wandering Merchants
-                  <a href="https://saint-bot.webflow.io/">
-                    <div className="absolute right-4 top-2 flex items-center justify-center gap-2">
-                      Data by SaintBot{' '}
-                      <Image
-                        className="ml-2"
-                        src={saintbotImage}
-                        width={20}
-                        height={20}
-                      />
-                    </div>
+                  <span>Wandering Merchants</span>
+                  <a
+                    href="https://discord.gg/HfXQpmpaD5"
+                    target="_blank"
+                    className="btn btn-outline btn-warning btn-xs absolute right-48 top-4"
+                  >
+                    Vote
+                  </a>
+                  <a
+                    href="https://saint-bot.webflow.io/"
+                    className="absolute right-4 top-2 flex items-center justify-center gap-2 text-indigo-500/90 hover:underline"
+                  >
+                    Data by SaintBot{' '}
+                    <Image
+                      className="ml-2"
+                      src={saintbotImage}
+                      width={20}
+                      height={20}
+                    />
                   </a>
                   <div className="absolute right-5 top-7">
                     Last Updated:{' '}
