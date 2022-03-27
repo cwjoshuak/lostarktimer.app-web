@@ -169,13 +169,7 @@ const Merchants: NextPage = (props) => {
     mSchedules,
   ])
   useEffect(() => {
-    if (
-      (currDate.minute < 30 || currDate.minute >= 55) &&
-      merchantAPIData &&
-      merchantAPIData.length
-    ) {
-      setMerchantAPIData({})
-    }
+    if (currDate.minute < 30 || currDate.minute >= 55) setMerchantAPIData({})
   }, [currDate.minute])
   return (
     <>
