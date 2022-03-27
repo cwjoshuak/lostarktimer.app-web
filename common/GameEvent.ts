@@ -7,6 +7,7 @@ class GameEvent {
   uuid: string
   times: Array<Interval> = []
   disabled: DateTime | null = null
+  groupName: string | null = null
   constructor(et: APIEventType, ge: APIGameEvent) {
     this.eventType = et
     this.gameEvent = ge
