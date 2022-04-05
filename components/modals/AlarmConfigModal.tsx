@@ -96,7 +96,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
               </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  Hide Repeat Events [Grand Prix]
+                  Group Repeat Events <span title="Combine all instances of Grand Prix, Field Bosses, Chaos Gates, and Ghost Ships into single events">[?]</span>
                 </span>
                 <input
                   type="checkbox"

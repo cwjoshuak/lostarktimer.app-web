@@ -41,6 +41,23 @@ const eventIDNameMapping: Array<APIGameEvent> = Object.entries(
   const [id, [name, url, iLvl]] = e as EventIdMapping
   return new APIGameEvent(id, name, url, iLvl)
 })
+
+const groupedEvents = {
+    "Arkesia Grand Prix": eventIDNameMapping
+        .filter(({name}) => name.includes("Grand Prix"))
+        .map(e => e.id),
+    "Field Bosses": eventIDNameMapping
+        .filter(({iconUrl}) => iconUrl === "achieve_14_142.webp")
+        .map(e => e.id),
+    "Chaos Gates": eventIDNameMapping
+        .filter(({iconUrl}) => iconUrl === "achieve_13_11.webp")
+        .sort((a,b) => b.minItemLevel - a.minItemLevel) // this is a bit of a hack to use one of the hourly gates as the canonical one
+        .map(e => e.id),
+    "Ghost Ships": eventIDNameMapping
+        .filter(({name}) => name.includes("Ghost Ship"))
+        .map(e => e.id),
+}
+
 const eventTypeIconMapping: Array<APIEventType> =
   require('../data/msgs.json')[0].map(
     (e: EventTypeIconMapping, idx: number) => {
@@ -305,7 +322,6 @@ const Alarms: NextPage = () => {
   const generateEventsTable = (eventType: number) => {
     // let allEvents: Array<GameEvent> = []
     let ms = Duration.fromObject({ minutes: notifyInMins }).toMillis()
-    let grandPrixEvents = [946, 947, 948, 949, 950, 951]
     let disabledAlarmsKeys = Object.keys(disabledAlarms || {})
 
     let currEventsTable: Array<GameEvent> = []
@@ -324,8 +340,16 @@ const Alarms: NextPage = () => {
         allEventsTable.push(event)
         continue
       }
-      if (hideGrandPrix && grandPrixEvents.includes(Number(event.gameEvent.id)))
-        continue
+
+      if (hideGrandPrix) {
+          const group = Object.entries(groupedEvents)
+              .map(([name, ids]) => ({idx: ids.indexOf(event.gameEvent.id), name}))
+              .filter(({idx}) => idx >= 0)[0]
+          if(group) {
+              if(group.idx > 0) continue
+              event.groupName = group.name
+          }
+      }
 
       let latest = event.latest(serverTime)
       if (latest) {

@@ -74,10 +74,8 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
         <div className="basis-11/12 items-center font-sans text-xs font-semibold">
           <div className="ml-2 mr-4">
             <span className="block uppercase ">
-              [{gameEvent.gameEvent.minItemLevel}]{' '}
-              {hideGrandPrix && Number(gameEvent.gameEvent.id) === 945
-                ? gameEvent.gameEvent.name.split(' ').slice(0, -1).join(' ')
-                : gameEvent.gameEvent.name}
+              {!(hideGrandPrix && gameEvent.groupName) && `[${gameEvent.gameEvent.minItemLevel}] `}
+              {hideGrandPrix && gameEvent.groupName || gameEvent.gameEvent.name}
               <span className="float-right text-amber-500 dark:text-amber-200">
                 {gameEvent.disabled
                   ? null
