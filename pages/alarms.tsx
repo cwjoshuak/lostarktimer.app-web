@@ -174,6 +174,19 @@ const Alarms: NextPage = () => {
     }
   }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate])
 
+  // clear disabled alarm when alarm expires
+  useEffect(() => {
+    if (disabledAlarms) {
+      let keys = Object.keys(disabledAlarms)
+      keys.forEach((key) => {
+        if (disabledAlarms[key] < DateTime.now().toMillis()) {
+          delete disabledAlarms[key]
+        }
+      })
+      setDisabledAlarms(disabledAlarms)
+    }
+  }, [serverTime.minute])
+
   // read and populate all game events
   useEffect(() => {
     if (!mounted || regionTZ === undefined) return
