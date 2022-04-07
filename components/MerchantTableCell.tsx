@@ -107,7 +107,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
   }
   const onClickOpenWindow = (imageUrl: string, title: string) => {
     window.open(
-      `https://cdn.discordapp.com/attachments/${imageUrl}`,
+      `https://i.imgur.com/${imageUrl}`,
       title,
       'left=20,top=20,width=1000,height=600,toolbar=0,resizable=1'
     )
@@ -226,7 +226,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
           <span>Potential Spawns</span>
           {Object.entries(merchant.locationImages).map(
             ([locationName, imgUrl], idx, arr) => (
-              <span key={`${merchant}-${imgUrl}`}>
+              <span key={`${merchant.name}-${locationName}${imgUrl}`}>
                 <span
                   className="cursor-pointer text-blue-500 hover:underline"
                   onClick={() => onClickOpenWindow(imgUrl, locationName)}
