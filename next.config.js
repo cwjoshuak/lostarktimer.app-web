@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const { i18n } = require('./next-i18next.config')
 module.exports = {
   webpack(config, options) {
     config.module.rules.push({
@@ -21,4 +22,5 @@ module.exports = {
       },
     ]
   },
+  i18n,
 }

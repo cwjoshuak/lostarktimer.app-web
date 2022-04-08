@@ -6,8 +6,10 @@ type ConfigModalProps = {
   setViewLocalizedTime: React.Dispatch<boolean>
 }
 import useLocalStorage from '@olerichter00/use-localstorage'
+import { useTranslation } from 'next-i18next'
 
 const MerchantConfigModal = (props: ConfigModalProps) => {
+  const { t } = useTranslation('merchantConfig')
   const {
     // view24HrTime,
     // setView24HrTime,
@@ -63,7 +65,7 @@ const MerchantConfigModal = (props: ConfigModalProps) => {
             <div className="w-full">
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  Hide Merchant Items
+                  {t('hide-merchant-items')}
                 </span>
                 <input
                   type="checkbox"
@@ -76,7 +78,7 @@ const MerchantConfigModal = (props: ConfigModalProps) => {
               </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  Hide Merchant Potential Spawns
+                  {t('hide-merchant-potential-spawns')}
                 </span>
                 <input
                   type="checkbox"
@@ -97,7 +99,7 @@ const MerchantConfigModal = (props: ConfigModalProps) => {
               htmlFor="merchant-config-modal"
               className="btn btn-block w-4/5"
             >
-              All Done!
+              {t('common:all-done')}!
             </label>
           </div>
         </div>

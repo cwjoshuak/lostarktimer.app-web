@@ -1,0 +1,232 @@
+{
+  "next-spawn": "下次刷新",
+  "potential-spawns": "潜在刷新点(点击城市名查看)",
+  "location": "位置",
+  "item": "Item",
+  "rapport": "好感物品",
+  "card": "卡牌",
+  "cooking": "烹饪",
+  "vote": "投票",
+  "data-by": "数据来源: ",
+  "last-updated": "最后更新",
+  "server-note-text": "注意：当前显示的是<strong>服务器时间</strong>.",
+
+  "locations": {
+    "Rethramis": "阿尔忒弥斯",
+    "Ankumo Mountain": "安格莫斯山麓",
+    "Log Hill": "罗格希尔",
+    "Rethramis Border": "边境地带",
+    "Yudia": "尤迪亚",
+    "Ozhorn Hill": "奥兹霍恩丘陵",
+    "Saland Hill": "萨兰德丘陵",
+    "West Luterra": "卢特兰西部",
+    "Battlebound Plains": "激战平原",
+    "Bilbrin Forest": "比尔布林森林",
+    "Lakebar": "雷科巴",
+    "Medrick Monastery": "梅德里克修道院",
+    "Mount Zagoras": "扎格拉斯山",
+    "East Luterra": "卢特兰东部",
+    "Dyorika Plain": "迪奥利卡平原",
+    "Flowering Orchard": "梨树栖息地",
+    "Sunbright Hill": "圆虹之丘",
+    "Blackrose Chapel": "黑玫瑰教堂",
+    "Boreas Domain": "博伦亚领地",
+    "Croconys Seashore North": "鳄鱼海岸北",
+    "Croconys Seashore South": "鳄鱼海岸北",
+    "Leyar Terrace": "拉伊亚阶地",
+    "Tortoyk": "托托克",
+    "Forest of Giants": "沉默的巨人森林",
+    "Seaswept Woods": "海香森林",
+    "Skyreach Steppe": "岛巨人之森",
+    "Sweetwater Forest": "甜蜜森林",
+    "Anikka": "安忆谷",
+    "Delphi Township": "武县",
+    "Melody Forest": "木灵森林",
+    "Prisma Valley": "镜谷",
+    "Rattan Hill": "藤丘",
+    "Twilight Mists": "暮光之雾",
+    "Arthetine": "阿尔泰因",
+    "Arid Path": "贫瘠通道",
+    "Nebel Horn": "内伯尔霍伦",
+    "Riza Falls": "里奇瀑布",
+    "Scraplands": "分裂之地",
+    "Tottrich": "托特里奇",
+    "Windbringer Hill": "清风丘陵",
+    "North Vern": "伯尔尼北部",
+    "Balankar Mountains": "巴兰卡山脉",
+    "Fesnar Highland": "佩斯纳尔高原",
+    "Parna Forest": "帕尔纳森林",
+    "Port Krona": "克罗纳港",
+    "Vernese Forest": "维尔尼尔森林",
+    "Shushire": "休沙瑞",
+    "Bitterwind Hill": "风刃之丘",
+    "Frozen Sea": "冰封之海",
+    "Iceblood Plateau": "霜狱高原",
+    "Icewing Heights": "冰蝶悬崖",
+    "Lake Eternity": "结冰时的湖",
+    "Rohendel": "罗享达尔",
+    "Breezesome Brae": "风香之丘",
+    "Elzowins Shade": "埃尔佐温的树荫",
+    "Glass Lotus Lake": "琉璃莲花湖",
+    "Lake Shiverwave": "琉璃莲花湖",
+    "Xeneela Ruins": "荒废的泽纳尔",
+    "Yorn": "约拿",
+    "Black Anvil Mine": "黑铁砧车间",
+    "Hall of Promise": "约定之地",
+    "Iron Hammer Mine": "铁锤车间",
+    "Unfinished Garden": "未完成的花园",
+    "Yorn's Cradle": "起始之地",
+    "Feiton": "佩顿",
+    "Kalaja": "佩顿",
+    "Punika": "帕普尼卡",
+    "Tideshelf Path": "浅海之路",
+    "Starsand Beach": "星星沙滩",
+    "Tikatika Colony": "蒂卡蒂卡群落地",
+    "Secret Forest": "秘密森林"
+  },
+  "items": {
+    "920404": {
+      "name": "Adrenaline-boosting Fluid"
+    },
+    "920701": { "name": "Back Alley Rum" },
+    "920803": {
+      "name": "Raw Boar Meat"
+    },
+    "921004": { "name": "Blood Pudding Chunk" },
+    "921405": { "name": "Hairplant" },
+    "930605": { "name": "蓝宝石沙丁鱼" },
+    "930902": { "name": "令人兴奋的玛卡龙" },
+    "931505": { "name": "牛肉干" },
+    "931512": {
+      "name": "Hot Chocolate Coffee"
+    },
+    "63200008": { "name": "Wei" },
+    "63200024": { "name": "Thunder Wings" },
+    "63200030": { "name": "Mokamoka" },
+    "63200035": { "name": "Krause" },
+    "63200038": { "name": "Madnick" },
+    "63200039": { "name": "Thar" },
+    "63200050": { "name": "Gnosis" },
+    "63200053": { "name": "Kaysarr" },
+    "63200057": { "name": "Kaldor" },
+    "63200094": { "name": "Varut" },
+    "63200095": { "name": "Prideholme Neria" },
+    "63200102": { "name": "Thunder" },
+    "63200104": { "name": "Meehan" },
+    "63200106": { "name": "Cassleford" },
+    "63200108": { "name": "Alifer" },
+    "63200111": { "name": "Seria" },
+    "63200118": { "name": "Nox" },
+    "63200122": { "name": "Eolh" },
+    "63200136": { "name": "Stern Neria" },
+    "63200144": { "name": "Sian" },
+    "63200146": { "name": "Gideon" },
+    "63200148": { "name": "Payla" },
+    "63200158": { "name": "Lenora" },
+    "63200164": {
+      "name": "Great Castle Neria"
+    },
+    "63200165": { "name": "Piyer" },
+    "63200170": { "name": "Levi" },
+    "63200171": { "name": "Goulding" },
+    "63200174": { "name": "Bergstrom" },
+    "63200185": { "name": "Giant Worm" },
+    "63200188": { "name": "Cadogan" },
+    "63200191": { "name": "Berhart" },
+    "63200192": { "name": "Brinewt" },
+    "63200197": { "name": "Egg of Creation" },
+    "63200205": { "name": "Sir Druden" },
+    "63200206": { "name": "Sir Valleylead" },
+    "63200209": { "name": "Javern" },
+    "63200222": { "name": "Siera" },
+    "63200226": { "name": "Morpheo" },
+    "63200227": { "name": "Morina" },
+    "63200228": { "name": "Madam Moonscent" },
+    "63200305": { "name": "Albion" },
+    "63200308": { "name": "Seto" },
+    "63200309": { "name": "Cicerra" },
+    "63200310": { "name": "Stella" },
+    "70500000": { "name": "Fancier Boquet" },
+    "70500001": {
+      "name": "莱昂哈特土豆"
+    },
+    "70500002": {
+      "name": "阿尔忒弥斯圣水"
+    },
+    "70500003": {
+      "name": "尤迪亚天然盐"
+    },
+    "70500006": { "name": "坚固的鸟笼" },
+    "70500007": {
+      "name": "迪奥利卡草帽"
+    },
+    "70500008": {
+      "name": "卢特兰之剑仿造品"
+    },
+    "70500011": { "name": "雷科巴西红柿汁" },
+    "70500012": {
+      "name": "阿塞纳佛利姆胸针"
+    },
+    "70500013": { "name": "黑玫瑰" },
+    "70500014": { "name": "圆圆的玻璃碎片" },
+    "70500015": { "name": "莫可可胡萝卜" },
+    "70500016": {
+      "name": "特大瓢虫娃娃"
+    },
+    "70500024": { "name": "魔法布料" },
+    "70500025": { "name": "魔力结晶" },
+    "70500026": {
+      "name": "华丽的音乐盒"
+    },
+    "70500027": {
+      "name": "骑士团入团申请书"
+    },
+    "70500028": { "name": "Goblin Yarn" },
+    "70500033": { "name": "黎明魔石" },
+    "70500034": { "name": "精灵羽毛" },
+    "70500037": { "name": "帕胡图尔啤酒" },
+    "70500038": { "name": "折断的短剑" },
+    "70500039": { "name": "生存之书" },
+    "70500040": {
+      "name": "干巴巴的木像"
+    },
+    "70500056": { "name": "丹尼斯布的耳环" },
+    "70500059": { "name": "伯顿库尔果实" },
+    "70500060": { "name": "皮纳塔制作工具包" },
+    "70500061": {
+      "name": "彩虹蒂卡蒂卡花"
+    },
+    "70501000": { "name": "扑通扑通箱" },
+    "70501001": {
+      "name": "照亮天空的油"
+    },
+    "70501002": {
+      "name": "铁链战争实录"
+    },
+    "70501003": {
+      "name": "羞涩的风花粉"
+    },
+    "70501004": {
+      "name": "姜太公的鱼竿"
+    },
+    "70501005": { "name": "高级留声机" },
+    "70501006": {
+      "name": "伯尔尼建国纪念币"
+    },
+    "70501007": {
+      "name": "赛尔斯圣经"
+    },
+    "70501008": { "name": "红月眼泪" },
+    "70501010": {
+      "name": "西琳女王的祝福"
+    },
+    "70501011": { "name": "Oreha Viewing Stone" },
+    "70503000": {
+      "name": "比武大会参赛证"
+    },
+    "70503001": { "name": "Yudia Spellbook" },
+    "70503005": { "name": "Shimmering Essence" },
+    "70503006": { "name": "Energy X7 Capsule" },
+    "70503008": { "name": "Piyer's Secret Textbook" }
+  }
+}

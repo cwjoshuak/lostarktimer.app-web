@@ -14,7 +14,7 @@ import usePrevious from '../util/usePrevious'
 import { createTableData } from '../util/createTableData'
 import { RegionKey } from '../util/types/types'
 import { RegionTimeZoneMapping } from '../util/static'
-
+import { useTranslation } from 'next-i18next'
 var classNames = require('classnames')
 
 type AlertSoundKeys =
@@ -76,6 +76,7 @@ const sounds = {
 }
 
 const Alarms: NextPage = () => {
+  const { t } = useTranslation('events')
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>(
     'regionTZ',
@@ -553,13 +554,12 @@ const Alarms: NextPage = () => {
             <tbody>
               <tr>
                 <td></td>
-
                 <td
                   className={classNames('text-left', {
                     'text-green-700 dark:text-success': viewLocalizedTime,
                   })}
                 >
-                  Current Time:
+                  {t('common:current-time')}:
                 </td>
                 <td
                   className={classNames({
@@ -581,7 +581,7 @@ const Alarms: NextPage = () => {
                     'text-green-700 dark:text-success': !viewLocalizedTime,
                   })}
                 >
-                  Server Time:
+                  {t('common:server-time')}:
                 </td>
                 <td
                   className={classNames({
@@ -653,11 +653,21 @@ const Alarms: NextPage = () => {
                     }}
                     value={notifyInMins}
                   >
-                    <option value={5}>5 min before</option>
-                    <option value={10}>10 min before</option>
-                    <option value={15}>15 min before</option>
-                    <option value={20}>20 min before</option>
-                    <option value={30}>30 min before</option>
+                    <option value={5}>
+                      {t('common:option-minute-before', { minutes: 5 })}
+                    </option>
+                    <option value={10}>
+                      {t('common:option-minute-before', { minutes: 10 })}
+                    </option>
+                    <option value={15}>
+                      {t('common:option-minute-before', { minutes: 15 })}
+                    </option>
+                    <option value={20}>
+                      {t('common:option-minute-before', { minutes: 20 })}
+                    </option>
+                    <option value={30}>
+                      {t('common:option-minute-before', { minutes: 30 })}
+                    </option>
                   </select>
                 </td>
               </tr>
@@ -702,7 +712,7 @@ const Alarms: NextPage = () => {
                                 src={`https://lostarkcodex.com/images/${e.iconUrl}`}
                                 className="absolute left-4"
                               />
-                              {e.name}
+                              {t(`categories.${e.name}`)}
                               <div className="absolute right-8">
                                 {eventsInSection(e.id)}
                               </div>
@@ -734,4 +744,18 @@ const Alarms: NextPage = () => {
   )
 }
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'events',
+        'common',
+        'alarmConfig',
+      ])),
+      // Will be passed to the page component as props
+    },
+  }
+}
 export default Alarms

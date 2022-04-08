@@ -2,21 +2,13 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
-import { useRouter } from 'next/router'
 import { ChangeLogModal, GitHubModal, SideBar } from '../components'
-import Link from 'next/link'
-import classNames from 'classnames'
-import {
-  IconBrandGit,
-  IconBrandGithub,
-  IconBrandTwitch,
-  IconGitBranch,
-  IconGitFork,
-} from '@tabler/icons'
+import { appWithTranslation } from 'next-i18next'
+import { IconBrandTwitch } from '@tabler/icons'
 import { SWRConfig } from 'swr'
-function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter()
+import NavBar from '../components/NavBar'
 
+function MyApp({ Component, pageProps, ...AppProps }: AppProps) {
   return (
     <>
       <Head>
@@ -42,66 +34,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="Lost Ark Timer - Alarms for Lost Ark bosses, islands, events and more."
         />
       </Head>
-      <div className="relative bg-sky-800 py-2 text-center lg:px-4">
-        <div
-          className="flex items-center bg-sky-900/50 p-2 leading-none text-sky-100 lg:inline-flex lg:rounded-full"
-          role="alert"
-        >
-          <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
-            <label className="cursor-pointer text-teal-300">
-              <a href="https://discord.gg/beFb23WgNC">
-                Suggestions {'&'} Feedback: https://discord.gg/beFb23WgNC
-              </a>
-            </label>
-          </span>
-        </div>
-      </div>
 
+      <NavBar />
       <ChangeLogModal />
       <GitHubModal />
-
       <SideBar />
-      <div className="navbar w-full bg-base-300 px-4 py-4 dark:bg-base-300 lg:px-20">
-        <div className="navbar-start text-lg font-semibold uppercase">
-          <div className="tabs">
-            <span
-              className={classNames('tab', 'hover:text-sky-600', {
-                'tab-active': router.pathname == '/alarms',
-              })}
-            >
-              <Link href="/alarms">Alarms</Link>
-            </span>
 
-            <span
-              className={classNames('tab', 'hover:text-sky-600', {
-                'tab-active': router.pathname == '/merchants',
-              })}
-            >
-              <Link href="/merchants">Merchants</Link>
-            </span>
-          </div>
-        </div>
-        <div className="navbar-center hidden flex-col sm:flex">
-          <a className="btn btn-ghost text-xl normal-case">Lost Ark Timer</a>
-
-          <div className="font-mono text-sm uppercase">
-            <Link href="/merchants">
-              <span className="cursor-pointer text-teal-600 hover:text-teal-400">
-                Wandering Merchants
-              </span>
-            </Link>{' '}
-            update is here! So is the{' '}
-            <a
-              className="text-teal-600 hover:text-teal-400"
-              href="https://github.com/cwjoshuak/lostarktimer.app-web"
-            >
-              code
-            </a>
-            .
-          </div>
-        </div>
-        <div className="navbar-end text-right text-lg font-semibold uppercase"></div>
-      </div>
       <SWRConfig
         value={{
           refreshInterval: 30000,
@@ -160,5 +98,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     </>
   )
 }
-
-export default MyApp
+export default appWithTranslation(MyApp)

@@ -23,6 +23,7 @@ interface Merchant {
 }
 
 const Merchants: NextPage = (props) => {
+  const { t } = useTranslation('merchants')
   const [regionTZName, setRegionTZName] = useLocalStorage<RegionKey>(
     'regionTZName',
     'US West'
@@ -77,7 +78,7 @@ const Merchants: NextPage = (props) => {
   const [dataLastRefreshed, setDataLastRefreshed] = useState(currDate)
   useEffect(() => {
     const newSocket = io(`wss://ws.lostarktimer.app`)
-
+    newSocket.disconnect()
     newSocket.on('merchants', (data) => {
       setAPIData(data)
     })
@@ -185,7 +186,7 @@ const Merchants: NextPage = (props) => {
       <div className="flex min-h-screen flex-col items-center whitespace-normal bg-base-300 py-2 dark:bg-base-100">
         <div className="ml-auto flex w-full justify-end px-4 lg:px-20">
           <div className="hidden w-1/5 whitespace-normal text-center text-sm uppercase sm:inline lg:text-lg">
-            NOTE: Times shown currently are in <strong>server time</strong>.
+            <span dangerouslySetInnerHTML={{ __html: t('server-note-text') }} />
           </div>
           <label
             htmlFor="merchant-config-modal"
@@ -230,7 +231,7 @@ const Merchants: NextPage = (props) => {
           <table className="mb-2">
             <tbody>
               <tr>
-                <td className="text-left">Current Time:</td>
+                <td className="text-left">{t('common:current-time')}:</td>
                 <td className="text-right">
                   {currDate.toLocaleString(
                     view24HrTime
@@ -241,7 +242,7 @@ const Merchants: NextPage = (props) => {
               </tr>
 
               <tr className="text-green-700 dark:text-success">
-                <td>Server Time:</td>
+                <td>{t('common:server-time')}:</td>
                 <td>
                   {serverTime.toLocaleString(
                     view24HrTime
@@ -265,13 +266,13 @@ const Merchants: NextPage = (props) => {
                     target="_blank"
                     className="btn btn-outline btn-warning btn-xs absolute right-48 top-4"
                   >
-                    Vote
+                    {t('vote')}
                   </a>
                   <a
                     href="https://saint-bot.webflow.io/"
                     className="absolute right-4 top-2 flex items-center justify-center gap-2 text-indigo-500/90 hover:underline"
                   >
-                    Data by SaintBot{' '}
+                    {t('data-by')} SaintBot{' '}
                     <Image
                       className="ml-2"
                       src={saintbotImage}
@@ -280,7 +281,7 @@ const Merchants: NextPage = (props) => {
                     />
                   </a>
                   <div className="absolute right-5 top-7">
-                    Last Updated:{' '}
+                    {t('last-updated')}:{' '}
                     {dataLastRefreshed.toLocaleString(
                       DateTime.TIME_WITH_SECONDS
                     )}
@@ -311,11 +312,11 @@ const Merchants: NextPage = (props) => {
                       <br />
                       <span className="text-left">
                         <ul>
-                          <li>Lucas - Yudia</li>
-                          <li>Morris - East Luterra</li>
-                          <li>Mac - Anikka</li>
-                          <li>Jeffrey - Shushire</li>
-                          <li>Dorella - Feiton</li>
+                          <li>Lucas - {t('locations.Yudia')}</li>
+                          <li>Morris - {t('locations.East Luterra')}</li>
+                          <li>Mac - {t('locations.Anikka')}</li>
+                          <li>Jeffrey - {t('locations.Shushire')}</li>
+                          <li>Dorella - {t('locations.Feiton')}</li>
                         </ul>
                       </span>
                     </div>
@@ -336,12 +337,12 @@ const Merchants: NextPage = (props) => {
                       </span>
                       <span className="text-left">
                         <ul>
-                          <li>Malone (West Luterra)</li>
-                          <li>Burt (East Luterra)</li>
-                          <li>Oliver (Tortoyk)</li>
-                          <li>Nox (Arthetine)</li>
-                          <li>Aricer (Rohendel)</li>
-                          <li>Rayni (Punika)</li>
+                          <li>Malone - {t('locations.West Luterra')}</li>
+                          <li>Burt - {t('locations.East Luterra')}</li>
+                          <li>Oliver - {t('locations.Tortoyk')}</li>
+                          <li>Nox - {t('locations.Arthetine')}</li>
+                          <li>Aricer - {t('locations.Rohendel')}</li>
+                          <li>Rayni - {t('locations.Punika')}</li>
                         </ul>
                       </span>
                     </div>
@@ -362,9 +363,9 @@ const Merchants: NextPage = (props) => {
                       </span>
                       <span className="text-left">
                         <ul>
-                          <li>Ben - Rethramis</li>
-                          <li>Peter - North Vern</li>
-                          <li>Laitir - Yorn</li>
+                          <li>Ben - {t('locations.Rethramis')}</li>
+                          <li>Peter - {t('locations.North Vern')}</li>
+                          <li>Laitir - {t('locations.Yorn')}</li>
                         </ul>
                       </span>
                     </div>
@@ -387,6 +388,22 @@ const Merchants: NextPage = (props) => {
       </div>
     </>
   )
+}
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'merchants',
+        'common',
+        'merchantConfig',
+      ])),
+      // Will be passed to the page component as props
+    },
+  }
 }
 
 export default Merchants

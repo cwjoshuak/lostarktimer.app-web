@@ -6,6 +6,7 @@ import { DateTime, Duration, Zone } from 'luxon'
 import classNames from 'classnames'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { generateTimestampStrings } from '../util/createTableData'
+import { useTranslation } from 'next-i18next'
 type CellProps = {
   gameEvent: GameEvent
   serverTime: DateTime
@@ -14,6 +15,7 @@ type CellProps = {
 }
 
 const GameEventTableCell = (props: CellProps): React.ReactElement => {
+  const { t } = useTranslation('events')
   const { gameEvent, serverTime, localizedTZ, view24HrTime } = props
   // const [st, setServerTime] = useState(DateTime.now().setZone(serverTime.zone))
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
@@ -74,8 +76,10 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
         <div className="basis-11/12 items-center font-sans text-xs font-semibold">
           <div className="ml-2 mr-4">
             <span className="block uppercase ">
-              {!(hideGrandPrix && gameEvent.groupName) && `[${gameEvent.gameEvent.minItemLevel}] `}
-              {hideGrandPrix && gameEvent.groupName || gameEvent.gameEvent.name}
+              {!(hideGrandPrix && gameEvent.groupName) &&
+                `[${gameEvent.gameEvent.minItemLevel}] `}
+              {(hideGrandPrix && gameEvent.groupName) ||
+                t(`${gameEvent.gameEvent.id}`)}
               <span className="float-right text-amber-500 dark:text-amber-200">
                 {gameEvent.disabled
                   ? null

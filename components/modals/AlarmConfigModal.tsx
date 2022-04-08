@@ -9,6 +9,7 @@ import { Howl, Howler } from 'howler'
 import { alert1, alert2, alert3, alert4, alert5, alert6 } from '../../sounds'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { IconVolume2, IconVolume3 } from '@tabler/icons'
+import { useTranslation } from 'next-i18next'
 
 const sounds = {
   'Alert 1': alert1,
@@ -26,6 +27,7 @@ type AlertSoundKeys =
   | 'Alert 5'
   | 'Alert 6'
 const AlarmConfigModal = (props: ConfigModalProps) => {
+  const { t } = useTranslation('alarmConfig')
   const {
     // view24HrTime,
     // setView24HrTime,
@@ -61,14 +63,14 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
         <div className="modal-box p-0">
           <div className="w-full bg-base-200 p-2">
             <h3 className="text-center text-lg font-bold uppercase">
-              Settings
+              {t('alarm-settings')}
             </h3>
           </div>
           <div className="flex flex-row space-x-4 p-4">
             <div className="w-full">
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  Move Disabled Events to Bottom
+                  {t('move-disabled-events-to-bottom')}
                 </span>
                 <input
                   type="checkbox"
@@ -83,7 +85,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
               </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  Hide Disabled Events
+                  {t('hide-disabled-events')}
                 </span>
                 <input
                   type="checkbox"
@@ -96,7 +98,10 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
               </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  Group Repeat Events <span title="Combine all instances of Grand Prix, Field Bosses, Chaos Gates, and Ghost Ships into single events">[?]</span>
+                  {t('group-repeat-events')}{' '}
+                  <span title="Combine all instances of Grand Prix, Field Bosses, Chaos Gates, and Ghost Ships into single events">
+                    [?]
+                  </span>
                 </span>
                 <input
                   type="checkbox"
@@ -112,14 +117,14 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
                   className="btn btn-warning btn-xs mx-auto"
                   onClick={(e) => setDisabledAlarms({})}
                 >
-                  Reset disabled events
+                  {t('reset-disabled-events')}
                 </button>
               </div>
             </div>
             <div className="w-full">
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  View in 24HR
+                  {t('view-in-24-hr')}
                 </span>
                 <input
                   type="checkbox"
@@ -132,7 +137,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
               </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  View in Current Time
+                  {t('view-in-current-time')}
                 </span>
                 <input
                   type="checkbox"
@@ -145,7 +150,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
               </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text mr-2 w-4/5 text-right font-semibold">
-                  Alert Sound
+                  {t('alert-sound')}
                 </span>
                 <select
                   className="select select-bordered select-sm focus:outline-0"
@@ -163,7 +168,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
                     s.play()
                   }}
                 >
-                  <option value="muted">Muted 🔇</option>
+                  <option value="muted">{t('muted')} 🔇</option>
                   {Object.entries(sounds).map(([soundName, sound]) => (
                     <option
                       key={soundName}
@@ -200,7 +205,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
           </div>
           <div className="modal-action mb-5 justify-center">
             <label htmlFor="alarm-config-modal" className="btn btn-block w-4/5">
-              All Done!
+              {t('common:all-done')}!
             </label>
           </div>
         </div>

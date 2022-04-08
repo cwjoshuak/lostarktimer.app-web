@@ -1,0 +1,8 @@
+{
+  "alarm-link-text": "Alarms",
+  "merchant-link-text": "Merchants",
+  "current-time": "Current Time",
+  "server-time": "Server Time",
+  "option-minute-before": "{{minutes}} min before",
+  "all-done": "All Done"
+}

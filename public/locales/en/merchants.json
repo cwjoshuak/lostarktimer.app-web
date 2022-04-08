@@ -1,0 +1,230 @@
+{
+  "next-spawn": "Next Spawn",
+  "potential-spawns": "Potential Spawns",
+  "location": "Location",
+  "item": "Item",
+  "rapport": "Rapport",
+  "card": "Card",
+  "cooking": "Cooking",
+  "vote": "Vote",
+  "server-note-text": "NOTE: TIMES SHOWN CURRENTLY ARE IN <strong>SERVER TIME</strong>.",
+
+  "locations": {
+    "Rethramis": "Rethramis",
+    "Ankumo Mountain": "Ankumo Mountain",
+    "Log Hill": "Log Hill",
+    "Rethramis Border": "Rethramis Border",
+    "Yudia": "Yudia",
+    "Ozhorn Hill": "Ozhorn Hill",
+    "Saland Hill": "Saland Hill",
+    "West Luterra": "West Luterra",
+    "Battlebound Plains": "Battlebound Plains",
+    "Bilbrin Forest": "Bilbrin Forest",
+    "Lakebar": "Lakebar",
+    "Medrick Monastery": "Medrick Monastery",
+    "Mount Zagoras": "Mount Zagoras",
+    "East Luterra": "East Luterra",
+    "Dyorika Plain": "Dyorika Plain",
+    "Flowering Orchard": "Flowering Orchard",
+    "Sunbright Hill": "Sunbright Hill",
+    "Blackrose Chapel": "Blackrose Chapel",
+    "Boreas Domain": "Boreas Domain",
+    "Croconys Seashore North": "Croconys Seashore North",
+    "Croconys Seashore South": "Croconys Seashore South",
+    "Leyar Terrace": "Leyar Terrace",
+    "Tortoyk": "Tortoyk",
+    "Forest of Giants": "Forest of Giants",
+    "Seaswept Woods": "Seaswept Woods",
+    "Skyreach Steppe": "Skyreach Steppe",
+    "Sweetwater Forest": "Sweetwater Forest",
+    "Anikka": "Anikka",
+    "Delphi Township": "Delphi Township",
+    "Melody Forest": "Melody Forest",
+    "Prisma Valley": "Prisma Valley",
+    "Rattan Hill": "Rattan Hill",
+    "Twilight Mists": "Twilight Mists",
+    "Arthetine": "Arthetine",
+    "Arid Path": "Arid Path",
+    "Nebel Horn": "Nebel Horn",
+    "Riza Falls": "Riza Falls",
+    "Scraplands": "Scraplands",
+    "Tottrich": "Tottrich",
+    "Windbringer Hill": "Windbringer Hill",
+    "North Vern": "North Vern",
+    "Balankar Mountains": "Balankar Mountains",
+    "Fesnar Highland": "Fesnar Highland",
+    "Parna Forest": "Parna Forest",
+    "Port Krona": "Port Krona",
+    "Vernese Forest": "Vernese Forest",
+    "Shushire": "Shushire",
+    "Bitterwind Hill": "Bitterwind Hill",
+    "Frozen Sea": "Frozen Sea",
+    "Iceblood Plateau": "Iceblood Plateau",
+    "Icewing Heights": "Icewing Heights",
+    "Lake Eternity": "Lake Eternity",
+    "Rohendel": "Rohendel",
+    "Breezesome Brae": "Breezesome Brae",
+    "Elzowins Shade": "Elzowins Shade",
+    "Glass Lotus Lake": "Glass Lotus Lake",
+    "Lake Shiverwave": "Lake Shiverwave",
+    "Xeneela Ruins": "Xeneela Ruins",
+    "Yorn": "Yorn",
+    "Black Anvil Mine": "Black Anvil Mine",
+    "Hall of Promise": "Hall of Promise",
+    "Iron Hammer Mine": "Iron Hammer Mine",
+    "Unfinished Garden": "Unfinished Garden",
+    "Yorn's Cradle": "Yorn's Cradle",
+    "Feiton": "Feiton",
+    "Kalaja": "Kalaja",
+    "Punika": "Punika",
+    "Tideshelf Path": "Tideshelf Path",
+    "Starsand Beach": "Starsand Beach",
+    "Tikatika Colony": "Tikatika Colony",
+    "Secret Forest": "Secret Forest"
+  },
+  "items": {
+    "920404": {
+      "name": "Adrenaline-boosting Fluid"
+    },
+    "920701": { "name": "Back Alley Rum" },
+    "920803": {
+      "name": "Raw Boar Meat"
+    },
+    "921004": { "name": "Blood Pudding Chunk" },
+    "921405": { "name": "Hairplant" },
+    "930605": { "name": "Sapphire Sardine" },
+    "930902": { "name": "Pit-A-Pat Macaron" },
+    "931505": { "name": "Dry-aged Meat" },
+    "931512": {
+      "name": "Hot Chocolate Coffee"
+    },
+    "63200008": { "name": "Wei" },
+    "63200024": { "name": "Thunder Wings" },
+    "63200030": { "name": "Mokamoka" },
+    "63200035": { "name": "Krause" },
+    "63200038": { "name": "Madnick" },
+    "63200039": { "name": "Thar" },
+    "63200050": { "name": "Gnosis" },
+    "63200053": { "name": "Kaysarr" },
+    "63200057": { "name": "Kaldor" },
+    "63200094": { "name": "Varut" },
+    "63200095": { "name": "Prideholme Neria" },
+    "63200102": { "name": "Thunder" },
+    "63200104": { "name": "Meehan" },
+    "63200106": { "name": "Cassleford" },
+    "63200108": { "name": "Alifer" },
+    "63200111": { "name": "Seria" },
+    "63200118": { "name": "Nox" },
+    "63200122": { "name": "Eolh" },
+    "63200136": { "name": "Stern Neria" },
+    "63200144": { "name": "Sian" },
+    "63200146": { "name": "Gideon" },
+    "63200148": { "name": "Payla" },
+    "63200158": { "name": "Lenora" },
+    "63200164": {
+      "name": "Great Castle Neria"
+    },
+    "63200165": { "name": "Piyer" },
+    "63200170": { "name": "Levi" },
+    "63200171": { "name": "Goulding" },
+    "63200174": { "name": "Bergstrom" },
+    "63200185": { "name": "Giant Worm" },
+    "63200188": { "name": "Cadogan" },
+    "63200191": { "name": "Berhart" },
+    "63200192": { "name": "Brinewt" },
+    "63200197": { "name": "Egg of Creation" },
+    "63200205": { "name": "Sir Druden" },
+    "63200206": { "name": "Sir Valleylead" },
+    "63200209": { "name": "Javern" },
+    "63200222": { "name": "Siera" },
+    "63200226": { "name": "Morpheo" },
+    "63200227": { "name": "Morina" },
+    "63200228": { "name": "Madam Moonscent" },
+    "63200305": { "name": "Albion" },
+    "63200308": { "name": "Seto" },
+    "63200309": { "name": "Cicerra" },
+    "63200310": { "name": "Stella" },
+    "70500000": { "name": "Fancier Boquet" },
+    "70500001": {
+      "name": "Prideholme Potato"
+    },
+    "70500002": {
+      "name": "Rethramis Holy Water"
+    },
+    "70500003": {
+      "name": "Yudia Natural Salt"
+    },
+    "70500006": { "name": "Stalwart Cage" },
+    "70500007": {
+      "name": "Dyorika Straw Hat"
+    },
+    "70500008": {
+      "name": "Model of Luterra's Sword"
+    },
+    "70500011": { "name": "Lakebar Tomato Juice" },
+    "70500012": {
+      "name": "Azenaporium Brooch"
+    },
+    "70500013": { "name": "Black Rose" },
+    "70500014": { "name": "Round Glass Piece" },
+    "70500015": { "name": "Mokoko Carrot" },
+    "70500016": {
+      "name": "Oversize Ladybug Doll"
+    },
+    "70500024": { "name": "Magick Cloth" },
+    "70500025": { "name": "Magick Crystal" },
+    "70500026": {
+      "name": "Exquisite Music Box"
+    },
+    "70500027": {
+      "name": "Queen's Knights Application"
+    },
+    "70500028": { "name": "Goblin Yarn" },
+    "70500033": { "name": "Soundstone of Dawn" },
+    "70500034": { "name": "Elemental's Feather" },
+    "70500037": { "name": "Fargar's Beer" },
+    "70500038": { "name": "Broken Dagger" },
+    "70500039": { "name": "Book of Survival" },
+    "70500040": {
+      "name": "Dessicated Wooden Statue"
+    },
+    "70500056": { "name": "Danube's Earrings" },
+    "70500059": { "name": "Hollowfruit" },
+    "70500060": { "name": "Piñata Crafting Set" },
+    "70500061": {
+      "name": "Rainbow Tikatika Flower"
+    },
+    "70501000": { "name": "Surprise Chest" },
+    "70501001": {
+      "name": "Sky Reflection Oil"
+    },
+    "70501002": {
+      "name": "Chain War Chronicles"
+    },
+    "70501003": {
+      "name": "Shy Wind Flower Pollen"
+    },
+    "70501004": {
+      "name": "Angler's Fishing Pole"
+    },
+    "70501005": { "name": "Fine Gramophone" },
+    "70501006": {
+      "name": "Vern's Founding Coin"
+    },
+    "70501007": {
+      "name": "Sirius's Holy Book"
+    },
+    "70501008": { "name": "Red Moon's Tears" },
+    "70501010": {
+      "name": "Sylvain Queen's Blessing"
+    },
+    "70501011": { "name": "Oreha Viewing Stone" },
+    "70503000": {
+      "name": "Tournament Entrance Stamp"
+    },
+    "70503001": { "name": "Yudia Spellbook" },
+    "70503005": { "name": "Shimmering Essence" },
+    "70503006": { "name": "Energy X7 Capsule" },
+    "70503008": { "name": "Piyer's Secret Textbook" }
+  }
+}

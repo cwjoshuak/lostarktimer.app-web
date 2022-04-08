@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { generateTimestampStrings } from '../util/createTableData'
 import WanderingMerchant from '../common/WanderingMerchant'
 import useLocalStorage from '@olerichter00/use-localstorage'
+import { useTranslation } from 'next-i18next'
 
 type ItemMappingKey = keyof typeof itemMapping
 
@@ -20,6 +21,7 @@ interface CellProps {
 let mSchedules: { [key: number]: Interval[] } = {}
 
 const MerchantTableCell = (props: CellProps): React.ReactElement => {
+  const { t } = useTranslation('merchants')
   const { merchant, serverTime, localizedTZ, view24HrTime } = props
   Object.entries(merchantSchedules).forEach(
     ([key, schedule]) =>
@@ -142,7 +144,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                   merchant.inProgress(serverTime),
               })}
             >
-              {merchant.name} ({merchant.continent}){' '}
+              {merchant.name} ({t(`locations.${merchant.continent}`)}){' '}
               {merchant.inProgress(serverTime) ? (
                 <span className="whitespace-nowrap text-xs text-amber-500 dark:text-amber-300">
                   {' '}
@@ -162,7 +164,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
             {merchant.inProgress(serverTime) ? (
               <div className="mb-1 text-base">
                 <span className="uppercase">
-                  Location:{' '}
+                  {t('location')}:{' '}
                   <span
                     className={classNames({
                       'text-blue-500 hover:underline': merchant.spawned,
@@ -174,7 +176,9 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                         onClick={() =>
                           onClickOpenWindow(imageUrl, merchant.location || '')
                         }
-                      >{`${merchant.location}`}</span>
+                      >
+                        {t(`locations.${merchant.location}`)}
+                      </span>
                     ) : (
                       'Unknown'
                     )}
@@ -199,7 +203,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
               'text-sm': !merchant.spawned,
             })}
           >
-            Next Spawn:{'  '}
+            {t('next-spawn')}:{'  '}
             {merchant
               .nextSpawnTime(serverTime)
               ?.start.toLocaleString(
@@ -223,7 +227,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
             hidden: merchant.spawned || hidePotentialSpawns,
           })}
         >
-          <span>Potential Spawns</span>
+          <span>{t('potential-spawns')}</span>
           {Object.entries(merchant.locationImages).map(
             ([locationName, imgUrl], idx, arr) => (
               <span key={`${merchant.name}-${locationName}${imgUrl}`}>
@@ -231,7 +235,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                   className="cursor-pointer text-blue-500 hover:underline"
                   onClick={() => onClickOpenWindow(imgUrl, locationName)}
                 >
-                  {locationName}
+                  {t(`locations.${locationName}`)}
                 </span>
                 {idx + 1 < arr.length ? <br /> : ''}
               </span>
@@ -277,7 +281,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                       layout="fixed"
                     />
                     <span className="ml-2 break-words capitalize">
-                      {itemMapping[String(item) as ItemMappingKey].name}
+                      {t(`items.${item}.name`)}
                     </span>
                   </div>
                 ))}

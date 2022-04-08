@@ -1,0 +1,11 @@
+{
+  "alarm-settings": "Alarm Settings",
+  "move-disabled-events-to-bottom": "禁用事件移动到底部",
+  "hide-disabled-events": "隐藏禁用的事件",
+  "group-repeat-events": "隐藏重复的事件 [大奖赛]",
+  "reset-disabled-events": "重置禁用的事件",
+  "view-in-24-hr": "查看24小时内的",
+  "view-in-current-time": "当前时间内查看",
+  "alert-sound": "提醒声音",
+  "muted": "静音"
+}
