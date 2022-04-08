@@ -189,6 +189,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
                   onChange={(event) => {
                     setVolume(event.target.valueAsNumber)
                   }}
+                  disabled={alertSound === 'muted'}
                   onMouseUpCapture={(event) => {
                     let s = new Howl({
                       src: sounds[
