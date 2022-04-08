@@ -420,7 +420,15 @@ const Alarms: NextPage = () => {
         let notification = new Notification(
           `Events starting in ${notifyInMins} minutes`,
           {
-            body: currEventsTable.map((e) => e.gameEvent.name).join('\n'),
+            body: currEventsTable.map((e) => e.gameEvent.name).reduce((acc, curr, currIndex) => {
+              if (currIndex < 3) {
+                return `${acc}\n${curr}`
+              } else if (currIndex === 3) {
+                return `${acc}\n+${currEventsTable.length - 3} more`
+              } else {
+                return acc
+              }
+            }, ''),
             icon: '/images/LA_Mokko_Seed.png',
           }
         )
