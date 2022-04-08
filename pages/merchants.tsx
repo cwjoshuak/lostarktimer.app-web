@@ -78,10 +78,14 @@ const Merchants: NextPage = (props) => {
   const [dataLastRefreshed, setDataLastRefreshed] = useState(currDate)
   useEffect(() => {
     const newSocket = io(`wss://ws.lostarktimer.app`)
-    newSocket.disconnect()
+
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') {
+      newSocket.disconnect()
+    }
     newSocket.on('merchants', (data) => {
       setAPIData(data)
     })
+
     setSocket(newSocket)
     return () => {
       newSocket.close()
