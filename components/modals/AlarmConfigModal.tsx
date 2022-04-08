@@ -22,9 +22,14 @@ type AlertSoundKeys =
   | 'Alert 6'
 const AlarmConfigModal = () => {
   const { t } = useTranslation('alarmConfig')
+
   const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
     'viewLocalizedTime',
     true
+  )
+  const [desktopNotifications, setDesktopNotifications] = useLocalStorage<boolean>(
+    'desktopNotifications',
+     false
   )
   const [view24HrTime, setView24HrTime] = useLocalStorage<boolean>(
     'view24HrTime',
@@ -114,6 +119,31 @@ const AlarmConfigModal = () => {
               </div>
             </div>
             <div className="w-full">
+              <label className="label mr-2 cursor-pointer">
+                <span className="label-text w-4/5 text-right font-semibold">
+                  {t('enable-desktop-notifications')}
+                </span>
+                <input
+                  type="checkbox"
+                  onClick={(e) =>{
+                    if (!("Notification" in window)) {
+                      alert("This browser does not support desktop notification");
+                      return;
+                    } else if (Notification.permission === "granted") {
+                      setDesktopNotifications((e.target as HTMLInputElement).checked)
+                    } else if (Notification.permission !== "denied") {
+                      (e.target as HTMLInputElement).checked = false;
+                      Notification.requestPermission(function (permission) {
+                        if (permission === "granted") {
+                          setDesktopNotifications((e.target as HTMLInputElement).checked)
+                        }
+                      });
+                    }
+                  }}
+                  defaultChecked={desktopNotifications}
+                  className="checkbox checkbox-sm"
+                />
+              </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
                   {t('common:view-in-24-hr')}
