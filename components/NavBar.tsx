@@ -15,10 +15,11 @@ const NavBar = () => {
           role="alert"
         >
           <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
-            <label className="cursor-pointer text-teal-300">
-              <a href="https://discord.gg/beFb23WgNC">
-                Suggestions {'&'} Feedback: https://discord.gg/beFb23WgNC
-              </a>
+            <label
+              className="cursor-pointer text-teal-300"
+              htmlFor="changelog-modal"
+            >
+              Added translations, merchant location images and bug fixes!
             </label>
           </span>
         </div>
@@ -51,19 +52,19 @@ const NavBar = () => {
           <a className="btn btn-ghost text-xl normal-case">Lost Ark Timer</a>
 
           <div className="font-mono text-sm uppercase">
-            <Link href="/merchants">
-              <span className="cursor-pointer text-teal-600 hover:text-teal-400">
-                Wandering Merchants
-              </span>
-            </Link>{' '}
-            update is here! So is the{' '}
+            <a
+              className="text-teal-600 hover:text-teal-400"
+              href="https://discord.gg/beFb23WgNC"
+            >
+              Discord
+            </a>
+            <span className="mx-4"></span>
             <a
               className="text-teal-600 hover:text-teal-400"
               href="https://github.com/cwjoshuak/lostarktimer.app-web"
             >
-              code
+              GitHub
             </a>
-            .
           </div>
         </div>
         <div className="navbar-end text-right text-lg font-semibold uppercase">

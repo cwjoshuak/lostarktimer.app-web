@@ -16,8 +16,18 @@ const ChangeLogModal = () => {
               <li>Wandering Merchant Ships</li>
               <li>Daily Reset Timer</li>
               <li>Procyon Compass Checkboxes</li>
+              <li>Discord Bot</li>
             </ul>
           </div>
+          <p className="py-4">4/7/2022:</p>
+          <ol className="list-disc pl-6">
+            <li>Added new merchant location images (thanks Gutterstyle)!</li>
+            <li>
+              Added ZH localization (thanks wuge). More translations welcome (:
+            </li>
+            <li>Added hide by group (thanks Dom).</li>
+            <li>Added back events that were finished (thanks Roland).</li>
+          </ol>
           <p className="py-4">3/24/2022:</p>
           <ol className="list-disc pl-6">
             <li>Feature Release: Wandering Merchants!</li>
