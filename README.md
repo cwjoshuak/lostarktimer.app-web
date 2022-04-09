@@ -13,7 +13,7 @@ Timers for Lost Ark bosses, islands, events, wandering merchants and more!
 - Event Timers (Islands, Bosses, Special Events)
 - Wandering Merchants (powered by [Saintbot](http://saint-bot.webflow.io))
 - 6 Alert Sounds
-- Ability to disable alarms (once, 12 hours, or "permanently" [currently 3 weeks])
+- Ability to disable alarms (once, 12 hours, until reset, or "permanently" [currently 3 weeks])
 - Ability to hide disabled alarms
 - Show less repeating events like the Grand Prix
 
