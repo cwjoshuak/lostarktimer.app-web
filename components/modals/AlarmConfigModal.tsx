@@ -1,10 +1,4 @@
 import React from 'react'
-type ConfigModalProps = {
-  view24HrTime: boolean | undefined
-  setView24HrTime: React.Dispatch<boolean>
-  viewLocalizedTime: boolean | undefined
-  setViewLocalizedTime: React.Dispatch<boolean>
-}
 import { Howl, Howler } from 'howler'
 import { alert1, alert2, alert3, alert4, alert5, alert6 } from '../../sounds'
 import useLocalStorage from '@olerichter00/use-localstorage'
@@ -26,14 +20,12 @@ type AlertSoundKeys =
   | 'Alert 4'
   | 'Alert 5'
   | 'Alert 6'
-const AlarmConfigModal = (props: ConfigModalProps) => {
+const AlarmConfigModal = () => {
   const { t } = useTranslation('alarmConfig')
-  const {
-    // view24HrTime,
-    // setView24HrTime,
-    viewLocalizedTime,
-    setViewLocalizedTime,
-  } = props
+  const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
+    'viewLocalizedTime',
+    true
+  )
   const [view24HrTime, setView24HrTime] = useLocalStorage<boolean>(
     'view24HrTime',
     false
@@ -137,7 +129,7 @@ const AlarmConfigModal = (props: ConfigModalProps) => {
               </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  {t('view-in-current-time')}
+                  {t('common:view-in-current-time')}
                 </span>
                 <input
                   type="checkbox"

@@ -404,7 +404,7 @@ const Alarms: NextPage = () => {
       events: currEventsTable,
       serverTime,
       currDate,
-      viewLocalizedTime: viewLocalizedTime || true,
+      viewLocalizedTime: viewLocalizedTime || false,
       view24HrTime: view24HrTime || false,
       isGameEvent: true,
     })
@@ -432,7 +432,7 @@ const Alarms: NextPage = () => {
         events: allEventsTable,
         serverTime,
         currDate,
-        viewLocalizedTime: viewLocalizedTime || true,
+        viewLocalizedTime: viewLocalizedTime || false,
         view24HrTime: view24HrTime || false,
         isGameEvent: true,
       })
@@ -468,10 +468,10 @@ const Alarms: NextPage = () => {
         ></meta>
       </Head>
       <AlarmConfigModal
-        view24HrTime={view24HrTime}
-        setView24HrTime={setView24HrTime}
-        viewLocalizedTime={viewLocalizedTime}
-        setViewLocalizedTime={setViewLocalizedTime}
+      // view24HrTime={view24HrTime}
+      // setView24HrTime={setView24HrTime}
+      // viewLocalizedTime={viewLocalizedTime}
+      // setViewLocalizedTime={setViewLocalizedTime}
       />
       <div className="navbar flex w-full flex-col bg-base-300 px-4 pt-4 dark:bg-base-100 sm:flex-row lg:px-20">
         <div className="navbar-start mr-4">

@@ -17,7 +17,6 @@ type CellProps = {
 const GameEventTableCell = (props: CellProps): React.ReactElement => {
   const { t } = useTranslation('events')
   const { gameEvent, serverTime, localizedTZ, view24HrTime } = props
-  // const [st, setServerTime] = useState(DateTime.now().setZone(serverTime.zone))
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
     [key: string]: number
   }>('disabledAlarms', {})
