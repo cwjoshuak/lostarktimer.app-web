@@ -111,6 +111,13 @@ const Merchants: NextPage = (props) => {
           )
           return Interval.fromDateTimes(start, start.plus({ minutes: 25 }))
         })
+        let dayPlusOne = DateTime.fromObject(
+          { hour: val[0].h, minute: val[0].m },
+          { zone: regionTZ }
+        ).plus({ days: 1 })
+        newMSchedules[key].push(
+          Interval.fromDateTimes(dayPlusOne, dayPlusOne.plus({ minutes: 25 }))
+        )
       })
       setMSchedules(newMSchedules)
       setWanderingMerchants(
@@ -161,13 +168,14 @@ const Merchants: NextPage = (props) => {
         events: wanderingMerchants,
         serverTime: serverTime,
         currDate: currDate,
-        viewLocalizedTime: viewLocalizedTime || true,
+        viewLocalizedTime: viewLocalizedTime || false,
         view24HrTime: view24HrTime || false,
         isGameEvent: false,
       })
     )
   }, [
     regionTZName,
+    viewLocalizedTime,
     selectedServer,
     wanderingMerchants,
     merchantAPIData,
@@ -181,16 +189,17 @@ const Merchants: NextPage = (props) => {
       <Head>
         <title>Merchants - Lost Ark Timer</title>
       </Head>
-      <MerchantConfigModal
-        view24HrTime={view24HrTime}
-        setView24HrTime={setView24HrTime}
-        viewLocalizedTime={viewLocalizedTime}
-        setViewLocalizedTime={setViewLocalizedTime}
-      />
+      <MerchantConfigModal />
       <div className="flex min-h-screen flex-col items-center whitespace-normal bg-base-300 py-2 dark:bg-base-100">
         <div className="ml-auto flex w-full justify-end px-4 lg:px-20">
           <div className="hidden w-1/5 whitespace-normal text-center text-sm uppercase sm:inline lg:text-lg">
-            <span dangerouslySetInnerHTML={{ __html: t('server-note-text') }} />
+            <span
+              dangerouslySetInnerHTML={{
+                __html: t('server-note-text', {
+                  timeType: viewLocalizedTime ? 'CURRENT TIME' : 'SERVER TIME',
+                }),
+              }}
+            />
           </div>
           <label
             htmlFor="merchant-config-modal"
@@ -234,8 +243,12 @@ const Merchants: NextPage = (props) => {
           </div>
           <table className="mb-2">
             <tbody>
-              <tr>
-                <td className="text-left">{t('common:current-time')}:</td>
+              <tr
+                className={classNames('text-left', {
+                  'text-green-700 dark:text-success': viewLocalizedTime,
+                })}
+              >
+                <td>{t('common:current-time')}:</td>
                 <td className="text-right">
                   {currDate.toLocaleString(
                     view24HrTime
@@ -245,7 +258,11 @@ const Merchants: NextPage = (props) => {
                 </td>
               </tr>
 
-              <tr className="text-green-700 dark:text-success">
+              <tr
+                className={classNames('text-left', {
+                  'text-green-700 dark:text-success': !viewLocalizedTime,
+                })}
+              >
                 <td>{t('common:server-time')}:</td>
                 <td>
                   {serverTime.toLocaleString(
@@ -305,12 +322,27 @@ const Merchants: NextPage = (props) => {
                     <div className="flex flex-row">
                       <span className="w-24 whitespace-normal text-left">
                         <ul>
-                          <li>1:30</li>
-                          <li>4:30</li>
-                          <li>5:30</li>
-                          <li>7:30</li>
-                          <li>8:30</li>
-                          <li>11:30</li>
+                          {mSchedules[1] !== undefined &&
+                            mSchedules[1]
+                              .slice(0, (mSchedules[1].length - 1) / 2)
+                              .map((s) =>
+                                s.start.setZone(
+                                  viewLocalizedTime
+                                    ? currDate.zone
+                                    : serverTime.zone
+                                )
+                              )
+                              .sort((a, b) => a.hour - b.hour)
+                              .map((schedule) => (
+                                <li
+                                  className="mr-4 text-center"
+                                  key={`merchant-schedule-1-${schedule.toISO()}`}
+                                >
+                                  {schedule
+                                    .toLocaleString(DateTime.TIME_SIMPLE)
+                                    .slice(0, -2)}
+                                </li>
+                              ))}
                         </ul>
                       </span>
                       <br />
@@ -331,12 +363,27 @@ const Merchants: NextPage = (props) => {
                     <div className="flex flex-row">
                       <span className="w-24 whitespace-normal text-left">
                         <ul>
-                          <li>12:30</li>
-                          <li>2:30</li>
-                          <li>5:30</li>
-                          <li>6:30</li>
-                          <li>8:30</li>
-                          <li>9:30</li>
+                          {mSchedules[2] !== undefined &&
+                            mSchedules[2]
+                              .slice(0, (mSchedules[2].length - 1) / 2)
+                              .map((s) =>
+                                s.start.setZone(
+                                  viewLocalizedTime
+                                    ? currDate.zone
+                                    : serverTime.zone
+                                )
+                              )
+                              .sort((a, b) => a.hour - b.hour)
+                              .map((schedule) => (
+                                <li
+                                  className="mr-4 text-center"
+                                  key={`merchant-schedule-2-${schedule.toISO()}`}
+                                >
+                                  {schedule
+                                    .toLocaleString(DateTime.TIME_SIMPLE)
+                                    .slice(0, -2)}
+                                </li>
+                              ))}
                         </ul>
                       </span>
                       <span className="text-left">
@@ -357,12 +404,27 @@ const Merchants: NextPage = (props) => {
                     <div className="flex flex-row">
                       <span className="w-24 whitespace-normal text-left">
                         <ul>
-                          <li>12:30</li>
-                          <li>3:30</li>
-                          <li>4:30</li>
-                          <li>6:30</li>
-                          <li>7:30</li>
-                          <li>10:30</li>
+                          {mSchedules[3] !== undefined &&
+                            mSchedules[3]
+                              .slice(0, (mSchedules[3].length - 1) / 2)
+                              .map((s) =>
+                                s.start.setZone(
+                                  viewLocalizedTime
+                                    ? currDate.zone
+                                    : serverTime.zone
+                                )
+                              )
+                              .sort((a, b) => a.hour - b.hour)
+                              .map((schedule) => (
+                                <li
+                                  className="mr-4 text-center"
+                                  key={`merchant-schedule-3-${schedule.toISO()}`}
+                                >
+                                  {schedule
+                                    .toLocaleString(DateTime.TIME_SIMPLE)
+                                    .slice(0, -2)}
+                                </li>
+                              ))}
                         </ul>
                       </span>
                       <span className="text-left">
@@ -396,6 +458,7 @@ const Merchants: NextPage = (props) => {
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import classNames from 'classnames'
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {

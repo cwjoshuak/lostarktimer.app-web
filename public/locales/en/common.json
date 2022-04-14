@@ -4,5 +4,6 @@
   "current-time": "Current Time",
   "server-time": "Server Time",
   "option-minute-before": "{{minutes}} min before",
+  "view-in-current-time": "View in Current Time",
   "all-done": "All Done"
 }

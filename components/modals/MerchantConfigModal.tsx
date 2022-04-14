@@ -1,21 +1,13 @@
 import React from 'react'
-type ConfigModalProps = {
-  view24HrTime: boolean | undefined
-  setView24HrTime: React.Dispatch<boolean>
-  viewLocalizedTime: boolean | undefined
-  setViewLocalizedTime: React.Dispatch<boolean>
-}
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { useTranslation } from 'next-i18next'
 
-const MerchantConfigModal = (props: ConfigModalProps) => {
+const MerchantConfigModal = () => {
   const { t } = useTranslation('merchantConfig')
-  const {
-    // view24HrTime,
-    // setView24HrTime,
-    viewLocalizedTime,
-    setViewLocalizedTime,
-  } = props
+  const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
+    'viewLocalizedTime',
+    true
+  )
   const [view24HrTime, setView24HrTime] = useLocalStorage<boolean>(
     'view24HrTime',
     false
@@ -88,6 +80,19 @@ const MerchantConfigModal = (props: ConfigModalProps) => {
                     )
                   }
                   defaultChecked={hidePotentialSpawns}
+                  className="checkbox checkbox-sm"
+                />
+              </label>
+              <label className="label mr-2 cursor-pointer">
+                <span className="label-text w-4/5 text-right font-semibold">
+                  {t('common:view-in-current-time')}
+                </span>
+                <input
+                  type="checkbox"
+                  onClick={(e) =>
+                    setViewLocalizedTime((e.target as HTMLInputElement).checked)
+                  }
+                  defaultChecked={viewLocalizedTime}
                   className="checkbox checkbox-sm"
                 />
               </label>

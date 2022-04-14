@@ -4,5 +4,6 @@
   "current-time": "当前时间",
   "server-time": "服务器时间",
   "option-minute-before": "提前{{minutes}}分钟提醒",
+  "view-in-current-time": "当前时间内查看",
   "all-done": "确定"
 }

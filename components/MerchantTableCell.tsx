@@ -140,8 +140,9 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
           <span>
             <span
               className={classNames('block text-lg uppercase', {
-                'text-green-700 dark:text-success':
-                  merchant.inProgress(serverTime),
+                'text-green-700 dark:text-success': merchant.inProgress(
+                  serverTime.setZone(localizedTZ)
+                ),
               })}
             >
               {merchant.name} ({t(`locations.${merchant.continent}`)}){' '}
@@ -152,10 +153,12 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                     .set({
                       minute: 30,
                     })
+                    .setZone(localizedTZ)
                     .toLocaleString(DateTime.TIME_SIMPLE)}{' '}
                   -{' '}
                   {serverTime
                     .set({ minute: 55 })
+                    .setZone(localizedTZ)
                     .toLocaleString(DateTime.TIME_SIMPLE)}
                 </span>
               ) : null}
@@ -206,7 +209,8 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
             {t('next-spawn')}:{'  '}
             {merchant
               .nextSpawnTime(serverTime)
-              ?.start.toLocaleString(
+              ?.start.setZone(localizedTZ)
+              .toLocaleString(
                 view24HrTime ? DateTime.TIME_24_SIMPLE : DateTime.TIME_SIMPLE
               )}
             <span
