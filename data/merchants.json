@@ -224,5 +224,19 @@
       "cards": [63200308, 63200310, 63200309, 63200305],
       "cooking": [920803]
     }
+  },
+  {
+    "name": "Evan",
+    "continent": "South Vern",
+    "locations": {
+      "Candaria Territory": "iKjUMNQ.png",
+      "Bellion Ruins": "EHhZaif.png"
+    },
+    "schedule": 3,
+    "items": {
+      "rapport": [70500063, 70500062, 70500064, 70501012],
+      "cards": [63200407, 63200408, 63200402, 63200404, 63200403],
+      "cooking": []
+    }
   }
 ]

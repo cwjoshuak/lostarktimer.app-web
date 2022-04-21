@@ -430,6 +430,7 @@ const Merchants: NextPage = (props) => {
                       <span className="text-left">
                         <ul>
                           <li>Ben - {t('locations.Rethramis')}</li>
+                          <li>Evan - {t('locations.South Vern')}</li>
                           <li>Peter - {t('locations.North Vern')}</li>
                           <li>Laitir - {t('locations.Yorn')}</li>
                         </ul>

@@ -164,5 +164,19 @@
   "70503001": { "name": "Yudia Spellbook", "fileName": "use_8_39.webp" },
   "70503005": { "name": "Shimmering Essence", "fileName": "use_8_41.webp" },
   "70503006": { "name": "Energy X7 Capsule", "fileName": "use_8_42.webp" },
-  "70503008": { "name": "Piyer's Secret Textbook", "fileName": "use_8_44.webp" }
+  "70503008": {
+    "name": "Piyer's Secret Textbook",
+    "fileName": "use_8_44.webp"
+  },
+
+  "70500063": { "name": "Feather Fan", "fileName": "use_9_210.webp" },
+  "70500062": { "name": "Febre Potion", "fileName": "use_9_209.webp" },
+  "70500064": { "name": "Mockup Firefly", "fileName": "use_9_211.webp" },
+  "70501012": { "name": "Necromancer's Records", "fileName": "use_9_212.webp" },
+
+  "63200407": { "name": "Satra", "fileName": "use_2_13.webp" },
+  "63200408": { "name": "Killian", "fileName": "use_2_13.webp" },
+  "63200402": { "name": "Lujean", "fileName": "use_2_13.webp" },
+  "63200404": { "name": "Vern Zenlord", "fileName": "use_2_13.webp" },
+  "63200403": { "name": "Xereon", "fileName": "use_2_13.webp" }
 }
