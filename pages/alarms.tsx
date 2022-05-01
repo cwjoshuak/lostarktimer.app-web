@@ -240,6 +240,10 @@ const Alarms: NextPage = () => {
                   { zone: regionTZ }
                 )
                 let id = Number(gt.id)
+                // skip thunderwings
+                if (id === 3016) {
+                  return
+                }
                 if (
                   (7000 <= id && id < 8000 && ![7013, 7035].includes(id)) ||
                   [
