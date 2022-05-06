@@ -276,7 +276,7 @@ const Merchants: NextPage = (props) => {
           </table>
         </div>
 
-        <div className="mb-14 flex w-screen overflow-x-auto px-4 lg:px-20">
+        <div className="mb-14 flex w-full overflow-x-auto px-4 lg:px-20">
           <table className="table w-full">
             <thead>
               <tr className="relative justify-center text-center">
