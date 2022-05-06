@@ -175,6 +175,7 @@ const Merchants: NextPage = (props) => {
     )
   }, [
     regionTZName,
+    view24HrTime,
     viewLocalizedTime,
     selectedServer,
     wanderingMerchants,
