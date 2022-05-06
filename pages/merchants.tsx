@@ -304,7 +304,9 @@ const Merchants: NextPage = (props) => {
                   <div className="absolute right-5 top-7">
                     {t('last-updated')}:{' '}
                     {dataLastRefreshed.toLocaleString(
-                      DateTime.TIME_WITH_SECONDS
+                      view24HrTime
+                        ? DateTime.TIME_24_WITH_SECONDS
+                        : DateTime.TIME_WITH_SECONDS
                     )}
                   </div>
                 </td>
