@@ -13,7 +13,7 @@ class WanderingMerchant {
   locationImages: { [key: string]: string }
 
   location: string | null = null
-  goodItem: string | null = null
+  goodItems: string[] | null = null
   spawnTime: number | null = null
 
   uuid: string
@@ -44,7 +44,7 @@ class WanderingMerchant {
   ) {
     // this.continent = continent
     this.location = location
-    this.goodItem = goodItem
+    this.goodItems = goodItem?.split('][') ?? null
     this.spawnTime = spawnTime
     this.spawned = true
   }
@@ -79,7 +79,7 @@ class WanderingMerchant {
   unsetSpawn() {
     this.spawned = false
     this.location = null
-    this.goodItem = null
+    this.goodItems = null
     this.spawnTime = null
   }
 }

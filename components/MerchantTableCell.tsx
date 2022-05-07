@@ -154,17 +154,19 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                       minute: 30,
                     })
                     .setZone(localizedTZ)
-                    .toLocaleString(view24HrTime 
-                      ? DateTime.TIME_24_SIMPLE 
-                      : DateTime.TIME_SIMPLE
+                    .toLocaleString(
+                      view24HrTime
+                        ? DateTime.TIME_24_SIMPLE
+                        : DateTime.TIME_SIMPLE
                     )}{' '}
                   -{' '}
                   {serverTime
                     .set({ minute: 55 })
                     .setZone(localizedTZ)
-                    .toLocaleString(view24HrTime
-                      ? DateTime.TIME_24_SIMPLE
-                      : DateTime.TIME_SIMPLE
+                    .toLocaleString(
+                      view24HrTime
+                        ? DateTime.TIME_24_SIMPLE
+                        : DateTime.TIME_SIMPLE
                     )}
                 </span>
               ) : null}
@@ -195,14 +197,19 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                 </span>
                 <br />
                 Item:{' '}
-                <span
-                  className={classNames({
-                    [`${merchantGoodItemToRarity(merchant.goodItem)}`]:
-                      merchant.spawned,
-                  })}
-                >
-                  {merchant.goodItem ? merchant.goodItem : 'Unknown'}
-                </span>
+                {merchant.goodItems
+                  ? merchant.goodItems.map((goodItem, index) => (
+                      <span
+                        className={classNames({
+                          [`${merchantGoodItemToRarity(goodItem)}`]:
+                            merchant.spawned,
+                        })}
+                      >
+                        {goodItem}
+                        {index === 0 ? <span>, </span> : ''}
+                      </span>
+                    ))
+                  : 'Unknown'}
               </div>
             ) : null}
           </span>
@@ -217,9 +224,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
               .nextSpawnTime(serverTime)
               ?.start.setZone(localizedTZ)
               .toLocaleString(
-                view24HrTime 
-                  ? DateTime.TIME_24_SIMPLE 
-                  : DateTime.TIME_SIMPLE
+                view24HrTime ? DateTime.TIME_24_SIMPLE : DateTime.TIME_SIMPLE
               )}
             <span
               className={classNames(
