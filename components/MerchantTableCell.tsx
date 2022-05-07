@@ -154,12 +154,18 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                       minute: 30,
                     })
                     .setZone(localizedTZ)
-                    .toLocaleString(DateTime.TIME_SIMPLE)}{' '}
+                    .toLocaleString(view24HrTime 
+                      ? DateTime.TIME_24_SIMPLE 
+                      : DateTime.TIME_SIMPLE
+                    )}{' '}
                   -{' '}
                   {serverTime
                     .set({ minute: 55 })
                     .setZone(localizedTZ)
-                    .toLocaleString(DateTime.TIME_SIMPLE)}
+                    .toLocaleString(view24HrTime
+                      ? DateTime.TIME_24_SIMPLE
+                      : DateTime.TIME_SIMPLE
+                    )}
                 </span>
               ) : null}
             </span>
@@ -211,7 +217,9 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
               .nextSpawnTime(serverTime)
               ?.start.setZone(localizedTZ)
               .toLocaleString(
-                view24HrTime ? DateTime.TIME_24_SIMPLE : DateTime.TIME_SIMPLE
+                view24HrTime 
+                  ? DateTime.TIME_24_SIMPLE 
+                  : DateTime.TIME_SIMPLE
               )}
             <span
               className={classNames(

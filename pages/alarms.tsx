@@ -100,9 +100,6 @@ const Alarms: NextPage = () => {
     Array<JSX.Element>
   >([])
 
-  const [currentEventsIds, setCurrentEventsIds] = useState<Array<number>>([])
-  const previousEventIds = usePrevious(currentEventsIds)
-
   const [selectedEventType, setSelectedEventType] = useState(-1)
   const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
     'viewLocalizedTime',
@@ -123,6 +120,10 @@ const Alarms: NextPage = () => {
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
     [key: string]: number
   }>('disabledAlarms', {})
+  const [desktopNotifications, setDesktopNotifications] = useLocalStorage<boolean>(
+    'desktopNotifications',
+     false
+  )
   const [hideGrandPrix, setHideGrandPrix] = useLocalStorage<boolean>(
     'hideGrandPrix',
     false
@@ -158,20 +159,6 @@ const Alarms: NextPage = () => {
     }
   }, [regionTZ])
 
-  useEffect(() => {
-    if (previousEventIds) {
-      let difference = (previousEventIds || [])
-        .filter((x) => !currentEventsIds.includes(x))
-        .concat(currentEventsIds.filter((x) => !previousEventIds.includes(x)))
-      if (difference.length === 0) return
-    }
-    if (alertSound && alertSound !== 'muted') {
-      let s = new Howl({
-        src: sounds[alertSound as AlertSoundKeys] as unknown as string,
-      })
-      s.play()
-    }
-  }, [currentEventsIds])
   useEffect(() => {
     if (volume !== undefined) Howler.volume(volume)
   }, [volume])
@@ -240,6 +227,10 @@ const Alarms: NextPage = () => {
                   { zone: regionTZ }
                 )
                 let id = Number(gt.id)
+                // skip thunderwings
+                if (id === 3016) {
+                  return
+                }
                 if (
                   (7000 <= id && id < 8000 && ![7013, 7035].includes(id)) ||
                   [
@@ -411,19 +402,40 @@ const Alarms: NextPage = () => {
 
     if (
       currentEventsTableData.length > 0 &&
-      currentEventsTableData.length > currentEventsTable.length
+      currentEventsTableData.length > currentEventsTable.length &&
+      (currentEventsTable.length !== 0 ||
+        currentEventsTableData !== currentEventsTable)
     ) {
       if (
         alertSound &&
-        alertSound !== 'muted' &&
-        (currentEventsTable.length !== 0 ||
-          currentEventsTableData !== currentEventsTable)
+        alertSound !== 'muted'
       ) {
         let s = new Howl({
           src: sounds[alertSound as AlertSoundKeys] as unknown as string,
           onunlock: (id) => setUnlockedAudio(true),
         })
         s.play()
+      }
+      if (desktopNotifications) {
+        let notification = new Notification(
+          `Events starting in ${notifyInMins} minutes`,
+          {
+            body: currEventsTable.map((e) => e.gameEvent.name).reduce((acc, curr, currIndex) => {
+              if (currIndex < 3) {
+                return `${acc}\n${curr}`
+              } else if (currIndex === 3) {
+                return `${acc}\n+${currEventsTable.length - 3} more`
+              } else {
+                return acc
+              }
+            }, ''),
+            icon: '/images/LA_Mokko_Seed.png',
+          }
+        )
+        notification.onclick = () => {
+          window.focus()
+          notification.close()
+        }
       }
     }
 
