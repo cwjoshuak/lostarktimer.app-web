@@ -116,7 +116,7 @@ const AlarmConfigModal = () => {
             <div className="w-full">
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
-                  {t('view-in-24-hr')}
+                  {t('common:view-in-24-hr')}
                 </span>
                 <input
                   type="checkbox"
