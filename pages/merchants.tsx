@@ -295,12 +295,15 @@ const Merchants: NextPage = (props) => {
                   <a
                     href="https://discord.gg/HfXQpmpaD5"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="btn btn-outline btn-warning btn-xs absolute right-48 top-4"
                   >
                     {t('vote')}
                   </a>
                   <a
                     href="https://saint-bot.webflow.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="absolute right-4 top-2 flex items-center justify-center gap-2 text-indigo-500/90 hover:underline"
                   >
                     {t('data-by')} SaintBot{' '}

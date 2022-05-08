@@ -19,7 +19,11 @@ const NavBar = () => {
               className="cursor-pointer text-teal-300"
               // htmlFor="changelog-modal"
             >
-              <a href="https://discord.gg/qhnqxtphSg" target="_blank">
+              <a
+                href="https://discord.gg/qhnqxtphSg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Discord Bot now available. Click here to join!
               </a>
             </label>
@@ -58,6 +62,7 @@ const NavBar = () => {
               className="text-teal-600 hover:text-teal-400"
               href="https://discord.gg/beFb23WgNC"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Discord
             </a>
@@ -66,6 +71,7 @@ const NavBar = () => {
               className="text-teal-600 hover:text-teal-400"
               href="https://github.com/cwjoshuak/lostarktimer.app-web"
               target="_blank"
+              rel="noopener noreferrer"
             >
               GitHub
             </a>
@@ -74,6 +80,7 @@ const NavBar = () => {
               className="text-teal-600 hover:text-teal-400"
               href="https://www.buymeacoffee.com/lostarktimer"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Support
             </a>
