@@ -140,7 +140,7 @@ const Merchants: NextPage = (props) => {
     if (socket?.connected && selectedServer) {
       socket.removeAllListeners()
       socket.emit('join', `${selectedServer.toLowerCase()}`)
-      socket.on(`${selectedServer.toLowerCase()}`, (data) => {
+      socket.on('merchants', (data) => {
         setAPIData(data)
       })
     }
