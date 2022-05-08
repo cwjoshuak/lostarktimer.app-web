@@ -82,6 +82,7 @@ const Merchants: NextPage = (props) => {
     if (process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') {
       newSocket.disconnect()
     }
+
     newSocket.on('merchants', (data) => {
       setAPIData(data)
     })
@@ -135,7 +136,15 @@ const Merchants: NextPage = (props) => {
       )
     }
   }, [regionTZName])
-
+  useEffect(() => {
+    if (socket?.connected && selectedServer) {
+      socket.removeAllListeners()
+      socket.emit('join', `${selectedServer.toLowerCase()}`)
+      socket.on(`${selectedServer.toLowerCase()}`, (data) => {
+        setAPIData(data)
+      })
+    }
+  }, [socket?.connected, selectedServer])
   useEffect(() => {
     let data = Object.values(merchantAPIData).filter(
       (m) => m.server === selectedServer?.toLowerCase()
