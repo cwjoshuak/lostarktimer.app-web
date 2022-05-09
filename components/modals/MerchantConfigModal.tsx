@@ -12,6 +12,10 @@ const MerchantConfigModal = () => {
     'view24HrTime',
     false
   )
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>(
+    'darkMode',
+    false
+  )
   const [alertSound, setAlertSound] = useLocalStorage<string>(
     'alertSound',
     'muted'
@@ -85,6 +89,19 @@ const MerchantConfigModal = () => {
               </label>
             </div>
             <div className="w-full">
+              <label className="label mr-2 cursor-pointer">
+                <span className="label-text w-4/5 text-right font-semibold">
+                  {t('common:dark-mode')}
+                </span>
+                <input
+                  type="checkbox"
+                  onClick={(e) =>
+                    setDarkMode((e.target as HTMLInputElement).checked)
+                  }
+                  defaultChecked={darkMode}
+                  className="checkbox checkbox-sm"
+                />
+              </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
                   {t('common:view-in-24-hr')}

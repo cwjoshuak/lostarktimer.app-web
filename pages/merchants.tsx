@@ -33,6 +33,20 @@ const Merchants: NextPage = (props) => {
     'Shandi'
   )
 
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>(
+    'darkMode',
+    false
+  )
+  useEffect(()=> {
+    //Toggle Daisy UI colors (e.g. bg-base-###)
+    document.documentElement.setAttribute('data-theme', darkMode ? "dark" : "light") 
+    
+    //Toggle standard Tailwind colors (e.g. bg-sky-800)
+    darkMode 
+      ?  document.documentElement.classList.add("dark")
+      :  document.documentElement.classList.remove("dark")
+  }, [darkMode])
+
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
 

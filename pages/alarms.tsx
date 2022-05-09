@@ -86,6 +86,20 @@ const Alarms: NextPage = () => {
     'regionTZName',
     'US West'
   )
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>(
+    'darkMode',
+    false
+  )
+  useEffect(()=> {
+    //Toggle Daisy UI colors (e.g. bg-base-###)
+    document.documentElement.setAttribute('data-theme', darkMode ? "dark" : "light") 
+    
+    //Toggle standard Tailwind colors (e.g. bg-sky-800)
+    darkMode 
+      ?  document.documentElement.classList.add("dark")
+      :  document.documentElement.classList.remove("dark")
+  }, [darkMode])
+
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
