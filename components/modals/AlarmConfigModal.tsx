@@ -33,10 +33,10 @@ const AlarmConfigModal = () => {
     'view24HrTime',
     false
   )
-  const [darkMode, setDarkMode] = useLocalStorage<boolean>(
-    'darkMode',
-    false
-  )
+  const defaultTheme = () => {
+    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
   const [alertSound, setAlertSound] = useLocalStorage<string>(
     'alertSound',
     'muted'
