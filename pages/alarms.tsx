@@ -122,7 +122,7 @@ const Alarms: NextPage = () => {
   }>('disabledAlarms', {})
   const [desktopNotifications, setDesktopNotifications] = useLocalStorage<boolean>(
     'desktopNotifications',
-     false
+    false
   )
   const [hideGrandPrix, setHideGrandPrix] = useLocalStorage<boolean>(
     'hideGrandPrix',
@@ -418,9 +418,9 @@ const Alarms: NextPage = () => {
       }
       if (desktopNotifications) {
         let notification = new Notification(
-          `Events starting in ${notifyInMins} minutes`,
+          `${t('alarms:notification-header', { notifyInMins })}`,
           {
-            body: currEventsTable.map((e) => e.gameEvent.name).reduce((acc, curr, currIndex) => {
+            body: currEventsTable.map((e) => t(`${e.gameEvent.id}`)).reduce((acc, curr, currIndex) => {
               if (currIndex < 3) {
                 return `${acc}\n${curr}`
               } else if (currIndex === 3) {
@@ -763,6 +763,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
     props: {
       ...(await serverSideTranslations(locale, [
         'events',
+        'alarms',
         'common',
         'alarmConfig',
       ])),
