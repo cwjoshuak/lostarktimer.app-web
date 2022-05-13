@@ -1,0 +1,15 @@
+{
+  "notification-header": "Events Starting in {{notifyInMins}} minutes",
+  "repeated-events": {
+    "show": "Show Repeated Events",
+    "hide": "Hide Repeated Events"
+  },
+  "enable": "Enable Alarm",
+  "disable": {
+    "once": "Disable Once",
+    "12hrs": "Disable Alarm for 12 Hours",
+    "daily-reset": "Disable Until Daily Reset",
+    "weekly-reset": "Disable Until Weekly Reset",
+    "all": "Disable All Future Alarms"
+  }
+}
