@@ -418,13 +418,14 @@ const Alarms: NextPage = () => {
       }
       if (desktopNotifications) {
         let notification = new Notification(
-          `${t('alarms:notification-header', { notifyInMins })}`,
+          `${t('alarms:notification.heading', { notifyInMins })}`,
           {
             body: currEventsTable.map((e) => t(`${e.gameEvent.id}`)).reduce((acc, curr, currIndex) => {
               if (currIndex < 3) {
                 return `${acc}\n${curr}`
               } else if (currIndex === 3) {
-                return `${acc}\n+${currEventsTable.length - 3} more`
+                const additionalEvents: number = currEventsTable.length - 3
+                return `${acc}\n${t('alarms:notification.additional-events', { additionalEvents })}`
               } else {
                 return acc
               }

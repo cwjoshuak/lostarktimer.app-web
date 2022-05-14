@@ -1,5 +1,8 @@
 {
-  "notification-header": "Events Starting in {{notifyInMins}} minutes",
+  "notification": {
+    "heading": "Events Starting in {{notifyInMins}} minutes",
+    "additional-events": "+{{additionalEvents}} more"
+  },
   "repeated-events": {
     "show": "Show Repeated Events",
     "hide": "Hide Repeated Events"
