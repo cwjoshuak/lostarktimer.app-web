@@ -89,7 +89,7 @@ const Alarms: NextPage = () => {
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
-  const [selectedDate, setSelectedDate] = useState(currDate.setZone(regionTZ))
+  const [selectedDate, setSelectedDate] = useState(currDate.set({hour: 0, minute: 0, second: 0, millisecond: 0}).setZone(regionTZ))
 
   const [gameEvents, setGameEvents] = useState<Array<GameEvent> | undefined>(
     undefined
@@ -122,7 +122,7 @@ const Alarms: NextPage = () => {
   }>('disabledAlarms', {})
   const [desktopNotifications, setDesktopNotifications] = useLocalStorage<boolean>(
     'desktopNotifications',
-     false
+    false
   )
   const [hideGrandPrix, setHideGrandPrix] = useLocalStorage<boolean>(
     'hideGrandPrix',
@@ -155,7 +155,7 @@ const Alarms: NextPage = () => {
     if (regionTZ !== undefined) {
       setMounted(true)
       setServerTime(currDate.setZone(regionTZ))
-      setSelectedDate(currDate.setZone(regionTZ))
+      setSelectedDate(currDate.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))
     }
   }, [regionTZ])
 
@@ -170,7 +170,7 @@ const Alarms: NextPage = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       let now = DateTime.now()
-      if (currDate.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now)
+      if (currDate.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))
       setCurrDate(now)
       setServerTime(now.setZone(regionTZ))
     }, 1000)
@@ -509,7 +509,7 @@ const Alarms: NextPage = () => {
             </button>
             <button
               className="btn relative text-2xl text-stone-200"
-              onClick={(e) => setSelectedDate(serverTime)}
+              onClick={(e) => setSelectedDate(serverTime.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))}
             >
               <span>
                 {selectedDate.monthLong} {selectedDate.day}
