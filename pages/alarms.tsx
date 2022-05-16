@@ -170,14 +170,14 @@ const Alarms: NextPage = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       let now = DateTime.now()
-      if (currDate.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))
+      if (serverTime.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))
       setCurrDate(now)
       setServerTime(now.setZone(regionTZ))
     }, 1000)
     return () => {
       clearInterval(timer) // Return a function to clear the timer so that it will stop being called on unmount
     }
-  }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate])
+  }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate, serverTime.day])
 
   // clear disabled alarm when alarm expires
   useEffect(() => {
