@@ -57,6 +57,7 @@ function MyApp({ Component, pageProps, ...AppProps }: AppProps) {
         <a
           className="ml-1"
           href="https://www.twitch.tv/delay3d"
+          rel="noopener noreferrer"
           style={{ color: '#6441a5' }}
         >
           <IconBrandTwitch className="inline" /> https://www.twitch.tv/delay3d

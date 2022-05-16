@@ -111,7 +111,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
     window.open(
       `https://i.imgur.com/${imageUrl}`,
       title,
-      'left=20,top=20,width=1000,height=600,toolbar=0,resizable=1'
+      'left=20,top=20,width=1000,height=600,toolbar=0,resizable=1,noopener=1,noreferrer=1'
     )
     return false
   }

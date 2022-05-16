@@ -12,6 +12,8 @@ const GitHubModal = () => {
             <a
               className="text-blue-400 hover:text-blue-300"
               href="https://github.com/cwjoshuak/lostarktimer.app-web"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Looking to contribute?
             </a>
@@ -20,6 +22,8 @@ const GitHubModal = () => {
             Feel free to send me a{' '}
             <a
               href="https://discord.com/users/120909965547405312"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-blue-400"
             >
               DM here
