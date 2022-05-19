@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import merchantSchedules from '../data/merchantSchedules.json'
 import saintbotImage from '../public/images/saint-bot.png'
 import { DateTime, Interval } from 'luxon'
@@ -32,6 +32,24 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
+  const isMounted = useRef(false);
+  const defaultTheme = () => {
+    // Defaults to system theme if unconfigured
+    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
+  useEffect(()=> {
+    //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
+    if (!isMounted.current){ isMounted.current = true; return }
+
+    //Toggle Daisy UI colors (e.g. bg-base-###)
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light') 
+    
+    //Toggle standard Tailwind colors (e.g. bg-sky-800)
+    darkMode 
+      ?  document.documentElement.classList.add("dark")
+      :  document.documentElement.classList.remove("dark")
+  }, [darkMode])
 
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
