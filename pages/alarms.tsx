@@ -86,23 +86,36 @@ const Alarms: NextPage = () => {
     'regionTZName',
     'US West'
   )
-  const isMounted = useRef(false);
+  const isMounted = useRef(false)
   const defaultTheme = () => {
     // Defaults to system theme if unconfigured
-    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    return (
+      localStorage.getItem('darkMode') ||
+      (window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    )
   }
-  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
-  useEffect(()=> {
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>(
+    'darkMode',
+    defaultTheme
+  )
+  useEffect(() => {
     //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
-    if (!isMounted.current){ isMounted.current = true; return }
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
 
     //Toggle Daisy UI colors (e.g. bg-base-###)
-    document.documentElement.setAttribute('data-theme', darkMode ? "dark" : "light") 
-    
+    document.documentElement.setAttribute(
+      'data-theme',
+      darkMode ? 'dark' : 'light'
+    )
+
     //Toggle standard Tailwind colors (e.g. bg-sky-800)
-    darkMode 
-      ?  document.documentElement.classList.add("dark")
-      :  document.documentElement.classList.remove("dark")
+    darkMode
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark')
   }, [darkMode])
 
   const [serverTime, setServerTime] = useState<DateTime>(
@@ -139,10 +152,8 @@ const Alarms: NextPage = () => {
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
     [key: string]: number
   }>('disabledAlarms', {})
-  const [desktopNotifications, setDesktopNotifications] = useLocalStorage<boolean>(
-    'desktopNotifications',
-    false
-  )
+  const [desktopNotifications, setDesktopNotifications] =
+    useLocalStorage<boolean>('desktopNotifications', false)
   const [hideGrandPrix, setHideGrandPrix] = useLocalStorage<boolean>(
     'hideGrandPrix',
     false
@@ -169,14 +180,27 @@ const Alarms: NextPage = () => {
     useRef(null),
     useRef(null),
   ]
-
+  const router = useRouter()
   useEffect(() => {
     if (regionTZ !== undefined) {
       setMounted(true)
       setServerTime(currDate.setZone(regionTZ))
       setSelectedDate(currDate.setZone(regionTZ))
     }
-  }, [regionTZ])
+    if (
+      router.query.region &&
+      typeof router.query.region === 'string' &&
+      ['US-West', 'US-East', 'EU-West', 'EU-Central', 'South America'].includes(
+        router.query.region
+      )
+    ) {
+      const region = router.query.region.replace('-', ' ') as RegionKey
+      if (regionTZName !== region) {
+        setRegionTZ(RegionTimeZoneMapping[region])
+        setRegionTZName(region)
+      }
+    }
+  }, [regionTZ, router.query])
 
   useEffect(() => {
     if (volume !== undefined) Howler.volume(volume)
@@ -186,6 +210,7 @@ const Alarms: NextPage = () => {
     setMounted(true)
     Howler.autoSuspend = false
   }, [])
+
   useEffect(() => {
     const timer = setInterval(() => {
       let now = DateTime.now()
@@ -299,7 +324,7 @@ const Alarms: NextPage = () => {
 
     setGameEvents(gameEvents)
     setTodayEvents(todayEvents)
-  }, [regionTZ, selectedDate, viewLocalizedTime, view24HrTime])
+  }, [regionTZ, selectedDate, viewLocalizedTime, view24HrTime, router.query])
 
   // (re)generate full events table and current events table on dependency array change (mostly config changes)
   useEffect(() => {
@@ -341,6 +366,14 @@ const Alarms: NextPage = () => {
     for (let i = 0; i < todayEvents?.length; i++) {
       let event = todayEvents[i]
       if (eventType !== -1 && event.eventType.id !== eventType) continue
+      if (
+        router.query &&
+        router.query.eventIds &&
+        typeof router.query.eventIds === 'string'
+      ) {
+        const filteredEvtIds = router.query.eventIds.split(',')
+        if (!filteredEvtIds.includes(event.gameEvent.id.toString())) continue
+      }
       if (disabledAlarmsKeys.includes(event.gameEvent.id) && disabledAlarms)
         event.disabled =
           DateTime.fromMillis(disabledAlarms[event.gameEvent.id]) || null
@@ -425,10 +458,7 @@ const Alarms: NextPage = () => {
       (currentEventsTable.length !== 0 ||
         currentEventsTableData !== currentEventsTable)
     ) {
-      if (
-        alertSound &&
-        alertSound !== 'muted'
-      ) {
+      if (alertSound && alertSound !== 'muted') {
         let s = new Howl({
           src: sounds[alertSound as AlertSoundKeys] as unknown as string,
           onunlock: (id) => setUnlockedAudio(true),
@@ -439,16 +469,20 @@ const Alarms: NextPage = () => {
         let notification = new Notification(
           `${t('alarms:notification.heading', { notifyInMins })}`,
           {
-            body: currEventsTable.map((e) => t(`${e.gameEvent.id}`)).reduce((acc, curr, currIndex) => {
-              if (currIndex < 3) {
-                return `${acc}\n${curr}`
-              } else if (currIndex === 3) {
-                const additionalEvents: number = currEventsTable.length - 3
-                return `${acc}\n${t('alarms:notification.additional-events', { additionalEvents })}`
-              } else {
-                return acc
-              }
-            }, ''),
+            body: currEventsTable
+              .map((e) => t(`${e.gameEvent.id}`))
+              .reduce((acc, curr, currIndex) => {
+                if (currIndex < 3) {
+                  return `${acc}\n${curr}`
+                } else if (currIndex === 3) {
+                  const additionalEvents: number = currEventsTable.length - 3
+                  return `${acc}\n${t('alarms:notification.additional-events', {
+                    additionalEvents,
+                  })}`
+                } else {
+                  return acc
+                }
+              }, ''),
             icon: '/images/LA_Mokko_Seed.png',
           }
         )
@@ -777,6 +811,7 @@ const Alarms: NextPage = () => {
 }
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
