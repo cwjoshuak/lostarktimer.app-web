@@ -116,7 +116,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                     ;(document.activeElement as HTMLElement).blur()
                   }}
                 >
-                  Show Repeated Events
+                  {t('alarms:repeated-events.show')}
                 </a>
               </li>
               {gameEvent.disabled ? (
@@ -135,7 +135,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Enable Alarm
+                      {t('alarms:enable')}
                     </a>
                   </li>
                 </>
@@ -153,7 +153,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable Once
+                      {t('alarms:disable.once')}
                     </a>
                   </li>
                   <li className="border-l-4 border-transparent">
@@ -170,7 +170,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable Alarm for 12 Hours
+                      {t('alarms:disable.12hrs')}
                     </a>
                   </li>
                   <li className="border-l-4 border-transparent">
@@ -194,7 +194,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable Alarm Until Daily Reset
+                      {t(`alarms:disable.daily-reset`)}
                     </a>
                   </li>
                   <li className="border-l-4 border-transparent">
@@ -219,7 +219,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable Alarm Until Weekly Reset
+                      {t('alarms:disable.weekly-reset')}
                     </a>
                   </li>
                   <li>
@@ -237,7 +237,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable All Future Alarms
+                      {t('alarms:disable.all')}
                     </a>
                   </li>
                 </>
@@ -252,7 +252,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                     ;(document.activeElement as HTMLElement).blur()
                   }}
                 >
-                  Hide Repeated Events
+                  {t('alarms:repeated-events.hide')}
                 </a>
               </li>
             </>
@@ -272,7 +272,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Enable Alarm
+                {t('alarms:enable')}
               </a>
             </li>
           </>
@@ -290,7 +290,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable Once
+                {t('alarms:disable.once')}
               </a>
             </li>
             <li className="border-l-4 border-transparent">
@@ -307,7 +307,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable Alarm for 12 Hours
+                {t('alarms:disable.12hrs')}
               </a>
             </li>
             <li className="border-l-4 border-transparent">
@@ -331,7 +331,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable Alarm Until Daily Reset
+                {t('alarms:disable.daily-reset')}
               </a>
             </li>
             <li className="border-l-4 border-transparent">
@@ -356,7 +356,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable Alarm Until Weekly Reset
+                {t('alarms:disable.weekly-reset')}
               </a>
             </li>
             <li>
@@ -374,7 +374,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable All Future Alarms
+                {t('alarms:disable.all')}
               </a>
             </li>
           </>

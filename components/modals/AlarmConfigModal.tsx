@@ -33,6 +33,10 @@ const AlarmConfigModal = () => {
     'view24HrTime',
     false
   )
+  const defaultTheme = () => {
+    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
   const [alertSound, setAlertSound] = useLocalStorage<string>(
     'alertSound',
     'muted'
@@ -145,6 +149,19 @@ const AlarmConfigModal = () => {
                     }
                   }}
                   defaultChecked={desktopNotifications}
+                  className="checkbox checkbox-sm"
+                />
+              </label>
+              <label className="label mr-2 cursor-pointer">
+                <span className="label-text w-4/5 text-right font-semibold">
+                  {t('common:dark-mode')}
+                </span>
+                <input
+                  type="checkbox"
+                  onClick={(e) =>
+                    setDarkMode((e.target as HTMLInputElement).checked)
+                  }
+                  defaultChecked={darkMode}
                   className="checkbox checkbox-sm"
                 />
               </label>
