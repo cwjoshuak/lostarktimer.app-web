@@ -125,10 +125,10 @@ const Merchants: NextPage = (props) => {
   }, [])
 
   useEffect(() => {
-    //Logic: For each apiData entry, overwrite existing entries or add to end of merchantAPIData if it doesn't exist
+    //Logic: For each apiData entry, overwrite collisions or create a new entry if it doesn't exist
     Object.values(apiData).forEach((apiDataElement) => {
       for (let i = 0; i < Object.values(merchantAPIData).length; i++) {
-        if (apiDataElement.name === merchantAPIData[i].name) {
+        if (merchantAPIData[i].name === apiDataElement.name) {
           merchantAPIData[i] = apiDataElement
           break
         }
