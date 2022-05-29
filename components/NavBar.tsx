@@ -2,7 +2,8 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { IconLanguage } from '@tabler/icons'
+import { IconLanguage, IconCaretDown } from '@tabler/icons'
+import DarkModeController from './DarkModeController'
 const NavBar = () => {
   const { t } = useTranslation('common')
 
@@ -17,7 +18,7 @@ const NavBar = () => {
           <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
             <label
               className="cursor-pointer text-teal-300"
-              // htmlFor="changelog-modal"
+            // htmlFor="changelog-modal"
             >
               <a
                 href="https://discord.gg/qhnqxtphSg"
@@ -87,6 +88,30 @@ const NavBar = () => {
           </div>
         </div>
         <div className="navbar-end text-right text-lg font-semibold uppercase">
+          <div className='dropdown dropdown-end'>
+            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><IconCaretDown /></label>
+            <ul tabIndex={0} className={'dropdown-content menu menu-compact shadow bg-base-100 border border-white'}>
+              <li className="hover:bg-base-100" role="menuitem" onClick={(e) => {
+                const { pathname, asPath, query } = router
+                router.replace({ pathname, query }, asPath, {
+                  locale: 'en',
+                })
+              }}><a className={router.locale === 'en' ? 'active' : ''}>EN</a></li>
+              <li className="hover:bg-base-100" role="menuitem" onClick={(e) => {
+                const { pathname, asPath, query } = router
+                router.replace({ pathname, query }, asPath, {
+                  locale: 'zh',
+                })
+              }}><a className={router.locale === 'zh' ? 'active' : ''}>ZH</a></li>
+            </ul>
+          </div>
+
+          <DarkModeController />
+        </div>
+      </div>
+      {/*
+        // The previous language selector
+        <div className="navbar-end text-right text-lg font-semibold uppercase">
           <IconLanguage />
           <select
             defaultValue={router.locale ?? 'en'}
@@ -102,9 +127,10 @@ const NavBar = () => {
             <option value="zh">ZH</option>
           </select>
         </div>
-      </div>
+          */}
     </>
   )
 }
+
 
 export default NavBar
