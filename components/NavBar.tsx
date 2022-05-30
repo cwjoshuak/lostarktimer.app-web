@@ -1,13 +1,36 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect, useRef } from 'react'
+import { IconSun, IconMoon } from '@tabler/icons'
+import useLocalStorage from '@olerichter00/use-localstorage'
 import { useTranslation } from 'next-i18next'
 import { IconLanguage, IconCaretDown } from '@tabler/icons'
-import DarkModeController from './DarkModeController'
+
 const NavBar = () => {
   const { t } = useTranslation('common')
 
   const router = useRouter()
+
+  const isMounted = useRef(false)
+  const defaultTheme = () => {
+    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
+
+  useEffect(() => {
+    //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
+    if (!isMounted.current) { isMounted.current = true; return }
+
+    //Toggle Daisy UI colors (e.g. bg-base-###)
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+
+    //Toggle standard Tailwind colors (e.g. bg-sky-800)
+    darkMode
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark')
+  }, [darkMode])
+
   return (
     <>
       <div className="relative bg-sky-800 py-2 text-center lg:px-4">
@@ -105,8 +128,16 @@ const NavBar = () => {
               }}><a className={router.locale === 'zh' ? 'active' : ''}>ZH</a></li>
             </ul>
           </div>
-
-          <DarkModeController />
+          <div>
+            <button
+              className="btn btn-ghost btn-sm ml-2 mr-auto cursor-pointer"
+              onClick={() =>
+                setDarkMode(!darkMode)
+              }
+            >
+              {darkMode ? <IconMoon /> : <IconSun />}
+            </button>
+          </div>
         </div>
       </div>
       {/*
