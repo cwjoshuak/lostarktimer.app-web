@@ -119,13 +119,13 @@ const NavBar = () => {
                 router.replace({ pathname, query }, asPath, {
                   locale: 'en',
                 })
-              }}><a className={router.locale === 'en' ? 'bg-base-300 text-base-content' : ''}>EN</a></li>
+              }}><a className={router.locale === 'en' ? 'active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white' : 'active:bg-base-dropdown hover:bg-base-dropdown active:text-white hover:text-white'}>EN</a></li>
               <li className="hover:bg-base-100" role="menuitem" onClick={(e) => {
                 const { pathname, asPath, query } = router
                 router.replace({ pathname, query }, asPath, {
                   locale: 'zh',
                 })
-              }}><a className={router.locale === 'zh' ? 'bg-base-300 text-base-content' : ''}>ZH</a></li>
+              }}><a className={router.locale === 'zh' ? 'active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white' : 'active:bg-base-dropdown hover:bg-base-dropdown active:text-white hover:text-white'}>ZH</a></li>
             </ul>
           </div>
           <div>
