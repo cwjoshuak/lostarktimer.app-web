@@ -140,7 +140,7 @@ const NavBar = () => {
             </button>
           </div>
           <span className="mx-1" />
-          <div className='dropdown dropdown-end'>
+          <div id="languageSelector" className='dropdown dropdown-end'>
             <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><span className='px-1'>{router.locale}</span></label>
             <ul tabIndex={0} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
               {router.locales?.map((locale, idx, arr) => {
