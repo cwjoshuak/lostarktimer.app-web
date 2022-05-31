@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 import { IconSun, IconMoon } from '@tabler/icons'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { useTranslation } from 'next-i18next'
-import { IconLanguage, IconChevronDown } from '@tabler/icons'
+import { IconLanguage } from '@tabler/icons'
 
 const NavBar = () => {
   const { t } = useTranslation('common')
@@ -141,7 +141,7 @@ const NavBar = () => {
           </div>
           <span className="mx-1" />
           <div className='dropdown dropdown-end'>
-            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><IconChevronDown size={18}/></label>
+            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><span className='px-1'>{router.locale}</span></label>
             <ul tabIndex={0} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
               {router.locales?.map((locale, idx, arr) => {
                 return (
