@@ -200,8 +200,8 @@ const Merchants: NextPage = (props) => {
       </Head>
       <MerchantConfigModal />
       <div className="flex min-h-screen flex-col items-center whitespace-normal bg-base-300 py-2 dark:bg-base-100">
-        <div className="ml-auto flex w-full justify-end px-4 lg:px-20">
-          <div className="hidden w-1/5 whitespace-normal text-center text-sm uppercase sm:inline lg:text-lg">
+        <div className="ml-auto flex w-full justify-end px-4 pb-2 lg:px-20">
+          <div className="hidden w-1/5 whitespace-normal text-center align-middle text-sm uppercase sm:inline lg:text-lg">
             <span
               dangerouslySetInnerHTML={{
                 __html: t('server-note-text', {
@@ -212,12 +212,12 @@ const Merchants: NextPage = (props) => {
           </div>
           <label
             htmlFor="merchant-config-modal"
-            className="btn btn-ghost ml-2 mr-auto cursor-pointer"
+            className="btn btn-ghost ml-2 my-auto cursor-pointer"
           >
             <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
           </label>
-
-          <div className="mr-4 mb-2 w-40 flex-col">
+          <div className="flex grow"/>
+          <div className="w-40 flex-col mr-4 my-auto">
             <select
               className="select select-bordered select-sm w-full"
               onChange={(e) => {
@@ -250,7 +250,7 @@ const Merchants: NextPage = (props) => {
               </select>
             )}
           </div>
-          <table className="mb-2">
+          <table className="my-auto">
             <tbody>
               <tr
                 className={classNames('text-left', {
