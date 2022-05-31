@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 import { IconSun, IconMoon } from '@tabler/icons'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { useTranslation } from 'next-i18next'
-import { IconLanguage, IconCaretDown } from '@tabler/icons'
+import { IconLanguage, IconChevronDown } from '@tabler/icons'
 
 const NavBar = () => {
   const { t } = useTranslation('common')
@@ -110,38 +110,7 @@ const NavBar = () => {
             </a>
           </div>
         </div>
-        <div className="navbar-end text-right text-lg font-semibold uppercase">
-          <div className='dropdown dropdown-end'>
-            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><IconCaretDown /></label>
-            <ul tabIndex={0} className={'dropdown-content menu menu-compact shadow bg-base-100 border border-white'}>
-              <li className="hover:bg-base-100" role="menuitem" onClick={(e) => {
-                const { pathname, asPath, query } = router
-                router.replace({ pathname, query }, asPath, {
-                  locale: 'en',
-                })
-              }}><a className={router.locale === 'en' ? 'active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white' : 'active:bg-base-dropdown hover:bg-base-dropdown active:text-white hover:text-white'}>EN</a></li>
-              <li className="hover:bg-base-100" role="menuitem" onClick={(e) => {
-                const { pathname, asPath, query } = router
-                router.replace({ pathname, query }, asPath, {
-                  locale: 'zh',
-                })
-              }}><a className={router.locale === 'zh' ? 'active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white' : 'active:bg-base-dropdown hover:bg-base-dropdown active:text-white hover:text-white'}>ZH</a></li>
-            </ul>
-          </div>
-          <div>
-            <button
-              className="btn btn-ghost btn-sm ml-2 mr-auto cursor-pointer"
-              onClick={() =>
-                setDarkMode(!darkMode)
-              }
-            >
-              {darkMode ? <IconMoon /> : <IconSun />}
-            </button>
-          </div>
-        </div>
-      </div>
-      {/*
-        // The previous language selector
+        {/* The previous language selector
         <div className="navbar-end text-right text-lg font-semibold uppercase">
           <IconLanguage />
           <select
@@ -159,6 +128,43 @@ const NavBar = () => {
           </select>
         </div>
       */}
+        <div className="navbar-end uppercase">
+          <div className='dropdown dropdown-end'>
+            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><IconChevronDown /></label>
+            <ul tabIndex={1} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
+              {router.locales?.map((locale, idx, arr) => {
+                return (
+                  <li
+                    role="option"
+                    className={
+                      classNames('px-4 rounded-none select-none active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white',
+                        { 'bg-sky-600 text-white font-semibold': router.locale === locale },
+                      )}
+                    onClick={() => {
+                      const { pathname, asPath, query } = router
+                      router.replace({ pathname, query }, asPath, {
+                        locale: arr[idx],
+                      })
+                    }}>
+                    {locale}
+                  </li>
+                )
+              })
+              }
+            </ul>
+          </div>
+          <div id="darkModeToggle">
+            <button
+              className="btn btn-ghost btn-sm ml-2 mr-auto cursor-pointer"
+              onClick={() =>
+                setDarkMode(!darkMode)
+              }
+            >
+              {darkMode ? <IconMoon /> : <IconSun />}
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
