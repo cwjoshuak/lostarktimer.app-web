@@ -129,13 +129,25 @@ const NavBar = () => {
         </div>
       */}
         <div className="navbar-end uppercase">
+          <div id="darkModeToggle">
+            <button
+              className="btn btn-ghost btn-sm ml-2 mr-auto cursor-pointer"
+              onClick={() =>
+                setDarkMode(!darkMode)
+              }
+            >
+              {darkMode ? <IconMoon /> : <IconSun />}
+            </button>
+          </div>
+          <span className="mx-1" />
           <div className='dropdown dropdown-end'>
-            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><IconChevronDown /></label>
-            <ul tabIndex={1} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
+            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><IconChevronDown size={18}/></label>
+            <ul tabIndex={0} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
               {router.locales?.map((locale, idx, arr) => {
                 return (
                   <li
                     role="option"
+                    tabIndex={idx+1}
                     className={
                       classNames('px-4 rounded-none select-none active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white',
                         { 'bg-sky-600 text-white font-semibold': router.locale === locale },
@@ -153,16 +165,7 @@ const NavBar = () => {
               }
             </ul>
           </div>
-          <div id="darkModeToggle">
-            <button
-              className="btn btn-ghost btn-sm ml-2 mr-auto cursor-pointer"
-              onClick={() =>
-                setDarkMode(!darkMode)
-              }
-            >
-              {darkMode ? <IconMoon /> : <IconSun />}
-            </button>
-          </div>
+
         </div>
       </div>
     </>
