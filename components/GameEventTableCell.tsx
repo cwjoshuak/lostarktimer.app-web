@@ -116,7 +116,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                     ;(document.activeElement as HTMLElement).blur()
                   }}
                 >
-                  Show Repeated Events
+                  {t('alarms:repeated-events.show')}
                 </a>
               </li>
               {gameEvent.disabled ? (
@@ -135,7 +135,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Enable Alarm
+                      {t('alarms:enable')}
                     </a>
                   </li>
                 </>
@@ -153,7 +153,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable Once
+                      {t('alarms:disable.once')}
                     </a>
                   </li>
                   <li className="border-l-4 border-transparent">
@@ -170,7 +170,56 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable Alarm for 12 Hours
+                      {t('alarms:disable.12hrs')}
+                    </a>
+                  </li>
+                  <li className="border-l-4 border-transparent">
+                    <a
+                      onClick={(e) => {
+                        let disabledUntil = DateTime.now().set({
+                          hour: 5,
+                          minute: 0,
+                          second: 0,
+                          millisecond: 0,
+                        })
+                        disabledUntil =
+                          disabledUntil > DateTime.now()
+                            ? disabledUntil
+                            : disabledUntil.plus({ days: 1 })
+                        setDisabledAlarms({
+                          ...disabledAlarms,
+                          [gameEvent.gameEvent.id]: disabledUntil.toMillis(),
+                        })
+                        gameEvent.disabled = disabledUntil
+                        ;(document.activeElement as HTMLElement).blur()
+                      }}
+                    >
+                      {t(`alarms:disable.daily-reset`)}
+                    </a>
+                  </li>
+                  <li className="border-l-4 border-transparent">
+                    <a
+                      onClick={(e) => {
+                        let disabledUntil = DateTime.now().set({
+                          weekday: 4,
+                          hour: 5,
+                          minute: 0,
+                          second: 0,
+                          millisecond: 0,
+                        })
+                        disabledUntil =
+                          disabledUntil > DateTime.now()
+                            ? disabledUntil
+                            : disabledUntil.plus({ days: 7 })
+                        setDisabledAlarms({
+                          ...disabledAlarms,
+                          [gameEvent.gameEvent.id]: disabledUntil.toMillis(),
+                        })
+                        gameEvent.disabled = disabledUntil
+                        ;(document.activeElement as HTMLElement).blur()
+                      }}
+                    >
+                      {t('alarms:disable.weekly-reset')}
                     </a>
                   </li>
                   <li>
@@ -188,7 +237,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                         ;(document.activeElement as HTMLElement).blur()
                       }}
                     >
-                      Disable All Future Alarms
+                      {t('alarms:disable.all')}
                     </a>
                   </li>
                 </>
@@ -203,7 +252,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                     ;(document.activeElement as HTMLElement).blur()
                   }}
                 >
-                  Hide Repeated Events
+                  {t('alarms:repeated-events.hide')}
                 </a>
               </li>
             </>
@@ -223,7 +272,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Enable Alarm
+                {t('alarms:enable')}
               </a>
             </li>
           </>
@@ -241,7 +290,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable Once
+                {t('alarms:disable.once')}
               </a>
             </li>
             <li className="border-l-4 border-transparent">
@@ -258,7 +307,56 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable Alarm for 12 Hours
+                {t('alarms:disable.12hrs')}
+              </a>
+            </li>
+            <li className="border-l-4 border-transparent">
+              <a
+                onClick={(e) => {
+                  let disabledUntil = DateTime.utc().set({
+                    hour: 10,
+                    minute: 0,
+                    second: 0,
+                    millisecond: 0,
+                  })
+                  disabledUntil =
+                    disabledUntil > DateTime.now()
+                      ? disabledUntil
+                      : disabledUntil.plus({ days: 1 })
+                  setDisabledAlarms({
+                    ...disabledAlarms,
+                    [gameEvent.gameEvent.id]: disabledUntil.toMillis(),
+                  })
+                  gameEvent.disabled = disabledUntil
+                  ;(document.activeElement as HTMLElement).blur()
+                }}
+              >
+                {t('alarms:disable.daily-reset')}
+              </a>
+            </li>
+            <li className="border-l-4 border-transparent">
+              <a
+                onClick={(e) => {
+                  let disabledUntil = DateTime.utc().set({
+                    weekday: 4,
+                    hour: 10,
+                    minute: 0,
+                    second: 0,
+                    millisecond: 0,
+                  })
+                  disabledUntil =
+                    disabledUntil > DateTime.now()
+                      ? disabledUntil
+                      : disabledUntil.plus({ days: 7 })
+                  setDisabledAlarms({
+                    ...disabledAlarms,
+                    [gameEvent.gameEvent.id]: disabledUntil.toMillis(),
+                  })
+                  gameEvent.disabled = disabledUntil
+                  ;(document.activeElement as HTMLElement).blur()
+                }}
+              >
+                {t('alarms:disable.weekly-reset')}
               </a>
             </li>
             <li>
@@ -276,7 +374,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
                   ;(document.activeElement as HTMLElement).blur()
                 }}
               >
-                Disable All Future Alarms
+                {t('alarms:disable.all')}
               </a>
             </li>
           </>

@@ -4,6 +4,8 @@
   "4003": ["Proving Grounds Deathmatch", "achieve_13_5.webp", 250],
   "4002": ["Proving Grounds Team Deathmatch", "achieve_13_5.webp", 250],
   "4004": ["Proving Grounds Team Elimination Match", "achieve_13_5.webp", 250],
+  "2003": ["Siege Registration Period", "achieve_13_28.webp", 250],
+  "2002": ["Raid Match Registration Period", "achieve_13_28.webp", 460],
   "7046": ["Asura Island", "island_icon_76.webp", 250],
   "7047": ["Drumbeat Island", "island_icon_95.webp", 250],
   "7038": ["Forpe", "island_icon_26.webp", 250],
@@ -24,6 +26,9 @@
   "7013": ["Lullaby Island", "island_icon_5.webp", 250],
   "7018": ["Spida Island", "island_icon_23.webp", 250],
   "7014": ["Tooki Island", "island_icon_9.webp", 250],
+  "960": ["Wild Wing Island", "island_icon_122.webp", 250],
+  "8000": ["[Capture Event 1-rank] Medeia", "island_icon_41.webp", 250],
+  "8001": ["[Capture Event 1-rank] Slime Island", "island_icon_68.webp", 250],
   "6007": ["Gate of Harmony", "island_icon_89.webp", 302],
   "6001": ["Sailing Co-op: Anikka", "achieve_06_55.webp", 302],
   "6000": ["Sailing Co-op: Arthetine", "achieve_06_55.webp", 302],
@@ -63,5 +68,7 @@
   "3007": ["Aurion", "achieve_14_142.webp", 1385],
   "3004": ["Brealeos", "achieve_14_142.webp", 1385],
   "3015": ["Moake", "achieve_14_142.webp", 1415],
+  "5005": ["Sinful Ghost Ship", "island_icon_91.webp", 1415],
+  "1010": ["Twisting Demon Legion (Appears randomly)", "achieve_13_11.webp", 1415],
   "3016": ["Thunderwings", "achieve_14_142.webp", 1460]
 }

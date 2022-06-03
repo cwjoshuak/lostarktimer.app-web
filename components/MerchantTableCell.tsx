@@ -111,7 +111,7 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
     window.open(
       `https://i.imgur.com/${imageUrl}`,
       title,
-      'left=20,top=20,width=1000,height=600,toolbar=0,resizable=1'
+      'left=20,top=20,width=1000,height=600,toolbar=0,resizable=1,noopener=1,noreferrer=1'
     )
     return false
   }
@@ -154,12 +154,20 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                       minute: 30,
                     })
                     .setZone(localizedTZ)
-                    .toLocaleString(DateTime.TIME_SIMPLE)}{' '}
+                    .toLocaleString(
+                      view24HrTime
+                        ? DateTime.TIME_24_SIMPLE
+                        : DateTime.TIME_SIMPLE
+                    )}{' '}
                   -{' '}
                   {serverTime
                     .set({ minute: 55 })
                     .setZone(localizedTZ)
-                    .toLocaleString(DateTime.TIME_SIMPLE)}
+                    .toLocaleString(
+                      view24HrTime
+                        ? DateTime.TIME_24_SIMPLE
+                        : DateTime.TIME_SIMPLE
+                    )}
                 </span>
               ) : null}
             </span>
@@ -189,14 +197,19 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                 </span>
                 <br />
                 Item:{' '}
-                <span
-                  className={classNames({
-                    [`${merchantGoodItemToRarity(merchant.goodItem)}`]:
-                      merchant.spawned,
-                  })}
-                >
-                  {merchant.goodItem ? merchant.goodItem : 'Unknown'}
-                </span>
+                {merchant.goodItems
+                  ? merchant.goodItems.map((goodItem, index) => (
+                      <span
+                        className={classNames({
+                          [`${merchantGoodItemToRarity(goodItem)}`]:
+                            merchant.spawned,
+                        })}
+                      >
+                        {goodItem}
+                        {index === 0 ? <span>, </span> : ''}
+                      </span>
+                    ))
+                  : 'Unknown'}
               </div>
             ) : null}
           </span>

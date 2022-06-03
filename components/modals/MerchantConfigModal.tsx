@@ -12,6 +12,10 @@ const MerchantConfigModal = () => {
     'view24HrTime',
     false
   )
+  const defaultTheme = () => {
+    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
   const [alertSound, setAlertSound] = useLocalStorage<string>(
     'alertSound',
     'muted'
@@ -50,7 +54,7 @@ const MerchantConfigModal = () => {
         <div className="modal-box p-0">
           <div className="w-full bg-base-200 p-2">
             <h3 className="text-center text-lg font-bold uppercase">
-              Settings
+              {t('merchant-settings')}
             </h3>
           </div>
           <div className="flex flex-row space-x-4 p-4">
@@ -83,6 +87,34 @@ const MerchantConfigModal = () => {
                   className="checkbox checkbox-sm"
                 />
               </label>
+            </div>
+            <div className="w-full">
+              <label className="label mr-2 cursor-pointer">
+                <span className="label-text w-4/5 text-right font-semibold">
+                  {t('common:dark-mode')}
+                </span>
+                <input
+                  type="checkbox"
+                  onClick={(e) =>
+                    setDarkMode((e.target as HTMLInputElement).checked)
+                  }
+                  defaultChecked={darkMode}
+                  className="checkbox checkbox-sm"
+                />
+              </label>
+              <label className="label mr-2 cursor-pointer">
+                <span className="label-text w-4/5 text-right font-semibold">
+                  {t('common:view-in-24-hr')}
+                </span>
+                <input
+                  type="checkbox"
+                  onClick={(e) =>
+                    setView24HrTime((e.target as HTMLInputElement).checked)
+                  }
+                  defaultChecked={view24HrTime}
+                  className="checkbox checkbox-sm"
+                />
+              </label>
               <label className="label mr-2 cursor-pointer">
                 <span className="label-text w-4/5 text-right font-semibold">
                   {t('common:view-in-current-time')}
@@ -97,7 +129,6 @@ const MerchantConfigModal = () => {
                 />
               </label>
             </div>
-            <div className="w-full"></div>
           </div>
           <div className="modal-action mb-5 justify-center">
             <label

@@ -115,10 +115,10 @@
     "continent": "Arthetine",
     "locations": {
       "Arid Path": "HXtkwg3.png",
-      "Nebel Horn": "1z8DpSK.png",
+      "Nebelhorn": "1z8DpSK.png",
       "Riza Falls": "gErMCEi.png",
       "Scraplands": "fhR7bvF.png",
-      "Tottrich": "MHmE0lW.png",
+      "Totrich": "MHmE0lW.png",
       "Windbringer Hill": "Kwnt0uN.png"
     },
     "schedule": 2,
@@ -229,8 +229,8 @@
     "name": "Evan",
     "continent": "South Vern",
     "locations": {
-      "Candaria Territory": "iKjUMNQ.png",
-      "Bellion Ruins": "EHhZaif.png"
+      "Candaria Territory": "Lk5fSpk.png",
+      "Bellion Ruins": "wv9ZpK4.png"
     },
     "schedule": 3,
     "items": {

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import merchantSchedules from '../data/merchantSchedules.json'
 import saintbotImage from '../public/images/saint-bot.png'
 import { DateTime, Interval } from 'luxon'
@@ -32,6 +32,24 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
+  const isMounted = useRef(false);
+  const defaultTheme = () => {
+    // Defaults to system theme if unconfigured
+    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
+  useEffect(()=> {
+    //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
+    if (!isMounted.current){ isMounted.current = true; return }
+
+    //Toggle Daisy UI colors (e.g. bg-base-###)
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light') 
+    
+    //Toggle standard Tailwind colors (e.g. bg-sky-800)
+    darkMode 
+      ?  document.documentElement.classList.add("dark")
+      :  document.documentElement.classList.remove("dark")
+  }, [darkMode])
 
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
@@ -82,6 +100,7 @@ const Merchants: NextPage = (props) => {
     if (process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') {
       newSocket.disconnect()
     }
+
     newSocket.on('merchants', (data) => {
       setAPIData(data)
     })
@@ -135,7 +154,15 @@ const Merchants: NextPage = (props) => {
       )
     }
   }, [regionTZName])
-
+  useEffect(() => {
+    if (socket?.connected && selectedServer) {
+      socket.removeAllListeners()
+      socket.emit('join', `${selectedServer.toLowerCase()}`)
+      socket.on('merchants', (data) => {
+        setAPIData(data)
+      })
+    }
+  }, [socket?.connected, selectedServer])
   useEffect(() => {
     let data = Object.values(merchantAPIData).filter(
       (m) => m.server === selectedServer?.toLowerCase()
@@ -175,6 +202,7 @@ const Merchants: NextPage = (props) => {
     )
   }, [
     regionTZName,
+    view24HrTime,
     viewLocalizedTime,
     selectedServer,
     wanderingMerchants,
@@ -285,12 +313,15 @@ const Merchants: NextPage = (props) => {
                   <a
                     href="https://discord.gg/HfXQpmpaD5"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="btn btn-outline btn-warning btn-xs absolute right-48 top-4"
                   >
                     {t('vote')}
                   </a>
                   <a
                     href="https://saint-bot.webflow.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="absolute right-4 top-2 flex items-center justify-center gap-2 text-indigo-500/90 hover:underline"
                   >
                     {t('data-by')} SaintBot{' '}
@@ -304,7 +335,9 @@ const Merchants: NextPage = (props) => {
                   <div className="absolute right-5 top-7">
                     {t('last-updated')}:{' '}
                     {dataLastRefreshed.toLocaleString(
-                      DateTime.TIME_WITH_SECONDS
+                      view24HrTime
+                        ? DateTime.TIME_24_WITH_SECONDS
+                        : DateTime.TIME_WITH_SECONDS
                     )}
                   </div>
                 </td>

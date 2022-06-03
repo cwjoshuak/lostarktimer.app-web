@@ -18,6 +18,8 @@ const SideBar = () => {
         </label>
         <a
           href="https://www.paypal.com/paypalme/cwjoshuak"
+          target="_blank"
+          rel="noopener noreferrer"
           className="transform p-2 transition hover:-translate-y-px hover:text-orange-400"
         >
           <IconBrandPaypal />

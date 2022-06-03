@@ -58,13 +58,12 @@ const groupedEvents = {
     .map((e) => e.id),
 }
 
-const eventTypeIconMapping: Array<APIEventType> =
-  require('../data/msgs.json')[0].map(
-    (e: EventTypeIconMapping, idx: number) => {
-      const [name, url] = e
-      return new APIEventType(idx, name, url)
-    }
-  )
+const eventTypeIconMapping: Array<APIEventType> = Object.entries(
+  require('../data/msgs.json')[0]
+).map(([idx, e]) => {
+  const [name, url] = e as EventTypeIconMapping
+  return new APIEventType(Number(idx), name, url)
+})
 const allEventData = require('../data/data.json')
 const sounds = {
   'Alert 1': alert1,
@@ -86,6 +85,38 @@ const Alarms: NextPage = () => {
     'regionTZName',
     'US West'
   )
+  const isMounted = useRef(false)
+  const defaultTheme = () => {
+    // Defaults to system theme if unconfigured
+    return (
+      localStorage.getItem('darkMode') ||
+      (window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    )
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>(
+    'darkMode',
+    defaultTheme
+  )
+  useEffect(() => {
+    //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
+
+    //Toggle Daisy UI colors (e.g. bg-base-###)
+    document.documentElement.setAttribute(
+      'data-theme',
+      darkMode ? 'dark' : 'light'
+    )
+
+    //Toggle standard Tailwind colors (e.g. bg-sky-800)
+    darkMode
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark')
+  }, [darkMode])
+
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
@@ -99,9 +130,6 @@ const Alarms: NextPage = () => {
   const [currentEventsTable, setCurrentEventsTable] = useState<
     Array<JSX.Element>
   >([])
-
-  const [currentEventsIds, setCurrentEventsIds] = useState<Array<number>>([])
-  const previousEventIds = usePrevious(currentEventsIds)
 
   const [selectedEventType, setSelectedEventType] = useState(-1)
   const [viewLocalizedTime, setViewLocalizedTime] = useLocalStorage<boolean>(
@@ -123,6 +151,8 @@ const Alarms: NextPage = () => {
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
     [key: string]: number
   }>('disabledAlarms', {})
+  const [desktopNotifications, setDesktopNotifications] =
+    useLocalStorage<boolean>('desktopNotifications', false)
   const [hideGrandPrix, setHideGrandPrix] = useLocalStorage<boolean>(
     'hideGrandPrix',
     false
@@ -148,6 +178,7 @@ const Alarms: NextPage = () => {
     useRef(null),
     useRef(null),
     useRef(null),
+    useRef(null),
   ]
 
   useEffect(() => {
@@ -158,20 +189,6 @@ const Alarms: NextPage = () => {
     }
   }, [regionTZ])
 
-  useEffect(() => {
-    if (previousEventIds) {
-      let difference = (previousEventIds || [])
-        .filter((x) => !currentEventsIds.includes(x))
-        .concat(currentEventsIds.filter((x) => !previousEventIds.includes(x)))
-      if (difference.length === 0) return
-    }
-    if (alertSound && alertSound !== 'muted') {
-      let s = new Howl({
-        src: sounds[alertSound as AlertSoundKeys] as unknown as string,
-      })
-      s.play()
-    }
-  }, [currentEventsIds])
   useEffect(() => {
     if (volume !== undefined) Howler.volume(volume)
   }, [volume])
@@ -204,7 +221,6 @@ const Alarms: NextPage = () => {
       setDisabledAlarms(disabledAlarms)
     }
   }, [serverTime.minute])
-
   // read and populate all game events
   useEffect(() => {
     if (!mounted || regionTZ === undefined) return
@@ -240,15 +256,14 @@ const Alarms: NextPage = () => {
                   { zone: regionTZ }
                 )
                 let id = Number(gt.id)
-                // skip thunderwings
-                if (id === 3016) {
-                  return
-                }
+                // skip medeia and slime island capture event
+                if (id === 8000 || id === 8001) return
+
                 if (
                   (7000 <= id && id < 8000 && ![7013, 7035].includes(id)) ||
                   [
-                    1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 5002,
-                    5003, 5004, 6007, 6008, 6009, 6010, 6011,
+                    1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010,
+                    5002, 5003, 5004, 5005, 6007, 6008, 6009, 6010, 6011,
                   ].includes(id)
                 ) {
                   start = start.plus({ minutes: 10 })
@@ -315,9 +330,10 @@ const Alarms: NextPage = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: number
   ) => {
-    buttons.forEach((b) =>
-      (b.current as unknown as Element).classList.remove('btn-active')
-    )
+    buttons.forEach((b) => {
+      if (b.current)
+        (b.current as unknown as Element).classList.remove('btn-active')
+    })
     let button = event.target as Element
     button.classList.add('btn-active')
     setSelectedEventType(id)
@@ -415,19 +431,42 @@ const Alarms: NextPage = () => {
 
     if (
       currentEventsTableData.length > 0 &&
-      currentEventsTableData.length > currentEventsTable.length
+      currentEventsTableData.length > currentEventsTable.length &&
+      (currentEventsTable.length !== 0 ||
+        currentEventsTableData !== currentEventsTable)
     ) {
-      if (
-        alertSound &&
-        alertSound !== 'muted' &&
-        (currentEventsTable.length !== 0 ||
-          currentEventsTableData !== currentEventsTable)
-      ) {
+      if (alertSound && alertSound !== 'muted') {
         let s = new Howl({
           src: sounds[alertSound as AlertSoundKeys] as unknown as string,
           onunlock: (id) => setUnlockedAudio(true),
         })
         s.play()
+      }
+      if (desktopNotifications) {
+        let notification = new Notification(
+          `${t('alarms:notification.heading', { notifyInMins })}`,
+          {
+            body: currEventsTable
+              .map((e) => t(`${e.gameEvent.id}`))
+              .reduce((acc, curr, currIndex) => {
+                if (currIndex < 3) {
+                  return `${acc}\n${curr}`
+                } else if (currIndex === 3) {
+                  const additionalEvents: number = currEventsTable.length - 3
+                  return `${acc}\n${t('alarms:notification.additional-events', {
+                    additionalEvents,
+                  })}`
+                } else {
+                  return acc
+                }
+              }, ''),
+            icon: '/images/LA_Mokko_Seed.png',
+          }
+        )
+        notification.onclick = () => {
+          window.focus()
+          notification.close()
+        }
       }
     }
 
@@ -755,6 +794,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
     props: {
       ...(await serverSideTranslations(locale, [
         'events',
+        'alarms',
         'common',
         'alarmConfig',
       ])),
