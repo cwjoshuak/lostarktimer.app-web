@@ -140,13 +140,15 @@ const NavBar = () => {
             </button>
           </div>
           <span className="mx-1" />
-          <div id="languageSelector" className='dropdown dropdown-end'>
+          <div id="langSelector" className='dropdown dropdown-end'>
             <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><span className='px-1'>{router.locale}</span></label>
-            <ul tabIndex={0} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
+            <ul id="langSelectorList" tabIndex={0} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
               {router.locales?.map((locale, idx, arr) => {
                 return (
                   <li
+                    id={"langSelector_" + locale}
                     role="option"
+                    key={idx+1}
                     tabIndex={idx+1}
                     className={
                       classNames('px-4 rounded-none select-none active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white',
