@@ -9,7 +9,7 @@
   "vote": "投票",
   "data-by": "数据来源: ",
   "last-updated": "最后更新",
-  "server-note-text": "注意：当前显示的是<strong>服务器时间</strong>.",
+  "server-note-text": "注意：当前显示的是<strong>{{timeType}}</strong>.",
 
   "locations": {
     "Rethramis": "阿尔忒弥斯",

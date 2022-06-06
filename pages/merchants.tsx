@@ -202,13 +202,12 @@ const Merchants: NextPage = (props) => {
       <div className="flex min-h-screen flex-col items-center whitespace-normal bg-base-300 py-2 dark:bg-base-100">
         <div className="ml-auto flex w-full justify-end px-4 pb-2 lg:px-20">
           <div className="hidden w-1/5 whitespace-normal text-center align-middle text-sm uppercase sm:inline lg:text-lg">
-            <span
-              dangerouslySetInnerHTML={{
-                __html: t('server-note-text', {
-                  timeType: viewLocalizedTime ? 'CURRENT TIME' : 'SERVER TIME',
-                }),
-              }}
-            />
+            <Trans
+              i18Key="server-note-text"
+              values={{ timeType: viewLocalizedTime ? t('common:current-time') : t('common:server-time') }}
+            >
+              {t('server-note-text')}
+            </Trans>
           </div>
           <label
             htmlFor="merchant-config-modal"
@@ -216,7 +215,7 @@ const Merchants: NextPage = (props) => {
           >
             <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
           </label>
-          <div className="flex grow"/>
+          <div className="flex grow" />
           <div className="w-40 flex-col mr-4 my-auto">
             <select
               className="select select-bordered select-sm w-full"
@@ -472,7 +471,7 @@ const Merchants: NextPage = (props) => {
 }
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import classNames from 'classnames'
 
 export async function getStaticProps({ locale }: { locale: string }) {
