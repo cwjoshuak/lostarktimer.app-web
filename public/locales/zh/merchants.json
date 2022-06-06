@@ -82,7 +82,10 @@
     "Tideshelf Path": "浅海之路",
     "Starsand Beach": "星星沙滩",
     "Tikatika Colony": "蒂卡蒂卡群落地",
-    "Secret Forest": "秘密森林"
+    "Secret Forest": "秘密森林",
+    "South Vern": "伯尔尼南部",
+    "Candaria Territory": "Candaria Territory",
+    "Bellion Ruins": "Bellion Ruins"
   },
   "items": {
     "920404": {
@@ -227,6 +230,17 @@
     "70503001": { "name": "Yudia Spellbook" },
     "70503005": { "name": "Shimmering Essence" },
     "70503006": { "name": "Energy X7 Capsule" },
-    "70503008": { "name": "Piyer's Secret Textbook" }
+    "70503008": { "name": "Piyer's Secret Textbook" },
+
+    "70500063": { "name": "Feather Fan" },
+    "70500062": { "name": "Febre Potion" },
+    "70500064": { "name": "Mockup Firefly" },
+    "70501012": { "name": "Necromancer's Records" },
+
+    "63200407": { "name": "Satra" },
+    "63200408": { "name": "Killian" },
+    "63200402": { "name": "Lujean" },
+    "63200404": { "name": "Vern Zenlord" },
+    "63200403": { "name": "Xereon" }
   }
 }
