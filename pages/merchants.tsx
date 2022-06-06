@@ -203,7 +203,7 @@ const Merchants: NextPage = (props) => {
         <div className="ml-auto flex w-full justify-end px-4 pb-2 lg:px-20">
           <div className="hidden w-1/5 whitespace-normal text-center align-middle text-sm uppercase sm:inline lg:text-lg">
             <Trans
-              i18Key="server-note-text"
+              i18nKey="server-note-text"
               values={{ timeType: viewLocalizedTime ? t('common:current-time') : t('common:server-time') }}
             >
               {t('server-note-text')}
