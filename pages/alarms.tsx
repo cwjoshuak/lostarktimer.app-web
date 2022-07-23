@@ -258,9 +258,6 @@ const Alarms: NextPage = () => {
                   { zone: regionTZ }
                 )
                 let id = Number(gt.id)
-                // skip medeia and slime island capture event
-                if (id === 8000 || id === 8001) return
-
                 if (
                   (7000 <= id && id < 8000 && ![7013, 7035].includes(id)) ||
                   [
