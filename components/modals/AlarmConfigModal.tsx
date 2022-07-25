@@ -162,6 +162,7 @@ const AlarmConfigModal = () => {
                     setDarkMode((e.target as HTMLInputElement).checked)
                   }
                   defaultChecked={darkMode}
+                  checked={darkMode}
                   className="checkbox checkbox-sm"
                 />
               </label>

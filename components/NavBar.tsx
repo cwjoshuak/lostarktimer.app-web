@@ -1,12 +1,36 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect, useRef } from 'react'
+import { IconSun, IconMoon } from '@tabler/icons'
+import useLocalStorage from '@olerichter00/use-localstorage'
 import { useTranslation } from 'next-i18next'
 import { IconLanguage } from '@tabler/icons'
+
 const NavBar = () => {
   const { t } = useTranslation('common')
 
   const router = useRouter()
+
+  const isMounted = useRef(false)
+  const defaultTheme = () => {
+    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
+
+  useEffect(() => {
+    //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
+    if (!isMounted.current) { isMounted.current = true; return }
+
+    //Toggle Daisy UI colors (e.g. bg-base-###)
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+
+    //Toggle standard Tailwind colors (e.g. bg-sky-800)
+    darkMode
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark')
+  }, [darkMode])
+
   return (
     <>
       <div className="relative bg-sky-800 py-2 text-center lg:px-4">
@@ -17,7 +41,7 @@ const NavBar = () => {
           <span className="sm:text-md mx-4 flex-auto text-center text-sm font-semibold">
             <label
               className="cursor-pointer text-teal-300"
-              // htmlFor="changelog-modal"
+            // htmlFor="changelog-modal"
             >
               <a
                 href="https://discord.gg/qhnqxtphSg"
@@ -86,6 +110,7 @@ const NavBar = () => {
             </a>
           </div>
         </div>
+        {/* The previous language selector
         <div className="navbar-end text-right text-lg font-semibold uppercase">
           <IconLanguage />
           <select
@@ -102,9 +127,52 @@ const NavBar = () => {
             <option value="zh">ZH</option>
           </select>
         </div>
+      */}
+        <div className="navbar-end uppercase">
+          <div id="darkModeToggle">
+            <button
+              className="btn btn-ghost btn-sm ml-2 mr-auto cursor-pointer"
+              onClick={() =>
+                setDarkMode(!darkMode)
+              }
+            >
+              {darkMode ? <IconMoon /> : <IconSun />}
+            </button>
+          </div>
+          <span className="mx-1" />
+          <div id="langSelector" className='dropdown dropdown-end'>
+            <label tabIndex={0} className="btn btn-ghost btn-sm"><IconLanguage /><span className='px-1'>{router.locale}</span></label>
+            <ul id="langSelectorList" tabIndex={0} className={'dropdown-content menu shadow bg-base-100 border border-white'}>
+              {router.locales?.map((locale, idx, arr) => {
+                return (
+                  <li
+                    id={"langSelector_" + locale}
+                    role="option"
+                    key={idx+1}
+                    tabIndex={idx+1}
+                    className={
+                      classNames('px-4 rounded-none select-none active:bg-base-dropdown active:text-white hover:bg-base-dropdown hover:text-white',
+                        { 'bg-sky-600 text-white font-semibold': router.locale === locale },
+                      )}
+                    onClick={() => {
+                      const { pathname, asPath, query } = router
+                      router.replace({ pathname, query }, asPath, {
+                        locale: arr[idx],
+                      })
+                    }}>
+                    {locale}
+                  </li>
+                )
+              })
+              }
+            </ul>
+          </div>
+
+        </div>
       </div>
     </>
   )
 }
+
 
 export default NavBar
