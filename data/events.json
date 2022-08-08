@@ -69,6 +69,10 @@
   "3004": ["Brealeos", "achieve_14_142.webp", 1385],
   "3015": ["Moake", "achieve_14_142.webp", 1415],
   "5005": ["Sinful Ghost Ship", "island_icon_91.webp", 1415],
-  "1010": ["Twisting Demon Legion (Appears randomly)", "achieve_13_11.webp", 1415],
+  "1010": [
+    "Twisting Demon Legion (Appears randomly)",
+    "achieve_13_11.webp",
+    1415
+  ],
   "3016": ["Thunderwings", "achieve_14_142.webp", 1460]
 }
