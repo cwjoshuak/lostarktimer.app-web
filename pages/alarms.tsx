@@ -248,6 +248,7 @@ const Alarms: NextPage = () => {
                 const [endHr, endMin] = endTime?.split(':') ?? ['', '']
                 let start = DateTime.fromObject(
                   {
+                    year: currDate.year,
                     month: Number(month),
                     day: Number(day),
                     hour: Number(startHr),
@@ -267,6 +268,7 @@ const Alarms: NextPage = () => {
                 }
                 let end = DateTime.fromObject(
                   {
+                    year: start.year,
                     month: start.month,
                     day: start.day,
                     hour: Number(endHr != '' ? endHr : start.hour),
