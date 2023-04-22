@@ -9,7 +9,8 @@
     "Islands": "岛",
     "Sailing": "航海",
     "Siege": "围攻",
-    "Proving Grounds": "勇气战场"
+    "Proving Grounds": "勇气战场",
+    "Siege Content": "Siege Content"
   },
   "4005": "勇气战场：合作站",
   "4001": "勇气战场：竞赛",
@@ -83,7 +84,6 @@
   "3004": "布雷亚·莱奥斯",
   "3015": "莫阿克",
   "3016": "Thunderwings",
-  "960": "Wild Wing Island",
   "8000": "Medeia Capture Event",
   "8001": "Slime Island Capture Event",
   "2003": "Siege Registration Period",
@@ -92,5 +92,20 @@
   "5005": "Sinful Ghost Ship",
   "935": "Waterpop Arena",
   "938": "Blooming Mokokos!",
-  "916": "[Event] Festivity Island"
+  "916": "[Event] Festivity Island",
+  "8006": "Mercenary Join Request",
+  "9002": "[Assail]Liebertane-[Siege]-[Raid]Preigelli",
+  "9001": "[Assail]Preigelli-[Siege]-[Raid]Liebertane",
+  "3022": "Hermut (Liebertane)",
+  "3021": "Hermut (Preigelli)",
+  "5006": "Phantom Ghost Ship",
+  "964": "Steaming Hot Spring (Great Castle)",
+  "962": "Steaming Hot Spring (Kalaja)",
+  "961": "Steaming Hot Spring (Luterra Castle)",
+  "965": "Steaming Hot Spring (Nia Village)", 
+  "959": "Steaming Hot Spring (Rothun)", 
+  "960": "Steaming Hot Spring (Stern)",
+  "963": "Steaming Hot Spring (Vern Castle)",
+  "9050": "[Battlefield] Tulubik Battlegrounds",
+  "8007": "Siege PvP Base Entry"
 }
