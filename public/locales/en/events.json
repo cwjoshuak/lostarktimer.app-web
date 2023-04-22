@@ -8,9 +8,10 @@
     "Ghost Ship": "Ghost Ship",
     "Islands": "Islands",
     "Sailing": "Sailing",
-    "Siege": "Siege",
+    "Siege Content": "Siege Content",
     "Rowen": "Rowen",
-    "Proving Grounds": "Proving Grounds"
+    "Proving Grounds": "Proving Grounds",
+    "Siege": "Siege"
   },
   "4005": "Proving Grounds Co-op Battle",
   "4001": "Proving Grounds Competitive Match",
@@ -105,5 +106,7 @@
   "965": "Steaming Hot Spring (Nia Village)", 
   "959": "Steaming Hot Spring (Rothun)", 
   "960": "Steaming Hot Spring (Stern)",
-  "963": "Steaming Hot Spring (Vern Castle)"
+  "963": "Steaming Hot Spring (Vern Castle)",
+  "9050": "[Battlefield] Tulubik Battlegrounds",
+  "8007": "Siege PvP Base Entry"
 }
