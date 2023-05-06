@@ -11,7 +11,7 @@ import { DateTime } from 'luxon'
 
 function DSTOffset(IANAString: string): string {
   const offset = DateTime.now().setZone(IANAString).get('offset') / 60 || 0;
-  return (`UTC${offset > 0 ? "+" + offset : offset !== 0 ? offset : ''}`); // UTC+offset, UTC-offset, UTC
+  return (`UTC${offset >= 0 ? "+" + offset : offset}`); // UTC+offset, UTC-offset
 }
 
 export const RegionTimeZoneMapping: { [K in RegionKey]: string } = {
