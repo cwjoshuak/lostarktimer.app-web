@@ -17,7 +17,7 @@ function DSTOffset(IANAString: string): string {
 export const RegionTimeZoneMapping: { [K in RegionKey]: string } = {
   'US West': DSTOffset('America/Los_Angeles'),
   'US East': DSTOffset('America/New_York'),
-  'EU Central': DSTOffset('Europe/Dublin'),
-  'EU West': DSTOffset('Europe/Berlin'),
+  'EU Central': DSTOffset('Europe/Berlin'),
+  'EU West': DSTOffset('Europe/Dublin'),
   'South America': DSTOffset('America/Sao_Paulo'),
 }
