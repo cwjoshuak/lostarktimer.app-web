@@ -6,7 +6,11 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'base-dropdown': '#767676',
+      }
+    },
   },
   plugins: [require('daisyui')],
   daisyui: {
