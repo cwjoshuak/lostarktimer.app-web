@@ -4,8 +4,8 @@ import { DateTime } from 'luxon'
 /* IANA Codes relative to approximate AWS server locations, as per http://ec2-reachability.amazonaws.com/
   NA East: America/New_York (Herndon, VA, US)
   NA West: America/Los_Angeles (San Francisco, CA, US)
-  EU West: Europe/Dublin (Dublin, Ireland)
   EU Central: Europe/Berlin (Frankfurt, Germany)
+  EU West: Europe/Dublin (Dublin, Ireland)
   South America: America/Sao_Paulo (São Paulo, Brazil)
 */
 

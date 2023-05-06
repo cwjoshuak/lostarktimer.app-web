@@ -120,7 +120,7 @@ const Alarms: NextPage = () => {
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
-  const [selectedDate, setSelectedDate] = useState(currDate.set({hour: 0, minute: 0, second: 0, millisecond: 0}).setZone(regionTZ))
+  const [selectedDate, setSelectedDate] = useState(currDate.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))
 
   const [gameEvents, setGameEvents] = useState<Array<GameEvent> | undefined>(
     undefined
