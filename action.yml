@@ -1,0 +1,5 @@
+name: 'Auto collect data'
+description: 'Automatically collect and save calendar data'
+runs:
+  using: 'node16'
+  main: './bin/autoScraper.js'
