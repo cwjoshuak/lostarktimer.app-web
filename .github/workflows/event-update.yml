@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Scraping Tool
+        uses: actions/checkout@autoscraper-v1
       - run: npx tsc ./bin/AutoScraper.ts
       - name: Gather Event Data
       - run: node ./bin/actions.js
