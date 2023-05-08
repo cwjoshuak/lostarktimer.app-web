@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@autoscraper-v1
       - name: Build Scraping Tool
-        run: npx tsc ./bin/AutoScraper.ts
+        run: npx tsc ./bin/AutoScraper.ts 
       - name: Gather Event Data
         run: node ./bin/actions.js
       - run: echo "This job's status is ${{ job.status }}"
