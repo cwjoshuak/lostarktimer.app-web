@@ -1,3 +1,3 @@
-import { AutoScraper } from './AutoScraper';
+const AutoScraper = require('./AutoScraper');
 
-AutoScraper();
+AutoScraper.scrapeCalendarData();
