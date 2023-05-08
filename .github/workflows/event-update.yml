@@ -8,7 +8,6 @@ jobs:
   Scrape-Event-Data:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@autoscraper-v1
       - name: Build Scraping Tool
         run: npx tsc ./bin/AutoScraper.ts 
       - name: Gather Event Data
