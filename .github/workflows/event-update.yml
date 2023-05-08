@@ -1,11 +1,11 @@
-name: 'Auto collect data'
-run-name: Auto-collecting Event Data
+name: 'Event Data Updater'
+run-name: Event Data Update
 on:
   schedule:
     # Run every Wednesday at 09:00 UTC (during weekly maintenance)
     - cron: 0 9 * * 3
 jobs:
-  Scrape-Event-Data:
+  Update-Event-Data:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -19,4 +19,3 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with: 
           commit_message: "Event data update: ${{env.ACTION_DATE}}"
-      - run: echo "This job's status is ${{ job.status }}"
