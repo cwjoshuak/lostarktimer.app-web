@@ -3,7 +3,7 @@ run-name: Event Data Update
 on:
   schedule:
     # Run every Wednesday at 09:00 UTC (during weekly maintenance)
-    - cron: 0 9 * * 3
+    - cron: '0 9 * * 3'
 jobs:
   Update-Event-Data:
     runs-on: ubuntu-latest
