@@ -1,0 +1,16 @@
+name: 'Auto collect data'
+run-name: Auto-collecting Event Data
+description: 'Automatically collect and save calendar data'
+on:
+  schedule:
+    # Run every Wednesday at 09:00 UTC (during weekly maintenance)
+    - cron: 0 9 * * 3
+jobs:
+  Scrape-Event-Data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Scraping Tool
+      - run: npx tsc ./bin/AutoScraper.ts
+      - name: Gather Event Data
+      - run: node ./bin/actions.js
+      - run: echo "This job's status is ${{ job.status }}"
