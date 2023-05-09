@@ -11,11 +11,20 @@ jobs:
       contents: write
     steps: 
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
       - name: Configure date
         run: |
           echo "ACTION_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+      - name: Install npm packages
+        run: |
+          npm i
+      - name: Compile TS files
+        run: |
+          npx tsc ./bin/AutoScraper.ts
       - name: Gather Event Data
-        run: node ./bin/actions.js
-      - uses: stefanzweifel/git-auto-commit-action@v4
+        run: node ./bin/event-update.js
+      - name: Commit changes to data
+        uses: stefanzweifel/git-auto-commit-action@v4
         with: 
+          file_pattern: 'data/*.json'
           commit_message: "Event data update: ${{env.ACTION_DATE}}"
