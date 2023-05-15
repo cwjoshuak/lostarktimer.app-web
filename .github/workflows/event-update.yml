@@ -1,8 +1,10 @@
 name: 'Event Data Updater'
 run-name: Event Data Update
 on:
+  # Enables workflow to be called manually from GitHub Actions
+  workflow_dispatch:
+  # Run every Wednesday at 09:00 UTC (during weekly maintenance)
   schedule:
-    # Run every Wednesday at 09:00 UTC (during weekly maintenance)
     - cron: '0 9 * * 3'
 jobs:
   Update-Event-Data:
@@ -15,6 +17,9 @@ jobs:
       - name: Configure date
         run: |
           echo "ACTION_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+      - name: Pull remote changes
+        run: |
+          git pull
       - name: Install npm packages
         run: |
           npm i
