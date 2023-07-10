@@ -4,6 +4,7 @@ import { alert1, alert2, alert3, alert4, alert5, alert6 } from '../../sounds'
 import useLocalStorage from '@olerichter00/use-localstorage'
 import { IconVolume2, IconVolume3 } from '@tabler/icons'
 import { useTranslation } from 'next-i18next'
+import { DateTime } from 'luxon'
 
 const sounds = {
   'Alert 1': alert1,
@@ -54,6 +55,18 @@ const AlarmConfigModal = () => {
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
     [key: string]: number
   }>('disabledAlarms', {})
+  const disableAllAlarms = () => {
+    Object.entries(
+      require('../../data/events.json')
+    ).forEach((e) => {
+      const [id] = e;
+      disabledAlarms[id] = DateTime.now().plus({ hours: 336 }).toMillis();
+      
+      setDisabledAlarms({
+        ...disabledAlarms,
+      });
+    })
+  }
   const [volume, setVolume] = useLocalStorage('volume', 0.4)
   return (
     <>
@@ -117,6 +130,14 @@ const AlarmConfigModal = () => {
                   onClick={(e) => setDisabledAlarms({})}
                 >
                   {t('reset-disabled-events')}
+                </button>
+              </div>
+              <div className="flex w-full items-center">
+                <button
+                  className="btn btn-error btn-xs mx-auto mt-2"
+                  onClick={(e) => disableAllAlarms()}
+                >
+                  {t('disable-all-events')}
                 </button>
               </div>
             </div>

@@ -6,5 +6,6 @@
   "reset-disabled-events": "Reset Disabled Events",
   "alert-sound": "Alert Sound",
   "muted": "Muted",
-  "enable-desktop-notifications": "Enable Desktop Notifications"
+  "enable-desktop-notifications": "Enable Desktop Notifications",
+  "disable-all-events": "Disable All Events"
 }
