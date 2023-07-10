@@ -1,9 +1,23 @@
 import { RegionKey } from './types/types'
+import { DateTime } from 'luxon'
+
+/* IANA Codes relative to approximate AWS server locations, as per http://ec2-reachability.amazonaws.com/
+  NA East: America/New_York (Herndon, VA, US)
+  NA West: America/Los_Angeles (San Francisco, CA, US)
+  EU Central: Europe/Berlin (Frankfurt, Germany)
+  EU West: Europe/Dublin (Dublin, Ireland)
+  South America: America/Sao_Paulo (São Paulo, Brazil)
+*/
+
+function DSTOffset(IANAString: string): string {
+  const offset = DateTime.now().setZone(IANAString).get('offset') / 60 || 0
+  return (`UTC${offset >= 0 ? "+" + offset : offset}`) // UTC+offset, UTC-offset
+}
 
 export const RegionTimeZoneMapping: { [K in RegionKey]: string } = {
-  'US West': 'UTC-7',
-  'US East': 'UTC-4',
-  'EU Central': 'UTC+1',
-  'EU West': 'UTC-0',
-  'South America': 'UTC-4',
+  'US West': DSTOffset('America/Los_Angeles'),
+  'US East': DSTOffset('America/New_York'),
+  'EU Central': DSTOffset('Europe/Berlin'),
+  'EU West': DSTOffset('Europe/Dublin'),
+  'South America': DSTOffset('America/Sao_Paulo'),
 }
