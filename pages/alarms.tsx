@@ -120,7 +120,7 @@ const Alarms: NextPage = () => {
   const [serverTime, setServerTime] = useState<DateTime>(
     currDate.setZone(regionTZ)
   )
-  const [selectedDate, setSelectedDate] = useState(currDate.setZone(regionTZ))
+  const [selectedDate, setSelectedDate] = useState(currDate.set({hour: 0, minute: 0, second: 0, millisecond: 0}).setZone(regionTZ))
 
   const [gameEvents, setGameEvents] = useState<Array<GameEvent> | undefined>(
     undefined
@@ -151,8 +151,10 @@ const Alarms: NextPage = () => {
   const [disabledAlarms, setDisabledAlarms] = useLocalStorage<{
     [key: string]: number
   }>('disabledAlarms', {})
-  const [desktopNotifications, setDesktopNotifications] =
-    useLocalStorage<boolean>('desktopNotifications', false)
+  const [desktopNotifications, setDesktopNotifications] = useLocalStorage<boolean>(
+    'desktopNotifications',
+    false
+  )
   const [hideGrandPrix, setHideGrandPrix] = useLocalStorage<boolean>(
     'hideGrandPrix',
     false
@@ -185,7 +187,7 @@ const Alarms: NextPage = () => {
     if (regionTZ !== undefined) {
       setMounted(true)
       setServerTime(currDate.setZone(regionTZ))
-      setSelectedDate(currDate.setZone(regionTZ))
+      setSelectedDate(currDate.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))
     }
   }, [regionTZ])
 
@@ -200,14 +202,14 @@ const Alarms: NextPage = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       let now = DateTime.now()
-      if (currDate.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now)
+      if (serverTime.endOf('day').diffNow().toMillis() < 0) setSelectedDate(now.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))
       setCurrDate(now)
       setServerTime(now.setZone(regionTZ))
     }, 1000)
     return () => {
       clearInterval(timer) // Return a function to clear the timer so that it will stop being called on unmount
     }
-  }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate])
+  }, [regionTZ, view24HrTime, viewLocalizedTime, selectedDate, serverTime.day])
 
   // clear disabled alarm when alarm expires
   useEffect(() => {
@@ -539,7 +541,7 @@ const Alarms: NextPage = () => {
             </button>
             <button
               className="btn relative text-2xl text-stone-200"
-              onClick={(e) => setSelectedDate(serverTime)}
+              onClick={(e) => setSelectedDate(serverTime.setZone(regionTZ).set({hour: 0, minute: 0, second: 0, millisecond: 0}))}
             >
               <span>
                 {selectedDate.monthLong} {selectedDate.day}

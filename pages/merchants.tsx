@@ -66,6 +66,7 @@ const Merchants: NextPage = (props) => {
     false
   )
   const [mSchedules, setMSchedules] = useState<{ [k: string]: Interval[] }>({})
+  const [mActive, setMActive] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -74,7 +75,7 @@ const Merchants: NextPage = (props) => {
       setServerTime(now.setZone(regionTZ))
     }, 1000)
     return () => {
-      clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
+      clearInterval(timer) // Return a function to clear the timer so that it will stop being called on unmount
     }
   }, [regionTZName, regionTZ])
 
@@ -208,10 +209,16 @@ const Merchants: NextPage = (props) => {
     wanderingMerchants,
     merchantAPIData,
     mSchedules,
+    mActive
   ])
   useEffect(() => {
-    if (currDate.minute < 30 || currDate.minute >= 55) setMerchantAPIData({})
-  }, [currDate.minute])
+    // Changed to serverTime to prevent mActive from triggering early for time zones using 30 or 45 minute offsets
+    if (serverTime.minute < 30 || serverTime.minute >= 55) {
+      setMerchantAPIData({})
+      setMActive(false)
+    }
+    else { setMActive(true) }
+  }, [serverTime.minute])
   return (
     <>
       <Head>
@@ -334,7 +341,7 @@ const Merchants: NextPage = (props) => {
                   </a>
                   <div className="absolute right-5 top-7">
                     {t('last-updated')}:{' '}
-                    {dataLastRefreshed.toLocaleString(
+                    {(viewLocalizedTime ? dataLastRefreshed : dataLastRefreshed.setZone(regionTZ)).toLocaleString(
                       view24HrTime
                         ? DateTime.TIME_24_WITH_SECONDS
                         : DateTime.TIME_WITH_SECONDS
