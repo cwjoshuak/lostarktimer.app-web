@@ -25,13 +25,13 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
   const { merchant, serverTime, localizedTZ, view24HrTime } = props
   Object.entries(merchantSchedules).forEach(
     ([key, schedule]) =>
-      (mSchedules[Number(key)] = schedule.map(({ h, m }) => {
-        let start = DateTime.fromObject(
-          { hour: h, minute: m }
-          // { zone: serverZone }
-        )
-        return Interval.fromDateTimes(start, start.plus({ minutes: 25 }))
-      }))
+    (mSchedules[Number(key)] = schedule.map(({ h, m }) => {
+      let start = DateTime.fromObject(
+        { hour: h, minute: m }
+        // { zone: serverZone }
+      )
+      return Interval.fromDateTimes(start, start.plus({ minutes: 25 }))
+    }))
   )
   const [nextSpawnCountdown, setNextSpawnCountdown] = useState(
     merchant
@@ -64,9 +64,9 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
   if (merchant.location) {
     imageUrl =
       merchant.locationImages[
-        Object.keys(merchant.locationImages).find(
-          (k) => k.toLowerCase() === merchant.location?.toLowerCase()
-        ) || ''
+      Object.keys(merchant.locationImages).find(
+        (k) => k.toLowerCase() === merchant.location?.toLowerCase()
+      ) || ''
       ]
   }
   const gradientColor = (id: 0 | 1 | 2 | 3) => {
@@ -198,7 +198,8 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                 <br />
                 Item:{' '}
                 {merchant.goodItems
-                  ? merchant.goodItems.map((goodItem, index) => (
+                  ? merchant.goodItems.map((goodItem, index, items) => (
+                    <span>
                       <span
                         className={classNames({
                           [`${merchantGoodItemToRarity(goodItem)}`]:
@@ -206,9 +207,10 @@ const MerchantTableCell = (props: CellProps): React.ReactElement => {
                         })}
                       >
                         {goodItem}
-                        {index === 0 ? <span>, </span> : ''}
                       </span>
-                    ))
+                      {index < (items.length - 1) ? <span>, </span> : ''}
+                    </span>
+                  ))
                   : 'Unknown'}
               </div>
             ) : null}
