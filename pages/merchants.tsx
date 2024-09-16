@@ -32,25 +32,6 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
-  const isMounted = useRef(false);
-  const defaultTheme = () => {
-    // Defaults to system theme if unconfigured
-    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  }
-  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
-  useEffect(()=> {
-    //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
-    if (!isMounted.current){ isMounted.current = true; return }
-
-    //Toggle Daisy UI colors (e.g. bg-base-###)
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light') 
-    
-    //Toggle standard Tailwind colors (e.g. bg-sky-800)
-    darkMode 
-      ?  document.documentElement.classList.add("dark")
-      :  document.documentElement.classList.remove("dark")
-  }, [darkMode])
-
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
 
@@ -219,24 +200,23 @@ const Merchants: NextPage = (props) => {
       </Head>
       <MerchantConfigModal />
       <div className="flex min-h-screen flex-col items-center whitespace-normal bg-base-300 py-2 dark:bg-base-100">
-        <div className="ml-auto flex w-full justify-end px-4 lg:px-20">
-          <div className="hidden w-1/5 whitespace-normal text-center text-sm uppercase sm:inline lg:text-lg">
-            <span
-              dangerouslySetInnerHTML={{
-                __html: t('server-note-text', {
-                  timeType: viewLocalizedTime ? 'CURRENT TIME' : 'SERVER TIME',
-                }),
-              }}
-            />
+        <div className="ml-auto flex w-full justify-end px-4 pb-2 lg:px-20">
+          <div className="hidden w-1/5 whitespace-normal text-center align-middle text-sm uppercase sm:inline lg:text-lg">
+            <Trans
+              i18nKey="server-note-text"
+              values={{ timeType: viewLocalizedTime ? t('common:current-time') : t('common:server-time') }}
+            >
+              {t('server-note-text')}
+            </Trans>
           </div>
           <label
             htmlFor="merchant-config-modal"
-            className="btn btn-ghost ml-2 mr-auto cursor-pointer"
+            className="btn btn-ghost ml-2 my-auto cursor-pointer"
           >
             <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
           </label>
-
-          <div className="mr-4 mb-2 w-40 flex-col">
+          <div className="flex grow" />
+          <div className="w-40 flex-col mr-4 my-auto">
             <select
               className="select select-bordered select-sm w-full"
               onChange={(e) => {
@@ -269,7 +249,7 @@ const Merchants: NextPage = (props) => {
               </select>
             )}
           </div>
-          <table className="mb-2">
+          <table className="my-auto">
             <tbody>
               <tr
                 className={classNames('text-left', {
@@ -491,7 +471,7 @@ const Merchants: NextPage = (props) => {
 }
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import classNames from 'classnames'
 
 export async function getStaticProps({ locale }: { locale: string }) {
