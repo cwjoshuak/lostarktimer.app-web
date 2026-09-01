@@ -1,0 +1,35 @@
+name: 'Event Data Updater'
+run-name: Event Data Update
+on:
+  # Enables workflow to be called manually from GitHub Actions
+  workflow_dispatch:
+  # Run every Wednesday at 09:00 UTC (during weekly maintenance)
+  schedule:
+    - cron: '0 9 * * 3'
+jobs:
+  Update-Event-Data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Configure date
+        run: |
+          echo "ACTION_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+      - name: Pull remote changes
+        run: |
+          git pull
+      - name: Install npm packages
+        run: |
+          npm i
+      - name: Compile TS files
+        run: |
+          npx tsc ./bin/AutoScraper.ts
+      - name: Gather Event Data
+        run: node ./bin/event-update.js
+      - name: Commit changes to data
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with: 
+          file_pattern: 'data/*.json'
+          commit_message: "Event data update: ${{env.ACTION_DATE}}"
